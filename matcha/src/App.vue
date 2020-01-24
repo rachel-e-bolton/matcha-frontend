@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="page-container">
     <LandingPage msg="welcome to matcha."/>
   </div>
 </template>
@@ -22,10 +22,29 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.page-container {
+  height: 100%;
+  width: auto;
+  background-image: url("./assets/landing-background-mobile.jpg");
+  background-size: 150%;
+  background-position: center;
 }
 
 .logo {
   width: 90vw;
 }
+
+@media screen and (min-width: 1025px) {
+  .page-container {
+    background-image: url("./assets/landing-background-desktop.jpg");
+    background-size: 120%;
+  }
+  .logo {
+    width: 200px;
+  }
+  
+}
+
 </style>
