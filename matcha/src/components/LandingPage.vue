@@ -1,7 +1,10 @@
 <template>
-  <div>
-      {{ msg }}
-  </div>
+    <div>
+        <img alt="Vue logo" class="logo" src="../assets/logo-mustard.png">
+        <div>
+            {{ msg }}
+        </div>
+    </div>
 </template>
 
 <script>

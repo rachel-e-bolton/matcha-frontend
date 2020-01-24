@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" class="logo" src="./assets/logo-mustard.png">
-    <LandingPage msg="Welcome to matcha"/>
+    <LandingPage msg="welcome to matcha."/>
   </div>
 </template>
 
