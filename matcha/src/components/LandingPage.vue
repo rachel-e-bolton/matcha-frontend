@@ -1,6 +1,10 @@
 <template>
     <div>
-        <img alt="Vue logo" class="logo" src="../assets/logo-white.png">
+        <div>
+            <md-toolbar class="md-transparent">
+                <h3 class="md-title">Transparent</h3>
+            </md-toolbar>
+        </div>
         <div>
             {{ msg }}
         </div>
