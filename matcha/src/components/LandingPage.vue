@@ -2,7 +2,10 @@
     <div>
         <div>
             <md-toolbar class="md-transparent">
-                <h3 class="md-title">Transparent</h3>
+                <h3 class="md-title">
+                    <router-link to="/">Home</router-link> |
+                    <router-link to="/about">About</router-link>
+                </h3>
             </md-toolbar>
         </div>
         <div>
@@ -10,10 +13,10 @@
         </div>
         <div class="signup-buttons">
             <md-button :href="loginUrl" class="md-raised md-plain">
-                Log In
+                <router-link to="/login">Log In</router-link>
             </md-button>
             <md-button :href="loginUrl" class="md-raised md-plain">
-                Sign Up
+                <router-link to="/signup">Sign Up</router-link>
             </md-button>
         </div>
         <div class="phone-viewport">
