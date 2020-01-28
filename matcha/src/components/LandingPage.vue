@@ -21,7 +21,7 @@
         </div>
         <div class="phone-viewport">
             <md-bottom-bar md-sync-route>
-                <md-bottom-bar-item to="/components/LandingPage" md-label="Profile" md-icon="profile"></md-bottom-bar-item>
+                <md-bottom-bar-item to="/about" md-label="Profile" md-icon="profile"></md-bottom-bar-item>
                 <md-bottom-bar-item to="/components/LandingPage" md-label="Discover" md-icon="discover"></md-bottom-bar-item>
                 <md-bottom-bar-item to="/components/LandingPage" md-label="Search" md-icon="search"></md-bottom-bar-item>
                 <md-bottom-bar-item to="/components/LandingPage" md-label="Matches" md-icon="matches"></md-bottom-bar-item>
