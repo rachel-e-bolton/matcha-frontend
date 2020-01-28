@@ -1,24 +1,28 @@
 <template>
   <div class="signup">
     <div class="header">
-      Header Elements Here
+      <Header/>
     </div>
     <div class="content">
-      <SignUpForm />
+      <SignUpForm/>
     </div>
     <div class="footer">
-      Footer Elements Here
+      <NavBar/>
     </div>
   </div>
 </template>
 
 <script>
-import SignUpForm from '../components/SignUpForm'
+import SignUpForm from '@/components/SignUpForm'
+import NavBar from '@/components/NavBar.vue'
+import Header from '@/components/Header.vue'
 
 export default {
   name: 'signup',
   components: {
-    SignUpForm
+    Header,
+    SignUpForm,
+    NavBar
   }
 }
 </script>

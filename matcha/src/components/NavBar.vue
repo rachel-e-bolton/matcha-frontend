@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="phone-viewport">
+        <div class="navbar">
             <md-bottom-bar md-sync-route>
                 <md-bottom-bar-item to="/myprofile" md-label="Profile" md-icon="settings"></md-bottom-bar-item>
                 <md-bottom-bar-item to="/discover" md-label="Discover" md-icon="person"></md-bottom-bar-item>
@@ -12,7 +12,7 @@
 </template>
 
 <style>
-.phone-viewport {
+.navbar {
         position: fixed;
         transform: translate(-50%, 0);
         /* left: 50%; */

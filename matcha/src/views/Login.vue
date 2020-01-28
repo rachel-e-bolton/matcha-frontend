@@ -1,27 +1,32 @@
 <template>
   <div class="login">
     <div class="header">
-      Header Elements Here
+      <Header/>
     </div>
     <div class="content">
-      <LoginForm />
+      <LoginForm/>
     </div>
     <div class="footer">
-      Footer Elements Here
+      <NavBar/>
     </div>
   </div>
 </template>
 
 <script>
-import LoginForm from '../components/LoginForm.vue'
+import LoginForm from '@/components/LoginForm.vue'
+import NavBar from '@/components/NavBar.vue'
+import Header from '@/components/Header.vue'
 
 export default {
-    name: 'login',
-    components: {
-        LoginForm
-    }
+  name: 'login',
+  components: {
+    Header,
+    LoginForm,
+    NavBar
+  }
 }
 </script>
+
 
 <style>
 .login {
