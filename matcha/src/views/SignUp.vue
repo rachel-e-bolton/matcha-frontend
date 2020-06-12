@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import SignUpForm from '@/components/SignUpForm'
+import SignUpForm from '@/components/SignUpForm.vue'
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/Header.vue'
 
