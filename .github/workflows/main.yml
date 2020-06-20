@@ -33,12 +33,12 @@ jobs:
     - name: Running npm install
       run: |
         cd /opt/matcha/frontend/app
-        /usr/bin/npm install --silent
+        /usr/local/bin/npm install --silent
         
     - name: Building application
       run: |
         cd /opt/matcha/frontend/app
-        /usr/bin/npm run build
+        /usr/local/bin/npm run build
         
     - name: Changing ownership of application directory
       run: chown matcha:www-data /opt/matcha/frontend/ -R
