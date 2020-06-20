@@ -29,5 +29,6 @@ jobs:
         rm -rf app
         git clone https://github.com/rachel-e-bolton/Matcha-FrontEnd.git app
         cd app
-        npm install
-        npm run build
+        /usr/bin/npm install
+        /usr/bin/npm run build
+        chown matcha:www-data . -R
