@@ -7,14 +7,14 @@
       <LandingPage/>
     </div>
     <div class="footer">
-      <!-- <NavBar/> -->
+      <NavBar/>
     </div>
   </div>
 </template>
 
 <script>
 import LandingPage from '@/components/LandingPage.vue'
-// import NavBar from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/Header.vue'
 
 export default {
@@ -22,7 +22,7 @@ export default {
   components: {
     Header,
     LandingPage,
-    // NavBar
+    NavBar
   }
 }
 </script>
