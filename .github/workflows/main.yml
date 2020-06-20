@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy-Frontend
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -24,10 +24,21 @@ jobs:
 
     - name: Rebuild and deploy
       run: |
-        echo "Removing Source"
         cd /opt/matcha/frontend/
         rm -rf app
-        git clone https://github.com/rachel-e-bolton/Matcha-FrontEnd.git app
-        cd app
-        npm install
-        npm run build
+
+    - name: "Clone fresh copy"
+      run: git clone https://github.com/rachel-e-bolton/Matcha-FrontEnd.git /opt/matcha/frontend/app
+        
+    - name: Running npm install
+      run: |
+        cd /opt/matcha/frontend/app
+        /usr/local/bin/npm install --silent
+        
+    - name: Building application
+      run: |
+        cd /opt/matcha/frontend/app
+        /usr/local/bin/npm run build
+        
+    - name: Changing ownership of application directory
+      run: chown matcha:www-data /opt/matcha/frontend/ -R
