@@ -38,5 +38,5 @@ jobs:
       run: /usr/bin/npm run build
         
     - name: "Changing ownership of application directory"
-        working-directory: "/opt/matcha/frontend/app"
-        run: chown matcha:www-data . -R
+      working-directory: "/opt/matcha/frontend/app"
+      run: chown matcha:www-data . -R
