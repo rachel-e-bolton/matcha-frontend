@@ -15,7 +15,7 @@
 .navbar {
         position: fixed;
         transform: translate(-50%, 0);
-        /* left: 50%; */
+        left: 50%;
         width: 322px;
         height: 60px;
         display: inline-flex;
