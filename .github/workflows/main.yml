@@ -22,14 +22,20 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Rebuild and deploy
-      run: |
-        cd /opt/matcha/frontend/
-        rm -rf app
+    #- name: Rebuild and deploy
+     # run: |
+     #   cd /opt/matcha/frontend/
+     #   rm -rf app
 
-    - name: "Clone fresh copy"
-      run: git clone https://github.com/rachel-e-bolton/Matcha-FrontEnd.git /opt/matcha/frontend/app
-        
+    #- name: "Clone fresh copy"
+    #  run: git clone https://github.com/rachel-e-bolton/Matcha-FrontEnd.git /opt/matcha/frontend/app
+    - name: Pull latest
+      run: |
+        cd /opt/matcha/frontend/app
+        git pull
+      
+     
+     
     - name: Running npm install
       run: |
         cd /opt/matcha/frontend/app
