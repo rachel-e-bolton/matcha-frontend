@@ -5,14 +5,14 @@
 .home {
     height: 100%;
     width: auto;
-    background-image: url('../assets/landing-background-mobile.jpg');
+    background-image: url('../landing-background-mobile.jpg');
     background-size: 150%;
     background-position: center;
 }
 
 @media screen and (min-width: 1025px) {
     .home {
-        background-image: url('../assets/landing-background-desktop.jpg');
+        background-image: url('../landing-background-desktop.jpg');
         background-size: 120%;
     }
 }

@@ -1,0 +1,14 @@
+$deepred: #6D0E24;
+$orange: #e05e1b;
+$mustard: #eec643;
+$light-gray: #e9e3e4;
+$medium-gray: #dadad9;
+$dark-gray: #434650;
+$seablue:#7EBDC2;
+
+$primary: $deepred;
+$secondary: $orange;
+$accent: $seablue;
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../node_modules/bootstrap-vue/src/index.scss';

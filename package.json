@@ -28,9 +28,11 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "minimist": "^1.2.5",
+    "node-sass": "^4.14.1",
     "sass": "^1.26.9",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.43.0"
   },
   "eslintConfig": {
     "root": true,
