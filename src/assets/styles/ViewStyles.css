@@ -5,14 +5,14 @@
 .home {
     height: 100%;
     width: auto;
-    background-image: url('../assets/landing-background-mobile.jpg');
+    background-image: url('../landing-background-mobile.jpg');
     background-size: 150%;
     background-position: center;
 }
 
 @media screen and (min-width: 1025px) {
     .home {
-        background-image: url('../assets/landing-background-desktop.jpg');
+        background-image: url('../landing-background-desktop.jpg');
         background-size: 120%;
     }
 }
@@ -32,7 +32,7 @@
     right: 0px;
     height: 70px;
     overflow: hidden;
-    background-color: #eec643;
+    justify-content: center;
 }
 
 .footer {
@@ -42,7 +42,6 @@
     right: 0px;
     height: 70px;
     overflow: hidden;
-    background-color: #eec643;
 }
 
 .content {
@@ -64,6 +63,12 @@
 
 .content {
     -ms-overflow-style: none;
+}
+
+.logo-link {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {

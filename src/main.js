@@ -7,6 +7,7 @@ import 'vue-material/dist/vue-material.min.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/styles/custom.scss'
 
 Vue.use(VueMaterial)
 Vue.use(BootstrapVue)

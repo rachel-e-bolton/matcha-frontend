@@ -29,6 +29,6 @@ export default {
 
 
 <style>
-@import 'ViewStyles.css';
+@import '../assets/styles/ViewStyles.css';
 </style>
 
