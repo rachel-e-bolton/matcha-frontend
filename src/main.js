@@ -15,6 +15,11 @@ Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
+Vue.prototype.$store = Vue.observable({ 
+  access_token: false,
+  api : "http://192.168.88.251:5000/v1"
+})
+
 new Vue({
   store,
   router,
