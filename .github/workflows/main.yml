@@ -32,6 +32,7 @@ jobs:
     - name: Pull latest
       run: |
         cd /opt/matcha/frontend/app
+        git stash
         git pull
       
      
