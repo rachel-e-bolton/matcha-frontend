@@ -32,17 +32,13 @@ jobs:
     - name: Pull latest
       run: |
         cd /opt/matcha/frontend/app
-        git config --global user.email "ci@matchame.co.za"  
-        git config --global user.name "CI Builder"   
-        git stash
-        git pull
+        git pull origin master
       
-     
      
     - name: Running npm install
       run: |
         cd /opt/matcha/frontend/app
-        /usr/local/bin/npm install --silent
+        /usr/local/bin/npm install --silent --production
         
     - name: Building application
       run: |
