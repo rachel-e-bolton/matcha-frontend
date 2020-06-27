@@ -152,7 +152,7 @@
           self.$bvToast.toast(res.data.username + ' created successfully', {
           title: "Success!",
           autoHideDelay: 2000,
-          toaster: "b-toaster-bottom-center",
+          toaster: "b-toaster-top-center",
           variant: "success",
           noCloseButton: true,
           })
@@ -164,7 +164,7 @@
           self.$bvToast.toast(err.response.data.message, {
           title: "Error!",
           autoHideDelay: 5000,
-          variant: "warning"
+          variant: "danger"
           })
         })
     }
