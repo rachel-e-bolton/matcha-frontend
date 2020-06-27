@@ -3,7 +3,7 @@
     <b-jumbotron header-level="3" bg-variant="secondary" text-variant="white" class="mt-4 py-lg-4" header="SignUp" lead="and get ready to feel the heat...">
       <quote class="font-italic d-none d-md-block d-lg-block d-xl-block">you can only start a fire if you light the match</quote>
     </b-jumbotron>
-    <b-container class="mt-4 pr-5">
+    <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
         <b-col sm="auto" lg="6">
           <b-form @submit.prevent="onSubmit" v-if="show">
