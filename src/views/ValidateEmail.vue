@@ -7,13 +7,17 @@ const axios = require('axios').default;
 
 export default {
   mounted: function () {
-    let code = this.$route.query.code
+    // let code = this.$route.query.code
 
-    if (code) {
-      axios.get()
-    } else {
-      alert("FAILED")
-    }
+    let test = this.$store
+
+    console.log(test)
+
+    // if (code) {
+    //   axios.get(`${this.$store.api}/validate/${code}`)
+    // } else {
+    //   alert("FAILED")
+    // }
   }
 }
 </script>
