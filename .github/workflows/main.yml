@@ -32,6 +32,8 @@ jobs:
     - name: Pull latest
       run: |
         cd /opt/matcha/frontend/app
+        git config --global user.email "ci@matchame.co.za"  
+        git config --global user.name "CI Builder"   
         git stash
         git pull
       
