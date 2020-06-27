@@ -1,4 +1,4 @@
-# This is a basic workflow to help you gets started with Actions
+# This is a basic workflow to help you gets started with Actions.
 
 name: Deploy-Frontend
 
@@ -32,14 +32,13 @@ jobs:
     - name: Pull latest
       run: |
         cd /opt/matcha/frontend/app
-        git pull
+        git pull origin master
       
-     
      
     - name: Running npm install
       run: |
         cd /opt/matcha/frontend/app
-        /usr/local/bin/npm install --silent
+        /usr/local/bin/npm install --silent --production
         
     - name: Building application
       run: |
