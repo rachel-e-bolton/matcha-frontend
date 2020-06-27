@@ -6,9 +6,6 @@
     <div class="content">
       <SignUpForm/>
     </div>
-    <div class="footer">
-      <NavBar/>
-    </div>
   </div>
 </template>
 

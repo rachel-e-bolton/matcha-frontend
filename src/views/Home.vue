@@ -1,13 +1,12 @@
 <template>
   <div class="home">
-    <div class="header">
+    <div class="header-home">
       <Header/>
     </div>
     <div class="content">
       <LandingPage/>
     </div>
-    <div class="footer">
-      <NavBar/>
+    <div class="footer-home">
     </div>
   </div>
 </template>
