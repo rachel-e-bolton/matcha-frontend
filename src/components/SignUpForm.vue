@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-jumbotron header-level="3" bg-variant="secondary" text-variant="white" class="mt-4 py-lg-4" header="SignUp" lead="and get ready to feel the heat...">
-      <quote class="font-italic d-none d-md-block d-lg-block d-xl-block">you can only start a fire if you light the match</quote>
+    <b-jumbotron header-level="4" bg-variant="secondary" text-variant="white" class="mt-4 py-2" header="SignUp" lead="and get ready to feel the heat...">
+      <p class="font-italic d-none d-md-block d-lg-block d-xl-block">you can only start a fire if you light the match</p>
     </b-jumbotron>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
@@ -92,9 +92,9 @@
               </p>
             </b-form-group>
 
-            <b-form-group class="d-flex justify-content-center">
-              <router-link class="ml-4 text-secondary display-8" to="/login">Already have an account? Login now.</router-link>
-            </b-form-group>
+            <!-- <b-form-group class="d-flex justify-content-center">
+              <router-link class="ml-lg-4 small text-secondary display-8" to="/login">Already have an account? Login now.</router-link>
+            </b-form-group> -->
             <b-button class="float-right d-none d-md-block d-lg-block d-xl-block" variant="primary" type="submit">Submit</b-button>
             <b-button class="btn-block d-md-none d-lg-none d-xl-none py-2" size="lg" variant="primary" type="submit">Submit</b-button>
 
@@ -143,15 +143,12 @@
       if (!(this.form.password.match(/[0-9]/))) {
         this.errors.push('Please include a NUMERICAL character.');
       }
-
-      e.preventDefault();
     },
 
     onSubmit: function (evt) {
       let self = this
       this.$http.post(`${this.$store.api}/users`, this.form)
         .then(res => {
-          console.log(res)
           self.$bvToast.toast(res.data.username + ' created successfully', {
           title: "Success!",
           autoHideDelay: 2000,

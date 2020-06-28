@@ -32,6 +32,21 @@ const routes = [
     path: '/validate',
     name: 'validate',
     component: () => import('@/views/ValidateEmail.vue')
+  },
+  {
+    path: '/passwordreset',
+    name: 'passwordreset',
+    component: () => import('@/views/PasswordReset.vue')
+  },
+  {
+    path: '/unauthorised',
+    name: 'unauthorised',
+    component: () => import('@/views/Unauthorised.vue')
+  },
+  {
+    path: '*',
+    name: 'notfound',
+    component: () => import('@/views/404.vue')
   }
 ]
 
