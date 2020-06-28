@@ -12,7 +12,7 @@
 </template>
 
 <style>
-.navbar {
+/* .navbar {
         position: fixed;
         transform: translate(-50%, 0);
         left: 50%;
@@ -25,5 +25,5 @@
         background-color: white;
         padding: 0px;
         bottom: 0px;
-    }
+    } */
 </style>

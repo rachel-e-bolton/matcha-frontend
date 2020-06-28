@@ -25,7 +25,7 @@
     height: 100%;
 }
 
-.header {
+/* .header {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -46,9 +46,9 @@
   height: 70px;
   overflow: hidden;
   justify-content: center;
-}
+} */
 
-.footer {
+/* .footer {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -66,18 +66,18 @@
   right: 0px;
   height: 70px;
   overflow: hidden;
-}
+} */
 
-.content {
+/* .content {
     position: absolute;
     top: 70px;
     bottom: 70px;
     right: 0px;
     left: 0px;
     overflow: auto;
-}
+} */
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera
 
 .content::-webkit-scrollbar {
     display: none;
@@ -85,9 +85,9 @@
 
 /* Hide scrollbar for IE and Edge */
 
-.content {
+/* .content {
     -ms-overflow-style: none;
-}
+} */
 
 .logo-link {
   justify-content: center;

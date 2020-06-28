@@ -12,14 +12,14 @@
 </template>
 
 <style>
-    .signup-buttons{
+    /* .signup-buttons{
         position: fixed;
         transform: translate(-50%, 0);
-        /* left: 50%; */
+        left: 50%;
         display: inline-flex;
         align-items: flex-end;
         overflow: hidden;
         bottom: 100px;
         padding: 0px;
-    }
+    } */
 </style>
