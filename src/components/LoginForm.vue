@@ -68,8 +68,11 @@
         disabled: true,
       }
     },
+    mounted: function () {
+      let store = this.$store
+      debugger;
+    },
     methods: {
-
     onSubmit: function (evt) {
       let self = this
       this.$http.post(`${this.$store.api}/login`, this.loginForm)

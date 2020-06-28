@@ -6,7 +6,8 @@
     <div class="content">
       <LandingPage/>
     </div>
-    <div class="footer-home">
+    <div class="footer">
+      <NavBar/>
     </div>
   </div>
 </template>

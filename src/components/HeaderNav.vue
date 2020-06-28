@@ -24,7 +24,6 @@
     </b-navbar>
   </div>
   </div>
-
 </template>
 
 <script>

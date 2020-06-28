@@ -7,6 +7,7 @@
       <SignUpForm/>
     </div>
     <div class="footer">
+      <NavBar/>
     </div>
   </div>
 </template>

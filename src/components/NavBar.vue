@@ -1,29 +1,30 @@
 <template>
+  <div v-if="home" variant="faded" type="light" class="shadow d-flex align-items-center justify-content-center my--4 px-lg-5" fixed="true">
+    <b-navbar >
+        <b-navbar-nav>
+        </b-navbar-nav>
+    </b-navbar>
+  </div>
+  <div v-else>
     <div>
-        <div class="navbar">
-            <md-bottom-bar md-sync-route>
-                <md-bottom-bar-item to="/myprofile" md-label="Profile" md-icon="settings"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/discover" md-label="Discover" md-icon="person"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/search" md-label="Search" md-icon="search"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/matches" md-label="Matches" md-icon="menu"></md-bottom-bar-item>
-            </md-bottom-bar>
-        </div>
+      <b-navbar variant="faded" type="light" class="shadow d-flex align-items-center justify-content-between my--4 px-lg-5" fixed="true">
+        <b-navbar-nav class="d-flex align-items-center justify-content-between justify-content-lg-center">
+          <b-nav-item href="/profile">Profile</b-nav-item>
+          <b-nav-item href="/discover">Discover</b-nav-item>
+          <b-nav-item href="/search">Search</b-nav-item>
+          <b-nav-item href="/matches">Matches</b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
     </div>
+  </div>
 </template>
 
-<style>
-/* .navbar {
-        position: fixed;
-        transform: translate(-50%, 0);
-        left: 50%;
-        width: 322px;
-        height: 60px;
-        display: inline-flex;
-        align-items: flex-end;
-        overflow: hidden;
-        border: 1px solid black;
-        background-color: white;
-        padding: 0px;
-        bottom: 0px;
-    } */
-</style>
+<script>
+export default {
+  data() {
+    return {
+      home: !this.$store.token,
+    }
+  }
+}
+</script>
