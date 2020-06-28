@@ -92,9 +92,9 @@
               </p>
             </b-form-group>
 
-            <!-- <b-form-group class="d-flex justify-content-center">
+            <b-form-group class="d-flex justify-content-center">
               <router-link class="ml-lg-4 small text-secondary display-8" to="/login">Already have an account? Login now.</router-link>
-            </b-form-group> -->
+            </b-form-group>
             <b-button class="float-right d-none d-md-block d-lg-block d-xl-block" variant="primary" type="submit">Submit</b-button>
             <b-button class="btn-block d-md-none d-lg-none d-xl-none py-2" size="lg" variant="primary" type="submit">Submit</b-button>
 
