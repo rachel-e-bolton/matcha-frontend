@@ -147,7 +147,7 @@
 
     onSubmit: function (evt) {
       let self = this
-      this.$http.post(`${this.$store.api}/users`, this.form)
+      this.$http.post(`${this.$api}/users`, this.form)
         .then(res => {
           self.$bvToast.toast(res.data.username + ' created successfully', {
           title: "Success!",

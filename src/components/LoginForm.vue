@@ -69,13 +69,13 @@
       }
     },
     // mounted: function () {
-    //   let store = this.$store
-    //   debugger;
+    //   let store = this.$store;
+    //   let auth = this.$http.defaults.headers.common['Authorisation'];
     // },
     methods: {
     onSubmit: function (evt) {
       let self = this
-      this.$http.post(`${this.$store.api}/login`, this.loginForm)
+      this.$http.post(`${this.$api}/login`, this.loginForm)
         .then(res => {
           if ((self.$http.defaults.headers.common['Authorisation'] = 'Bearer ' + res.data.access_token)
               && (self.$store.user = res.data.user)
@@ -88,6 +88,7 @@
                 noCloseButton: true,
                 })
                 setTimeout(() => {
+                  localStorage.setItem("firewood", JSON.stringify(self.$store))
                   self.$router.push('/profile')
                 }, 1500);
               }

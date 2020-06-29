@@ -17,15 +17,20 @@ Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
-let api_url = (process.env.NODE_ENV === 'development') ? "http://192.168.88.251:5000/v1" : "https://api.matchame.co.za/v1"
-
-Vue.prototype.$store = Vue.observable({ 
-  token: false,
-  api: api_url,
-  user: false,
-})
-
 Vue.prototype.$http = axios
+Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://192.168.88.251:5000/v1" : "https://api.matchame.co.za/v1"
+
+let state = localStorage.getItem("firewood")
+
+if (state) {
+  Vue.prototype.$store = Vue.observable(JSON.parse(state))
+  Vue.prototype.$http.defaults.headers.common['Authorisation'] = 'Bearer ' + Vue.prototype.$store.token
+} else {
+  Vue.prototype.$store = Vue.observable({ 
+    token: false,
+    user: false,
+  })
+}
 
 new Vue({
   router,
