@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-jumbotron header-level="4" bg-variant="secondary" text-variant="white" class="mt-4 py-2" header="Why wait?" lead="On a scale of 1 to 10, you're a 9">
-      <p class="font-italic py-0">login now and find the 1 you need</p>
-      <img src="../assets/logo-simple.png" alt="Matcha" width="60rem">
+    <b-jumbotron header-level="5" bg-variant="secondary" text-variant="white" class="mt-4 py-2" header="Why wait?" lead="On a scale of 1 to 10, you're a 9">
+      <div class="font-italic mt--4 my--2">login now and find the 1 you need</div>
+      <img src="../assets/logo-simple.png" alt="Matcha" width="50rem">
     </b-jumbotron>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
@@ -68,10 +68,10 @@
         disabled: true,
       }
     },
-    mounted: function () {
-      let store = this.$store
-      debugger;
-    },
+    // mounted: function () {
+    //   let store = this.$store
+    //   debugger;
+    // },
     methods: {
     onSubmit: function (evt) {
       let self = this

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-jumbotron header-level="4" bg-variant="secondary" text-variant="white" class="mt-4 py-2" header="SignUp" lead="and get ready to feel the heat...">
-      <p class="font-italic d-none d-md-block d-lg-block d-xl-block">you can only start a fire if you light the match</p>
+    <b-jumbotron header-level="5" bg-variant="secondary" text-variant="white" class="mt-4 py-2" header="SignUp" lead="and get ready to feel the heat...">
+      <div class="font-italic d-none d-md-block d-lg-block d-xl-block mt--4 my-2">you can only start a fire if you light the match</div>
     </b-jumbotron>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="home" variant="faded" type="light" class="shadow d-flex align-items-center justify-content-center my--4 px-lg-5" fixed="true">
-    <b-navbar >
+  <div v-if="home">
+    <b-navbar variant="light" class="shadow d-flex align-items-center justify-content-center my--4 px-lg-5" fixed="top">
       <b-navbar-brand href="/">
         <img src="../assets/logo-plum-and-orange.png" class="d-inline-block align-top" alt="Matcha" width="200">
       </b-navbar-brand>
@@ -8,8 +8,7 @@
   </div>
   <div v-else>
   <div>
-    <!-- Image and text -->
-    <b-navbar variant="faded" type="light" class="shadow d-flex align-items-center justify-content-between my--4 px-lg-5" fixed="true">
+    <b-navbar variant="light" class="shadow d-flex align-items-center justify-content-between my--4 px-lg-5" fixed="top">
       <b-navbar-brand href="#">
         <img src="../assets/logo-plum-and-orange.png" class="d-inline-block align-top" alt="Matcha" width="200">
       </b-navbar-brand>

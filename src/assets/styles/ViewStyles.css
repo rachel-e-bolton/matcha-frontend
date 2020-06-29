@@ -1,5 +1,7 @@
-.about {
-    height: 100%;
+.content {
+  height: 50%;
+  margin-top: 110px;
+  margin-bottom: 110px;
 }
 
 .home {
@@ -15,12 +17,4 @@
         background-image: url('../landing-background-desktop.jpg');
         background-size: 120%;
     }
-}
-
-.login {
-    height: 100%;
-}
-
-.signup {
-    height: 100%;
 }
