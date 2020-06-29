@@ -14,7 +14,7 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import Header from '@/components/Header.vue'
+import Header from '@/components/HeaderNav.vue'
 import ProfileCard from '@/components/ProfileCard.vue'
 
 export default {
