@@ -22,13 +22,13 @@
 
     <b-modal ref="terms" hide-footer title="Terms of Use">
       <div class="d-block text-center">
-        
+        <TermsOfUse/>
       </div>
     </b-modal>
 
     <b-modal ref="privacy" hide-footer title="Privacy Policy">
       <div class="d-block text-center">
-        
+        <PrivacyPolicy/>
       </div>
     </b-modal>
 
@@ -36,10 +36,14 @@
 </template>
 
 <script>
+import TermsOfUse from '@/components/TermsOfUse.vue'
+import PrivacyPolicy from '@/components/PrivacyPolicy.vue'
+
 export default {
   name: 'home',
   components: {
-
+    TermsOfUse,
+    PrivacyPolicy
   },
   methods: {
     showModal(ref) {
