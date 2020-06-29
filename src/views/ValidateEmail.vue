@@ -57,7 +57,7 @@ export default {
   mounted: function () {
 
     if (this.code) {
-      this.$http.get(`${this.$store.api}/validate/${this.code}`)
+      this.$http.get(`${this.$api}/validate/${this.code}`)
         .then(res => {
           this.verifying = false
           this.success = true

@@ -49,6 +49,7 @@ export default {
           noCloseButton: true,
           })
           setTimeout(() => {
+            localStorage.removeItem("firewood")
             this.$router.push('/')
           }, 1500);
         } else {
