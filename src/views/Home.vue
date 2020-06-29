@@ -6,7 +6,8 @@
     <div class="content">
       <LandingPage/>
     </div>
-    <div class="footer-home">
+    <div class="footer">
+      <NavBar/>
     </div>
   </div>
 </template>
@@ -14,7 +15,7 @@
 <script>
 import LandingPage from '@/components/LandingPage.vue'
 import NavBar from '@/components/NavBar.vue'
-import Header from '@/components/Header.vue'
+import Header from '@/components/HeaderNav.vue'
 
 export default {
   name: 'home',

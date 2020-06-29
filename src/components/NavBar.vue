@@ -1,29 +1,34 @@
 <template>
+  <div v-if="home">
+    <b-navbar variant="light" class="shadow d-flex align-items-center justify-content-center my--4 px-lg-5" fixed="bottom">
+        <b-navbar-nav>
+          <b-nav-item></b-nav-item>
+          <b-nav-item></b-nav-item>
+          <b-nav-item></b-nav-item>
+          <b-nav-item></b-nav-item>
+        </b-navbar-nav>
+    </b-navbar>
+  </div>
+  <div v-else>
     <div>
-        <div class="navbar">
-            <md-bottom-bar md-sync-route>
-                <md-bottom-bar-item to="/myprofile" md-label="Profile" md-icon="settings"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/discover" md-label="Discover" md-icon="person"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/search" md-label="Search" md-icon="search"></md-bottom-bar-item>
-                <md-bottom-bar-item to="/matches" md-label="Matches" md-icon="menu"></md-bottom-bar-item>
-            </md-bottom-bar>
-        </div>
+      <b-navbar variant="light" type="light" class="shadow d-flex align-items-center justify-content-center px-lg-5 py-lg-4" fixed="bottom">
+        <b-navbar-nav class="d-flex align-items-center justify-content-around justify-content-lg-center">
+          <b-nav-item href="/profile" class="d-flex flex-column mx-2"><b-icon icon="person-circle"></b-icon><p style="margin-bottom: 0px;">Profile</p></b-nav-item>
+          <b-nav-item href="/discover" class="d-flex flex-column mx-2"><b-icon icon="view-list"></b-icon><p style="margin-bottom: 0px;">Discover</p></b-nav-item>
+          <b-nav-item href="/search" class="d-flex flex-column mx-2"><b-icon icon="search"></b-icon><p style="margin-bottom: 0px;">Search</p></b-nav-item>
+          <b-nav-item href="/matches" class="d-flex flex-column mx-2"><b-icon icon="heart"></b-icon><p style="margin-bottom: 0px;">Matches</p></b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
     </div>
+  </div>
 </template>
 
-<style>
-.navbar {
-        position: fixed;
-        transform: translate(-50%, 0);
-        left: 50%;
-        width: 322px;
-        height: 60px;
-        display: inline-flex;
-        align-items: flex-end;
-        overflow: hidden;
-        border: 1px solid black;
-        background-color: white;
-        padding: 0px;
-        bottom: 0px;
+<script>
+export default {
+  data() {
+    return {
+      home: !this.$store.token,
     }
-</style>
+  }
+}
+</script>

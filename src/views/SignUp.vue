@@ -6,13 +6,16 @@
     <div class="content">
       <SignUpForm/>
     </div>
+    <div class="footer">
+      <NavBar/>
+    </div>
   </div>
 </template>
 
 <script>
 import SignUpForm from '@/components/SignUpForm.vue'
 import NavBar from '@/components/NavBar.vue'
-import Header from '@/components/Header.vue'
+import Header from '@/components/HeaderNav.vue'
 
 export default {
   name: 'signup',
