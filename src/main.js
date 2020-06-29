@@ -17,9 +17,11 @@ Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
+let api_url = (process.env.NODE_ENV === 'development') ? "http://192.168.88.251:5000/v1" : "https://api.matchame.co.za/v1"
+
 Vue.prototype.$store = Vue.observable({ 
   token: false,
-  api: "http://192.168.88.251:5000/v1",
+  api: api_url,
   user: false,
 })
 
