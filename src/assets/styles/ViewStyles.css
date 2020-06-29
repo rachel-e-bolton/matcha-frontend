@@ -5,16 +5,16 @@
 }
 
 .home {
-    height: 100%;
-    width: auto;
-    background-image: url('../landing-background-mobile.jpg');
-    background-size: 150%;
-    background-position: center;
+  height: 100%;
+  width: 100%;
+  background-image: url('../landing-background-mobile.jpg');
+  background-size: 140%;
+  background-position: center;
 }
 
 @media screen and (min-width: 1025px) {
-    .home {
-        background-image: url('../landing-background-desktop.jpg');
-        background-size: 120%;
-    }
+  .home {
+    background-image: url('../landing-background-desktop.jpg');
+    background-size: 120%;
+  }
 }

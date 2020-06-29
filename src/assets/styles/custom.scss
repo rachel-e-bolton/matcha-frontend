@@ -11,5 +11,7 @@ $secondary: $seablue;
 $accent: $orange;
 $light: $light-gray;
 
+.bg-accent { background-color: $orange; }
+
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 @import '../../../node_modules/bootstrap-vue/src/index.scss';
