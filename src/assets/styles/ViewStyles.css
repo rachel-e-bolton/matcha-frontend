@@ -22,4 +22,8 @@
     background-image: url('../landing-background-desktop.jpg');
     background-size: 120%;
   }
+
+  .content {
+    margin-bottom: 140px;
+  }
 }

@@ -23,6 +23,9 @@ export default {
     Header,
     NavBar,
     Profile
+  },
+  mounted() {
+    console.log(this.$store.user)
   }
 }
 </script>

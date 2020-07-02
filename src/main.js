@@ -6,12 +6,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/styles/custom.scss'
 import VoerroTagsInput from '@voerro/vue-tagsinput'
+import _ from 'lodash'
 
 Vue.component('tags-input', VoerroTagsInput);
 
 const axios = require('axios').default;
 
-Vue.use(VueMaterial)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
