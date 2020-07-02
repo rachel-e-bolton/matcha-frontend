@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="resetPassword()">
     <div>Reset your password</div>
-    Your email <input v-bind="email" type="email" required>
+    Your email <input v-model="email" type="email" required>
     <button type="submit">Reset</button>
   </form>
 </template>
@@ -15,12 +15,12 @@ export default {
   },
   methods: {
     resetPassword: function () {
-      this.$http.post(`${this.$store.api}/reset-password-request`, {email: this.email})
+      this.$http.post(`${this.$api}/reset-password-request`, {email: this.email})
         .then(res => {
-
+          console.log(res)
         })
         .catch(err => {
-
+          console.log(err.response.data.message)
         })
     }
   }

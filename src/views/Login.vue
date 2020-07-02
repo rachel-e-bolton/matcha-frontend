@@ -8,7 +8,6 @@
     </div>
     <div class="footer">
       <NavBar/>
-      <reset-password/>
     </div>
   </div>
 </template>
@@ -17,15 +16,14 @@
 import LoginForm from '@/components/LoginForm.vue'
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
-import ResetPassword from '@/components/ResetPassword'
+
 
 export default {
   name: 'login',
   components: {
     Header,
     LoginForm,
-    NavBar,
-    "reset-password" : ResetPassword
+    NavBar
   }
 }
 </script>
