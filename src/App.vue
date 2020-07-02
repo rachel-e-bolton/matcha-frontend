@@ -11,6 +11,8 @@ export default {
 </script>
 
 <style>
+@import '../../node_modules/@voerro/vue-tagsinput/dist/style.css';
+
 #app {
   font-family: 'Noto Sans', sans-serif;
   -webkit-font-smoothing: antialiased;

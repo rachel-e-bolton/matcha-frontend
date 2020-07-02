@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/styles/custom.scss'
-import Axios from 'axios'
+import VoerroTagsInput from '@voerro/vue-tagsinput'
+
+Vue.component('tags-input', VoerroTagsInput);
 
 const axios = require('axios').default;
 
