@@ -52,7 +52,7 @@ const routes = [
     component: () => import('@/views/ValidateEmail.vue')
   },
   {
-    path: '/passwordreset',
+    path: '/password-reset',
     name: 'passwordreset',
     component: () => import('@/views/PasswordReset.vue')
   },
