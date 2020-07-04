@@ -29,4 +29,5 @@ export default {
 
 <style>
 @import '../assets/styles/ViewStyles.css';
+body {background-color: teal;}
 </style>
