@@ -16,33 +16,49 @@
               controls
               indicators
               background="#dadad9"
-              style="text-shadow: 1px 1px 2px #333; width: 80vw; height: 55vh"
+              style="text-shadow: 1px 1px 2px #333;"
               @sliding-start="onSlideStart"
               @sliding-end="onSlideEnd"
-              class="rounded-lg mx-md-5"
+              class="rounded-lg mx-md-5 container nine-eleven"
             >
-              <b-carousel-slide class="rounded-lg" img-src=""></b-carousel-slide>
-
-              <b-carousel-slide img-src=""></b-carousel-slide>
-
-              <b-carousel-slide img-src=""></b-carousel-slide>
+              <b-carousel-slide v-for="photo in photosBase64" class="rounded-lg" :key="photo" :img-src="photo.src"></b-carousel-slide>
             </b-carousel>
           </div>
           <div v-if="myProfile" class="">
             <b-button 
-              style="font-size: 3rem; border: none; position: absolute; right: 0; bottom: 0; z-index: 1000" 
+              style="border: none; position: absolute; right: 0; bottom: 0; z-index: 1000" 
               pill 
-              class="bg-transparent display-1 mr-4"
+              class="bg-secondary display-1 mr-5 mb-3 shadow"
               size="lg"
               @click="showModal('uploads')">
                 <b-icon 
-                  variant="secondary" 
-                  class="m-0 bg-white rounded-pill shadow" 
-                  icon="plus-circle-fill"
+                  variant="light" 
+                  class="my-2 bg-secondary rounded-pill" 
+                  icon="pencil"
                   @click="showModal('uploads')"></b-icon>
             </b-button>
-            <b-modal ref="uploads" hide-footer title="Upload or Change Photo">
-
+            <b-modal ref="uploads" hide-footer title="Upload or Change Photos" class="text-center">
+              <b-row class="mx-1">
+                <b-col v-for="n in 3" :key="n" class="border bg-light rounded-lg mx-1 mx-md-2 my-auto d-flex flex-column align-items-center position-relative">
+                  <div v-if="userProfileForm.photos[n]">
+                  </div>
+                  <div v-else>
+                    <label @change="updatePhoto(n)" for="img" style="font-size: 3rem" class=""><b-icon variant="primary" icon="plus-circle"></b-icon><span style="font-size: 1rem"></span></label>
+                    <div class="text-primary text-center mb-2" style="margin-top: -2vh;"></div>
+                  </div> 
+                </b-col>
+              </b-row>
+              <b-row class="mx-1 my-3">
+                <b-col v-for="n in 2" :key="n" class="border bg-light rounded-lg mx-1 mx-md-2 my-auto d-flex flex-column align-items-center">
+                  <label @change="updatePhoto(n+3)" for="img" style="font-size: 3rem" class=""><b-icon variant="primary" icon="plus-circle"></b-icon><span style="font-size: 1rem"></span></label>
+                  <div class="text-primary text-center mb-2" style="margin-top: -2vh"></div>
+                </b-col>
+                <b-col class="mx-1 mx-md-2 rounded-lg small text-center text-primary my-auto">
+                  Upload up to five images.
+                </b-col>
+              </b-row>
+              <input type="file" name="uploadfile" id="img" style="display:none;" accept=".jpg, .png"/>
+              <p class="small text-muted text-center">Closing the modal will automatically save any changes you have made.</p>
             </b-modal>
           </div>
         </div>
@@ -108,12 +124,7 @@ export default {
         liked: false,
         userRating: 0,
       },
-      photo: {
-        is_primary: false,
-        user_id: null,
-        image64: '',
-        image_type: ''
-      },
+      photosBase64: [],
       userProfileForm: {
         photos: [],
         fname: '',
@@ -175,10 +186,14 @@ export default {
         this.checkRelation()
 
       }
+    },
+
+    getBase64: function () {
+      fo
     }
   },
-  created() {
-    this.loadData()
-  } 
+  // created() {
+  //   this.loadData()
+  // } 
 }
 </script>
