@@ -68,7 +68,6 @@
     components: {ResetPassword},
     data() {
       return {
-        showReset: false,
         errors: [],
         loginForm: {
           username: '',
