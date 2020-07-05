@@ -2,18 +2,21 @@
   <div>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
-        <b-card v-for="(n, index) in pageOffset" :key="index" no-body class="overflow-hidden">
+        <b-card v-for="(n, index) in pageOffset" :key="index" no-body class="overflow-hidden" style= "max-width: 700px">
           <b-row no-gutters>
             <b-col md="6">
               <b-card-img
-                :src="'https://i.pravatar.cc/400/?img='+index"
+                :src="'https://i.pravatar.cc/600/?img=' + index"
                 alt="Image"
                 class="rounded-0"
               ></b-card-img>
             </b-col>
             <b-col md="6">
-              <b-card-body title="Name">
-                <b-card-text>{{index}}</b-card-text>
+              <b-card-body :title="profiles[index].fname + ' ' + profiles[index].lname">
+                <b-card-text>{{profiles[index].bio}}</b-card-text>
+                <b-card-text>{{profiles[index].gender}}</b-card-text>
+                <b-card-text>{{profiles[index].online}}</b-card-text>
+                <b-card-text>{{profiles[index].lastseen}}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -28,13 +31,15 @@
 </template>
 
 <script>
+import users from '../assets/temp.json';
 export default {
   data: () => {
     return {
       currentPage: 1,
       maxPerPage: 10,
-      totalResults: 100,
-      showLoader: false
+      showLoader: false,
+      totalResults: Object.keys(users).length,
+      profiles: users
     };
   },
   computed: {
@@ -42,7 +47,10 @@ export default {
       return Math.ceil(this.totalResults / this.maxPerPage);
     },
     pageOffset() {
-      return this.maxPerPage * this.currentPage;
+      if (this.maxPerPage * this.currentPage <= this.totalResults)
+        return this.maxPerPage * this.currentPage;
+      else
+        return this.totalResults;
     }
   },
   methods: {
@@ -74,7 +82,6 @@ export default {
 <style lang="scss" scoped>
 footer {
   position: relative;
-  width: 400px;
   height: 100px;
 
   #scroll-trigger {
