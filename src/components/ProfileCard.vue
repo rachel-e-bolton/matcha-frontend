@@ -2,9 +2,10 @@
   <div>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
-        <b-card v-for="(n, index) in pageOffset" :key="index" no-body class="overflow-hidden" style= "max-width: 700px">
+        <b-card v-for="(n, index) in pageOffset" :key="index" no-body class="overflow-hidden" style="max-width: 700px">
           <b-row no-gutters>
             <b-col md="6">
+              <!-- src="../assets/pic2.png" -->
               <b-card-img
                 :src="'https://i.pravatar.cc/600/?img=' + index"
                 alt="Image"
