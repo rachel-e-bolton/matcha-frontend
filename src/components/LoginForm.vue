@@ -68,16 +68,12 @@
         disabled: true,
       }
     },
-    // mounted: function () {
-    //   let store = this.$store;
-    //   let auth = this.$http.defaults.headers.common['Authorisation'];
-    // },
     methods: {
     onSubmit: function (evt) {
       let self = this
       this.$http.post(`${this.$api}/login`, this.loginForm)
         .then(res => {
-          if ((self.$http.defaults.headers.common['Authorisation'] = 'Bearer ' + res.data.access_token)
+          if ((self.$http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token)
               && (self.$store.user = res.data.user)
               && (self.$store.token = res.data.access_token)) {
                 self.$bvToast.toast(res.data.user.username + ' logged in.', {

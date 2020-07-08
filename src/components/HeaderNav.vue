@@ -13,11 +13,13 @@
         <img src="../assets/logo-plum-and-orange.png" class="d-inline-block align-top" alt="Matcha" width="200">
       </b-navbar-brand>
       <b-navbar-nav>
-        <b-nav-item-dropdown icon="info" toggle-class="text-decoration-none" right no-caret>
+        <b-nav-item-dropdown icon="info" toggle-class="text-decoration-none" variant="light" right no-caret>
           <template v-slot:button-content>
             <b-icon icon="list" ></b-icon><span class="sr-only">Menu</span>
           </template>
-          <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+          <b-dropdown-item @click="logout"><b-icon icon="box-arrow-right" class="mr-2 text-secondary"></b-icon>Logout</b-dropdown-item>
+          <b-dropdown-item href='/settings'><b-icon icon="gear" class="mr-2 text-secondary"></b-icon>Settings</b-dropdown-item>
+          <b-dropdown-item v-if="isAdmin" href='/admin'><b-icon icon="shield-lock" class="mr-2 text-secondary"></b-icon>Admin Panel</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -30,14 +32,15 @@ export default {
     data() {
       return {
         home: !this.$store.token,
+        isAdmin: this.$store.user.is_admin
       }
     },
     methods: {
       logout: function () {
-        if ((this.$http.defaults.headers.common['Authorisation'])
+        if ((this.$http.defaults.headers.common['Authorization'])
           && (this.$store.user)
           && (this.$store.token)) {
-          this.$http.defaults.headers.common['Authorisation'] = false
+          this.$http.defaults.headers.common['Authorization'] = false
           this.$store.user = false
           this.$store.token = false
 
