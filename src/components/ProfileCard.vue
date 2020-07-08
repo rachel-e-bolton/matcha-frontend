@@ -6,16 +6,16 @@
           v-for="(n, index) in pageOffset"
           :key="index"
           no-body
-          class="overflow-hidden"
+          class="overflow-hidden m-2"
           style="max-width: 600px"
         >
           <b-row no-gutters>
-            <b-col md="6">
+            <b-col sm="6">
               <b-card-img
                 :src="defaultImage"
                 alt="Image"
                 class="rounded-0"
-                v-if="!profiles[index].photos"
+                v-if="!profiles[index].photos || !profiles[index].photos.image64"
               ></b-card-img>
               <b-card-img
                 :src="profiles[index].photos.image64"
@@ -24,7 +24,7 @@
                 v-else
               ></b-card-img>
             </b-col>
-            <b-col md="6">
+            <b-col sm="6">
               <b-card-body :title="profiles[index].fname + ' ' + profiles[index].lname">
                 <b-card-text>{{profiles[index].bio}}</b-card-text>
                 <b-card-text>{{profiles[index].gender}}</b-card-text>
