@@ -8,15 +8,14 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if (isAuth()) {
+        next('/profile')
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/signup',
@@ -26,7 +25,14 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuth()) {
+        next('/profile')
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/validate',
@@ -52,6 +58,42 @@ const routes = [
     path: '/discover',
     name: 'discover',
     component: () => import('@/views/Discover.vue')
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('@/views/Settings.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuth()) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/views/Profile.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuth()) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('@/views/Admin.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAdmin()) {
+        next()
+      } else {
+        next('/unauthorised')
+      }
+    }
   }
 ]
 
@@ -60,5 +102,23 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+function isAuth() {
+  let auth = localStorage.getItem("firewood")
+  if (auth) {
+    return true
+  } else {
+    return false
+  }
+}
+
+function isAdmin() {
+  if (isAuth()) {
+    Vue.prototype.$auth = Vue.observable(JSON.parse(localStorage.getItem("firewood")))
+    return Vue.prototype.$auth.user.is_admin
+  } else {
+    return false
+  }
+}
 
 export default router

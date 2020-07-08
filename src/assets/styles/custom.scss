@@ -11,5 +11,37 @@ $secondary: $seablue;
 $accent: $orange;
 $light: $light-gray;
 
+.bg-accent { background-color: $orange; }
+
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 @import '../../../node_modules/bootstrap-vue/src/index.scss';
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before{
+      display: block;
+      content: " ";
+      width: 100%;
+      padding-top: ($height / $width) * 100%;
+  }
+
+  > .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+  }
+}
+
+.nine-eleven {
+@include aspect-ratio(10,11);  
+}
+
+.one-one {
+  @include aspect-ratio(1,1)
+}
+
+.four-three {
+  @include aspect-ratio(4,3)
+}

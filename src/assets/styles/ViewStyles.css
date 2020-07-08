@@ -3,18 +3,27 @@
   margin-top: 110px;
   margin-bottom: 110px;
 }
+.content-error {
+  height: 70vh;
+  margin-top: 110px;
+  margin-bottom: 110px;
+}
 
 .home {
-    height: 100%;
-    width: auto;
-    background-image: url('../landing-background-mobile.jpg');
-    background-size: 150%;
-    background-position: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../landing-background-mobile.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 @media screen and (min-width: 1025px) {
-    .home {
-        background-image: url('../landing-background-desktop.jpg');
-        background-size: 120%;
-    }
+  .home {
+    background-image: url('../landing-background-desktop.jpg');
+    background-size: 120%;
+  }
+
+  .content {
+    margin-bottom: 140px;
+  }
 }
