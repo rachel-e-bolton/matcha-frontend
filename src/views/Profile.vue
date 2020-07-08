@@ -8,10 +8,10 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-
+              <FameRating />
             </div>
-            <div id="photos">
-              
+            <div id="images">
+              <Images />
             </div>
             <div id="online">
 
@@ -52,14 +52,16 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
-import Profile from '@/components/Profile.vue'
+import FameRating from '@/components/profile-components/FameRating.vue'
+import Images from '@/components/profile-components/Images.vue'
 
 export default {
   name: 'profile',
   components: {
     Header,
     NavBar,
-    Profile
+    FameRating,
+    Images
   }
 }
 </script>
