@@ -27,7 +27,7 @@ let state = localStorage.getItem("firewood")
 
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
-  Vue.prototype.$http.defaults.headers.common['Authorisation'] = 'Bearer ' + Vue.prototype.$store.token
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
 } else {
   Vue.prototype.$store = Vue.observable({ 
     token: false,

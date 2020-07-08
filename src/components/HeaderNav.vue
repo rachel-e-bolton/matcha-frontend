@@ -37,10 +37,10 @@ export default {
     },
     methods: {
       logout: function () {
-        if ((this.$http.defaults.headers.common['Authorisation'])
+        if ((this.$http.defaults.headers.common['Authorization'])
           && (this.$store.user)
           && (this.$store.token)) {
-          this.$http.defaults.headers.common['Authorisation'] = false
+          this.$http.defaults.headers.common['Authorization'] = false
           this.$store.user = false
           this.$store.token = false
 

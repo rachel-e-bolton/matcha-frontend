@@ -20,8 +20,11 @@
               @sliding-end="onSlideEnd"
               class="rounded-lg mx-md-5 shadow-sm"
             >
-            <div v-if="photosBase64[0]">
-              <b-carousel-slide style="" v-for="photo in photosBase64" class="rounded-lg" :key="photo" :img-src="photo"></b-carousel-slide>
+            <div v-if="photosBase64">
+              <div>FUCK</div>
+              <b-carousel-slide style="" v-for="image in photosBase64" class="rounded-lg" :key="image.index" v-slot:img>
+                <img class="rounded-lg" :src="image" />
+              </b-carousel-slide>
             </div>
             <div v-else>
               <b-carousel-slide class="rounded-lg" v-slot:img>
@@ -32,7 +35,7 @@
           </div>
           <div v-if="myProfile" class="">
             <b-button 
-              style="border: none; position: absolute; right: 0; bottom: 0; z-index: 1000" 
+              style="border: none; position: absolute; right: 20px; bottom: 0; z-index: 1000" 
               pill 
               class="bg-secondary display-1 mr-5 mb-3 shadow"
               size="lg"
@@ -52,16 +55,16 @@
                   :enableResize="false"
                   class="position-relative">
                 </vue-croppie>
-                <button 
-                  style="border: none; position: absolute; right: 120px; bottom: 15px; z-index: 1000" 
-                  variant="primary" class="rounded-pill lg" @click="crop">
+                <b-button 
+                  style="font-size: 2rem; border: none; position: absolute; right: 80px; bottom: 15px; z-index: 1000" 
+                  variant="primary" class="rounded-pill lg shadow-lg pt-2" @click="crop">
                   <b-icon icon="check2-circle"></b-icon>
-                </button>
+                </b-button>
               </div>
               <div v-else>
                <b-row class="mx-1">
                 <b-col v-for="n in 3" :key="n" class="border bg-light rounded-lg mx-1 mx-md-2 my-auto d-flex flex-column align-items-center position-relative">
-                  <div v-if="userProfileForm.photos">
+                  <div v-if="userProfileForm.images && userProfileForm.images[n-1]">
                     <img :src="photosBase64[n-1]"/>
                   </div>
                   <div v-else>
@@ -145,6 +148,7 @@ export default {
       uploading: false,
       croppieImage: '',
       cropped: null,
+      extension: '',
       relationship: {
         matched: false,
         liked: false,
@@ -152,7 +156,7 @@ export default {
       },
       photosBase64: [],
       userProfileForm: {
-        photos: [],
+        images: [],
         fname: '',
         lname: '',
         dob: '',
@@ -173,17 +177,18 @@ export default {
     },
 
     getUser: function () {
-      this.$http.get(`${this.$api}/user/`, this.userInView.id)
+      this.$http.get(`${this.$api}/user/${this.userInView.id}`)
       .then(res => {
         this.userProfileForm = _.cloneDeep(res.data)
+        this.getBase64(res.data.images)
       })
       .catch(err => {
       })
     },
 
     checkRelation: function () {
-      this.$http.get(`${this.$api}/match/`, this.userInView.id)
-      .then(res => {
+      this.$http.get(`${this.$api}/match/${this.userInView.id}`)
+      .then(res => { 
         this.relationship = _.cloneDeep(res.data)
       })
       .catch(err => {
@@ -211,25 +216,37 @@ export default {
         this.getUser()
         this.checkRelation()
       }
-      this.getBase64()
     },
 
-    getBase64: function () {
-      if (this.userProfileForm.photos) {
-        this.userProfileForm.photos.forEach(photo => {
+    getBase64: function (images) {
+      console.log(images)
+      if (images) {
+        images.forEach(photo => {
           let photoSrc = "data:image/" + photo.image_type + ";base64, " + photo.image64
           this.photosBase64.push(photoSrc)
-          let test = this.photosBase64
         });
-        this.userProfileForm.photos = _.orderBy(this.userProfileForm.photos, "image64", "desc")
-        debugger
       }  
+      console.log(this.photosBase64)
+    },
+
+    uploadImage: function (upload) {
+      this.$http.put(`${this.$api}/images`, upload)
+      .then(res => { 
+      })
+      .catch(err => {
+      })
     },
   
     croppie: function (e) {
       this.uploading = true
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
+
+      const name = e.target.files[0].name;
+      const lastDot = name.lastIndexOf('.');
+      const ext = name.substring(lastDot + 1);
+
+      this.extension = ext;
 
       var reader = new FileReader();
       reader.onload = e => {
@@ -241,23 +258,30 @@ export default {
       reader.readAsDataURL(files[0]);
     },
 
-    crop: function (pos) {
+    crop: function () {
       let options = {
         type: 'base64',
         size: { width: 300, height: 400 },
-        format: 'jpeg'
+        format: this.extension
       };
-      this.$refs.croppieRef.result(options, output => {
-        this.cropped = this.croppieImage = output;
-          console.log(this.croppieImage);
-        });
 
+      this.$refs.croppieRef.result(options, output => {
+        const base64 = output.substring(output.lastIndexOf(',') + 1)
+        const upload = {
+          is_primary: false,
+          image64: base64,
+          image_type: this.extension 
+        }
+        console.log(upload)
+        this.uploadImage(upload)
+        });
       this.uploading = false
     }
 
   },
   created() {
     this.loadData()
+    this.getBase64()
   } 
 }
 </script>
