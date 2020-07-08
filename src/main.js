@@ -7,6 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/styles/custom.scss'
 import VoerroTagsInput from '@voerro/vue-tagsinput'
 import _ from 'lodash'
+import VueCroppie from 'vue-croppie';
+import 'croppie/croppie.css'
 
 Vue.component('tags-input', VoerroTagsInput);
 
@@ -14,6 +16,7 @@ const axios = require('axios').default;
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VueCroppie)
 
 Vue.config.productionTip = false
 

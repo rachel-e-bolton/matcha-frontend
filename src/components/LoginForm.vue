@@ -68,10 +68,6 @@
         disabled: true,
       }
     },
-    // mounted: function () {
-    //   let store = this.$store;
-    //   let auth = this.$http.defaults.headers.common['Authorisation'];
-    // },
     methods: {
     onSubmit: function (evt) {
       let self = this
