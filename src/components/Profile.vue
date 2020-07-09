@@ -35,7 +35,7 @@
           </div>
           <div v-if="myProfile" class="">
             <b-button 
-              style="border: none; position: absolute; right: 20px; bottom: 0; z-index: 1000" 
+              style="border: none; position: absolute; right: 0; bottom: 0; z-index: 1000" 
               pill 
               class="bg-secondary display-1 mr-5 mb-3 shadow"
               size="lg"

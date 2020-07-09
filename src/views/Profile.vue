@@ -11,7 +11,7 @@
               <FameRating />
             </div>
             <div id="images">
-              <Images />
+              <Images v-bind:userId="this.viewedId"/>
             </div>
             <div id="online">
 
@@ -62,6 +62,21 @@ export default {
     NavBar,
     FameRating,
     Images
+  },
+  data() {
+    return {
+      viewedId: 0,
+    }
+  },
+  methods: {
+    whoAmI: function () {
+      if (this.$store.user.id) {
+        this.viewedId = this.$store.user.id
+      }
+    }
+  },
+  created() {
+    this.whoAmI()
   }
 }
 </script>
