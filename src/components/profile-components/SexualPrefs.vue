@@ -1,0 +1,74 @@
+<template>
+  <div>
+    <h4>Sexual Preferences</h4>
+    <tags-input 
+      element-id="tags"
+      v-model="selectedTags"
+      :typeahead-hide-discard="true"
+      :only-existing-tags="true"
+      :existing-tags="availableTags"
+      :typeahead="true"
+      @tags-updated="savePreferences">
+    </tags-input>
+  </div>
+</template>
+
+<script>
+
+import VoerroTagsInput from '@voerro/vue-tagsinput';
+
+export default {
+  name: "SexualPrefs",
+  components: {
+    "tags-input" : VoerroTagsInput
+  },
+  data: function () {
+    return {
+      user: null,
+      store: this.$store,
+      availableTags : [],
+      selectedTags: [],
+      preferences: []
+    }
+  },
+  methods: {
+    getGenders: function () {
+      return this.$http.get(`${this.$api}/info/genders`)
+      .then(res => {
+        res.data.genders.forEach(gender => {
+          let key = gender.toLowerCase().replace(" ", "-")
+          this.availableTags.push({key: key, value: gender})
+        })
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
+    },
+    savePreferences: function () {
+      this.user.preferences = this.selectedTags
+      this.$http.put(`${this.$api}/user/${this.user.id}`, {user: this.user})
+        .then(resp => {
+          console.log(resp)
+        })
+    }
+  },
+  created: async function () {
+    await this.getGenders()
+    this.$http.get(`${this.$api}/user/${this.store.user.id}`)
+      .then(resp => {
+        this.user = resp.data
+        this.selectedTags = this.availableTags.filter(tag => {
+          return (this.user.preferences.indexOf(tag.value) >= 0)
+        })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+}
+</script>
+
+<style src='@voerro/vue-tagsinput/dist/style.css'></style>
+<style>
+
+</style>
