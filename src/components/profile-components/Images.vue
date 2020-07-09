@@ -5,7 +5,7 @@
         <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
       </div>
       <div v-else>
-        <div v-if="images64[0]" class="d-flex justify-content-center">
+        <div v-if="imagesSrc" class="d-flex justify-content-center">
           <hooper style="height: 400px; width: 300px">
             <slide v-for="image in userImages" :key="image" class="rounded-lg shadow-sm">
               <img :src="image.image64" class="rounded-lg shadow-sm">
@@ -45,11 +45,11 @@
               </b-button>
             </div>
             <div v-else>
-              <div v-if="images64[0]" class="d-flex justify-content-center flex-wrap">
+              <div v-if="imagesSrc" class="d-flex justify-content-center flex-wrap">
                 <div v-for="image in userImages" :key="image" class="mx-2 mb-3 mt-2 rounded-lg" style="width: 80px">
                   <img :src="image.image64" style="width: 80px" class="rounded-lg"/>
                 </div>
-                <div v-if="images64.length < 5" class="mx-2 mb-3 mt-2 d-flex align-items-center justify-content-center border border-primary rounded-lg bg-light" style="width: 80px">
+                <div v-if="imageSrc.length < 5" class="mx-2 mb-3 mt-2 d-flex align-items-center justify-content-center border border-primary rounded-lg bg-light" style="width: 80px">
                   <label for="img" style="font-size: 3rem" class=""><b-icon variant="primary" icon="plus-circle"></b-icon><span style="font-size: 1rem"></span></label>                  
                 </div>
                 <div v-else>
@@ -82,32 +82,47 @@
       return {
         loading: true,
         images64: [],
+        imageSrc: [],
+        upload: {
+          id: null,
+          is_primary: true,
+          image_type: '',
+          image64: '',
+        },
         uploading: false
       }
     },
-    computed: {
-      userImages: function() {
-        let userImages = []
+    // computed: {
+    //   userImages: function () {
+    //     this.imageSrc = this.images64.filter(function(image) {
+    //       return image.image64.length > 0
+    //     })
 
-        userImages = 
-      }
-    },
+    //     if (this.imageSrc) {
+    //       this.imageSrc.forEach(image => {
+    //         let image64 = "data:image/" + image.image_type + ";base64, " + image.image64
+    //       });
+    //     }
+
+    //     return this.imageSrc
+    //   }
+    // },
     methods: {
-      // getBase64: function (images) {
-      //   this.images64 = []
-      //   if (images) {
-      //     images.forEach(image => {
-      //       let image64src = "data:image/" + image.image_type + ";base64, " + image.image64
-      //       let imageId = image.id
-      //       let src = {
-      //         id: imageId,
-      //         src: image64src
-      //       }
-      //       this.images64.push(src)
-      //     });
-      //   }
-      //   this.loading = false
-      // },
+      getBase64: function () {
+        if (this.images64) {
+          this.images64 = _.orderBy(this.images64, image64, 'desc')
+        }
+
+        this.imageSrc = this.images64.filter(function(image) {
+          return image.image64.length > 0
+        })
+
+        if (this.imageSrc) {
+          this.imageSrc.forEach(image => {
+            let image64 = "data:image/" + image.image_type + ";base64, " + image.image64
+          });
+        }
+      },
 
       getUser: function () {
         this.loading = true
@@ -130,8 +145,19 @@
         this.$refs[ref].show()
       },
 
-      uploadImage: function (upload) {
+      uploadImage: function () {
         let self = this
+        let empties = this.images64.filter(function(image) {
+          return image.image64.length === 0 
+        })
+
+        if (empties.length > 0) {
+          const isPrimary = (image) => image.is_primary === true
+          if ((primaryIndex = empties.findIndex(isPrimary))) {
+
+          }
+        }
+
         this.$http.put(`${this.$api}/images`, upload)
         .then(res => { 
           self.$bvToast.toast('Image uploaded.', {
@@ -182,12 +208,9 @@
 
         this.$refs.croppieRef.result(options, output => {
           const base64 = output.substring(output.lastIndexOf(',') + 1)          
-          const upload = {
-            is_primary: false,
-            image64: base64,
-            image_type: this.extension 
-          }
-          this.uploadImage(upload)
+          this.upload.image64 = base64
+          this.upload.image_type = this.extension
+          this.uploadImage()
           });
         this.uploading = false
       }
