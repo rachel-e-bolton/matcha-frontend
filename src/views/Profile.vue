@@ -16,13 +16,11 @@
             <div id="online">
 
             </div>
+            <!-- <div id="online">
+
+            </div> -->
             <div id="personal-details">
-              <div id="full-name">
-                
-              </div>
-              <div id="age-gender">
-                
-              </div>
+              <PersonalDetails />
             </div>
             <div id="location">
 
@@ -66,7 +64,8 @@ export default {
     Header,
     NavBar,
     FameRating,
-    Images
+    Images,
+    PersonalDetails
   }
 }
 </script>
