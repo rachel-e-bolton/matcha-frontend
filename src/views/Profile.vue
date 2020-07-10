@@ -8,9 +8,12 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-
+              
             </div>
             <div id="images">
+              
+            </div>
+            <div id="online">
 
             </div>
             <!-- <div id="online">
@@ -29,7 +32,7 @@
 
             </div>
             <div id="sexual-preferences">
-
+              <sexual-preferences></sexual-preferences>
             </div>
             <div id="other-actions">
              
@@ -50,10 +53,13 @@ import Header from '@/components/HeaderNav.vue'
 import FameRating from '@/components/profile-components/FameRating.vue'
 import Images from '@/components/profile-components/Images.vue'
 import PersonalDetails from '@/components/profile-components/PersonalDetails.vue'
+import SexualPrefs from '@/components/profile-components/SexualPrefs'
+
 
 export default {
   name: 'profile',
   components: {
+    "sexual-preferences" : SexualPrefs,
     Header,
     NavBar,
     FameRating,
