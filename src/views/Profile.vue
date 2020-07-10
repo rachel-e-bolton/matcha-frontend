@@ -8,7 +8,7 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-              <FameRating />
+              
             </div>
             <div id="images">
               <Images v-bind:userId="this.viewedId"/>
@@ -16,13 +16,11 @@
             <div id="online">
 
             </div>
+            <!-- <div id="online">
+
+            </div> -->
             <div id="personal-details">
-              <div id="full-name">
-                
-              </div>
-              <div id="age-gender">
-                
-              </div>
+              <PersonalDetails />
             </div>
             <div id="location">
 
@@ -31,10 +29,10 @@
 
             </div>
             <div id="interests">
-
+              <Interests/>
             </div>
             <div id="sexual-preferences">
-
+              <SexualPrefs/>
             </div>
             <div id="other-actions">
              
@@ -55,13 +53,19 @@ import Header from '@/components/HeaderNav.vue'
 import FameRating from '@/components/profile-components/FameRating.vue'
 import Images from '@/components/profile-components/Images.vue'
 
+import SexualPrefs from '@/components/profile-components/SexualPrefs'
+import Interests from '@/components/profile-components/Interests'
+
 export default {
   name: 'profile',
   components: {
+    SexualPrefs,
+    Interests,
     Header,
     NavBar,
     FameRating,
-    Images
+    Images,
+    PersonalDetails
   },
   data() {
     return {
