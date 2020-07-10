@@ -45,7 +45,8 @@ export default {
       })
     },
     savePreferences: function () {
-      this.user.preferences = this.selectedTags
+      this.user.preferences = this.selectedTags.map(x => x.value)
+      
       this.$http.put(`${this.$api}/user/${this.user.id}`, {user: this.user})
         .then(resp => {
           console.log(resp)
