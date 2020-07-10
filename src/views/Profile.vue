@@ -29,10 +29,10 @@
 
             </div>
             <div id="interests">
-
+              <Interests/>
             </div>
             <div id="sexual-preferences">
-              <sexual-preferences></sexual-preferences>
+              <SexualPrefs/>
             </div>
             <div id="other-actions">
              
@@ -52,14 +52,15 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import FameRating from '@/components/profile-components/FameRating.vue'
 import Images from '@/components/profile-components/Images.vue'
-import PersonalDetails from '@/components/profile-components/PersonalDetails.vue'
-import SexualPrefs from '@/components/profile-components/SexualPrefs'
 
+import SexualPrefs from '@/components/profile-components/SexualPrefs'
+import Interests from '@/components/profile-components/Interests'
 
 export default {
   name: 'profile',
   components: {
-    "sexual-preferences" : SexualPrefs,
+    SexualPrefs,
+    Interests,
     Header,
     NavBar,
     FameRating,
