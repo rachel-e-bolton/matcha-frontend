@@ -16,13 +16,11 @@
             <div id="online">
 
             </div>
+            <!-- <div id="online">
+
+            </div> -->
             <div id="personal-details">
-              <div id="full-name">
-                
-              </div>
-              <div id="age-gender">
-                
-              </div>
+              <PersonalDetails />
             </div>
             <div id="location">
 
@@ -54,6 +52,7 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import FameRating from '@/components/profile-components/FameRating.vue'
 import Images from '@/components/profile-components/Images.vue'
+import PersonalDetails from '@/components/profile-components/PersonalDetails.vue'
 import SexualPrefs from '@/components/profile-components/SexualPrefs'
 
 
@@ -64,7 +63,8 @@ export default {
     Header,
     NavBar,
     FameRating,
-    Images
+    Images,
+    PersonalDetails
   }
 }
 </script>
