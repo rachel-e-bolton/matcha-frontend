@@ -55,6 +55,11 @@ const routes = [
     component: () => import('@/views/404.vue')
   },
   {
+    path: '/discover',
+    name: 'discover',
+    component: () => import('@/views/Discover.vue')
+  },
+  {
     path: '/settings',
     name: 'settings',
     component: () => import('@/views/Settings.vue'),
