@@ -52,7 +52,7 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import FameRating from '@/components/profile-components/FameRating.vue'
 import Images from '@/components/profile-components/Images.vue'
-
+import PersonalDetails from '@/components/profile-components/PersonalDetails'
 import SexualPrefs from '@/components/profile-components/SexualPrefs'
 import Interests from '@/components/profile-components/Interests'
 
