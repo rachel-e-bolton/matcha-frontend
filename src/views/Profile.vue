@@ -8,10 +8,10 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-              
+              <FameRating />
             </div>
             <div id="images">
-              <Images v-bind:userId="this.viewedId"/>
+              <Images />
             </div>
             <div id="online">
 
@@ -20,7 +20,7 @@
 
             </div> -->
             <div id="personal-details">
-              <PersonalDetails />
+              <PersonalDetails class="mx-md-5"/>
             </div>
             <div id="location">
 
@@ -29,10 +29,10 @@
 
             </div>
             <div id="interests">
-              <Interests/>
+              <Interests class="mx-md-5 my-3"/>
             </div>
             <div id="sexual-preferences">
-              <SexualPrefs/>
+              <SexualPrefs class="mx-md-5 my-3"/>
             </div>
             <div id="other-actions">
              
@@ -67,21 +67,6 @@ export default {
     Images,
     PersonalDetails
   },
-  data() {
-    return {
-      viewedId: 0,
-    }
-  },
-  methods: {
-    whoAmI: function () {
-      if (this.$store.user.id) {
-        this.viewedId = this.$store.user.id
-      }
-    }
-  },
-  created() {
-    this.whoAmI()
-  }
 }
 </script>
 

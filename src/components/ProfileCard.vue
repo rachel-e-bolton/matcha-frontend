@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import users from "../assets/temp.json";
+// import users from "../assets/temp.json";
 export default {
   data: () => {
     return {
