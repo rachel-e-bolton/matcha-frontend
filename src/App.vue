@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    {{ response }}
     <router-view/>
   </div>
 </template>
