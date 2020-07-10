@@ -6,7 +6,7 @@
           v-for="(n, index) in pageOffset"
           :key="index"
           no-body
-          class="overflow-hidden m-2"
+          class="overflow-hidden m-3"
           style="width: 600px"
         >
           <b-row no-gutters>
@@ -15,21 +15,24 @@
                 :src="require('../assets/no-photo.png')"
                 alt="Image"
                 class="rounded-0"
+                style="height: 300px; object-fit: cover"
                 v-if="!profiles[index].photos || !profiles[index].photos.image64"
               ></b-card-img>
               <b-card-img
                 :src="profiles[index].photos.image64"
                 alt="Image"
                 class="rounded-0"
+                style="height: 300px; object-fit: cover"
                 v-else
               ></b-card-img>
             </b-col>
             <b-col sm="6">
               <b-card-body :title="profiles[index].fname + ' ' + profiles[index].lname">
-                <b-card-text>{{profiles[index].bio}}</b-card-text>
-                <b-card-text>{{profiles[index].gender}}</b-card-text>
-                <b-card-text>{{profiles[index].online}}</b-card-text>
-                <b-card-text>{{profiles[index].lastseen}}</b-card-text>
+                <b-card-text v-if="profiles[index].gender">{{profiles[index].gender}}</b-card-text>
+                <b-card-text v-if="profiles[index].bio">{{profiles[index].bio}}</b-card-text>
+                <b-card-text v-if="profiles[index].online === true">Online</b-card-text>
+                <b-card-text v-else>Offline</b-card-text>
+                <b-card-text v-if="profiles[index].lastseen">{{profiles[index].lastseen}}</b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
@@ -52,7 +55,9 @@ export default {
       maxPerPage: 10,
       showLoader: false,
       totalResults: Object.keys(users).length,
-      profiles: users
+      profiles: users,
+      location: [],
+      noLocation: true
     };
   },
   computed: {
