@@ -1,3 +1,5 @@
+import state from '@/store'
+
 export default class MatchaWebsocket {
   constructor(url) {
     this.socket = new WebSocket(url)
@@ -10,9 +12,6 @@ export default class MatchaWebsocket {
   }
 
   route(event) {
-    
-    console.log(this)
-    console.log(event.data)
 
     let payload = JSON.parse(event.data)
     let method = payload.method
@@ -23,12 +22,6 @@ export default class MatchaWebsocket {
 
     }
 
-  }
-
-
-  setVue(vue) {
-    console.log("vue set", vue)
-    this.vue = vue
   }
 
   receiveMessage() {

@@ -10,6 +10,8 @@ import _ from 'lodash'
 import VueCroppie from 'vue-croppie';
 import 'croppie/croppie.css'
 
+import MatchaWebsocket from '@/socket'
+
 Vue.component('tags-input', VoerroTagsInput);
 
 const axios = require('axios').default;
@@ -25,15 +27,20 @@ Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://192.168.
 
 let state = localStorage.getItem("firewood")
 
+const socket = new MatchaWebsocket("ws://127.0.0.1:5000/ws")
+
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
+  //socket.authenticate(Vue.prototype.$store.token)
 } else {
   Vue.prototype.$store = Vue.observable({ 
     token: false,
     user: false,
   })
 }
+
+Vue.prototype.$socket = socket
 
 new Vue({
   router,
