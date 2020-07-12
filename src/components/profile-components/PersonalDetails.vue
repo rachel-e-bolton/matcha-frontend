@@ -5,7 +5,7 @@
         <div
           v-if="!fnameEdit"
           @click="fnameOn()"
-          style="font-size: 1.5rem; font-weight: 700"
+          style="font-size: 1.75rem; font-weight: 700"
         >
           {{ user.fname }}
         </div>
@@ -22,7 +22,7 @@
           v-if="!lnameEdit"
           @click="lnameOn()"
           class="ml-2"
-          style="font-size: 1.5rem;"
+          style="font-size: 1.75rem;"
         >
           {{ user.lname }}
         </div>
