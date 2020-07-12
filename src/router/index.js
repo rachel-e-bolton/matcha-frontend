@@ -84,6 +84,18 @@ const routes = [
     }
   },
   {
+    path: '/chat',
+    name: 'chat',
+    component: () => import('@/views/Chat.vue'),
+    beforeEnter: (to, from, next) => {
+      if (isAuth()) {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  },
+  {
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/Admin.vue'),

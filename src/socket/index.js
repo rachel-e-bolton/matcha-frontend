@@ -1,3 +1,5 @@
+import state from '@/store'
+
 export default class MatchaWebsocket {
   constructor(url) {
     this.socket = new WebSocket(url)
@@ -5,14 +7,11 @@ export default class MatchaWebsocket {
   }
 
   authenticate(jwt) {
-    this.socket.send(JSON.stringify({token: jwt, method: "authenticate", content: ""}))
+    this.socket.send(JSON.stringify({jwt: jwt, method: "register", content: ""}))
     this.jwt = jwt
   }
 
   route(event) {
-    
-    console.log(this)
-    console.log(event.data)
 
     let payload = JSON.parse(event.data)
     let method = payload.method
@@ -25,18 +24,12 @@ export default class MatchaWebsocket {
 
   }
 
-
-  setVue(vue) {
-    console.log("vue set", vue)
-    this.vue = vue
-  }
-
   receiveMessage() {
     alert("Got a message!")
   }
 
   sendMessage(message) {
     console.log("asdasd")
-    this.socket.send(JSON.stringify({token: this.jwt, method: "sendMessage", content: {to: "all", message: message}}))
+    this.socket.send(JSON.stringify({jwt: this.jwt, method: "sendMessage", content: {to: "all", message: message}}))
   }
 }

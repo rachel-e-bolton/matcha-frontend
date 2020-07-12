@@ -66,6 +66,18 @@ export default {
         console.log(err)
       })
     },
+    setSelectedInterests() {
+      this.$http.get(`${this.$api}/user/${this.store.user.id}`)
+      .then(resp => {
+        this.user = resp.data
+        this.selectedTags = this.availableTags.filter(tag => {
+          return (this.user.interests.indexOf(tag.value) >= 0)
+        })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    },
     saveInterests: function () {
       this.user.interests = this.selectedTags.map(x => x.value)
       
