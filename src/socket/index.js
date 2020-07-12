@@ -7,7 +7,7 @@ export default class MatchaWebsocket {
   }
 
   authenticate(jwt) {
-    this.socket.send(JSON.stringify({token: jwt, method: "authenticate", content: ""}))
+    this.socket.send(JSON.stringify({jwt: jwt, method: "register", content: ""}))
     this.jwt = jwt
   }
 
@@ -30,6 +30,6 @@ export default class MatchaWebsocket {
 
   sendMessage(message) {
     console.log("asdasd")
-    this.socket.send(JSON.stringify({token: this.jwt, method: "sendMessage", content: {to: "all", message: message}}))
+    this.socket.send(JSON.stringify({jwt: this.jwt, method: "sendMessage", content: {to: "all", message: message}}))
   }
 }
