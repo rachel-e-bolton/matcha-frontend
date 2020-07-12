@@ -286,10 +286,6 @@ export default {
         .then((res) => {
           this.images64 = _.cloneDeep(res.data.images);
           this.getBase64();
-          console.log(this.images64);
-          if (this.images64[0].is_primary) {
-            console.log("true");
-          }
         })
         .catch((err) => {});
     },
