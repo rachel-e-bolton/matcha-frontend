@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import users from "../assets/temp.json";
 export default {
   data: () => {
     return {
@@ -55,7 +54,7 @@ export default {
       maxPerPage: 10,
       showLoader: false,
       totalResults: Object.keys(users).length,
-      profiles: users,
+      profiles: [],
       location: [],
       noLocation: true
     };
