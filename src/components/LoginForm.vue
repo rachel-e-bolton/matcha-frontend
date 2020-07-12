@@ -95,6 +95,7 @@
                 variant: "info",
                 noCloseButton: true,
                 })
+                self.$socket.authenticate(self.$store.token)
                 setTimeout(() => {
                   localStorage.setItem("firewood", JSON.stringify(self.$store))
                   self.$router.push('/profile')

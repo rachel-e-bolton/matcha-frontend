@@ -27,12 +27,17 @@ Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://192.168.
 
 let state = localStorage.getItem("firewood")
 
-Vue.prototype.$socket = new MatchaWebsocket("ws://127.0.0.1:5000/ws")
+let socketUri = (process.env.NODE_ENV === 'development') ? "ws://192.168.88.251:5000/ws" : "wss://api.matchame.co.za/ws"
+
+Vue.prototype.$socket = new MatchaWebsocket(socketUri)
 
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
-  Vue.prototype.$socket.onconnect = () => {Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)}
+  Vue.prototype.$socket.socket.onopen = () => {
+    console.log("Connecting Websocket and authenticating")
+    Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)
+  }
 } else {
   Vue.prototype.$store = Vue.observable({ 
     token: false,
