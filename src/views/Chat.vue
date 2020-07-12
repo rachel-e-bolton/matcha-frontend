@@ -1,9 +1,6 @@
 <template>
   <div>
     Users
-    
-
-
 
     <input v-model="message"  type="text">
     <button @click="send()">send</button>
