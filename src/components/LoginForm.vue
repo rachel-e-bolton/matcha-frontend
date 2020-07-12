@@ -41,7 +41,13 @@
             </b-form-group>
 
             <div class="d-flex flex-column">
-              <router-link class="ml-lg-4 my-1 small text-secondary display-8" to="/passwordreset">Forgot password?</router-link>
+              <a @click.prevent="showModal('reset')" class="ml-lg-4 my-1 small text-secondary display-8">Forgot password?</a>
+
+              <b-modal ref="reset" hide-footer title="Reset your Password">
+                <div class="d-block text-center">
+                  <ResetPassword/>
+                </div>
+              </b-modal>
               <router-link class="ml-lg-4 my-1 mb-3 small text-secondary display-8" to="/signup">Don't have an account? Signup now.</router-link>
             </div>
             <b-button class="float-right d-none d-md-block d-lg-block d-xl-block" variant="primary" type="submit">Login</b-button>
@@ -56,7 +62,10 @@
 </template>
 
 <script>
+  import ResetPassword from '@/components/ResetPassword'
+
   export default {
+    components: {ResetPassword},
     data() {
       return {
         errors: [],
@@ -69,6 +78,9 @@
       }
     },
     methods: {
+    showModal(ref) {
+      this.$refs[ref].show()
+    },
     onSubmit: function (evt) {
       let self = this
       this.$http.post(`${this.$api}/login`, this.loginForm)
