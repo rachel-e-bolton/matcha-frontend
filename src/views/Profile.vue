@@ -8,7 +8,7 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-              <FameRating />
+              <FameRating class="mx-md-5"/>
             </div>
             <div id="images">
               <Images />
@@ -26,7 +26,7 @@
 
             </div>
             <div id="bio">
-
+              <Bio />
             </div>
             <div id="interests">
               <Interests class="mx-md-5 my-3"/>
@@ -55,6 +55,7 @@ import Images from '@/components/profile-components/Images.vue'
 import PersonalDetails from '@/components/profile-components/PersonalDetails'
 import SexualPrefs from '@/components/profile-components/SexualPrefs'
 import Interests from '@/components/profile-components/Interests'
+import Bio from '@/components/profile-components/Bio'
 
 export default {
   name: 'profile',
@@ -65,7 +66,8 @@ export default {
     NavBar,
     FameRating,
     Images,
-    PersonalDetails
+    PersonalDetails,
+    Bio
   },
 }
 </script>
