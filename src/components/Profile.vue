@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-90 d-flex justify-content-center">
-    <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
+    <b-col sm="auto" md="5" lg="2" class="rounded-lg shadow bg-light">
       <div id="profile">
         <div id="fame-rating">
           <div id="my-rating">
