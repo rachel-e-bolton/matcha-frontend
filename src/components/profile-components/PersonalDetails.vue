@@ -112,7 +112,7 @@ export default {
         var today = new Date();
         var mili_dif = Math.abs(today.getTime() - dob_asdate.getTime());
         var age = mili_dif / (1000 * 3600 * 24 * 365.25);
-        age = age.toFixed(0);
+        age = Math.floor(age);
       }
       return age;
     },
