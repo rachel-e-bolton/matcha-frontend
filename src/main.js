@@ -1,19 +1,22 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/styles/custom.scss'
-import Axios from 'axios'
+import VoerroTagsInput from '@voerro/vue-tagsinput'
+import _ from 'lodash'
+import VueCroppie from 'vue-croppie';
+import 'croppie/croppie.css'
+
+Vue.component('tags-input', VoerroTagsInput);
 
 const axios = require('axios').default;
 
-Vue.use(VueMaterial)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VueCroppie)
 
 Vue.config.productionTip = false
 
@@ -24,7 +27,7 @@ let state = localStorage.getItem("firewood")
 
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
-  Vue.prototype.$http.defaults.headers.common['Authorisation'] = 'Bearer ' + Vue.prototype.$store.token
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
 } else {
   Vue.prototype.$store = Vue.observable({ 
     token: false,
