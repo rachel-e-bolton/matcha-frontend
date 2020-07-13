@@ -4,6 +4,9 @@
     <div class="d-flex flex-row flex-wrap justify-content-center my-2">
       <div v-if="showLocation" @click="changeLoc" title="Click to update location">
         {{ locationName }}
+        <div v-if="!locationName">
+          <b-spinner variant="primary" label="Spinning"></b-spinner>
+        </div>
       </div>
       <div class="mx-5" v-if="permissionCheck">
         Use GPS for location?
@@ -29,7 +32,8 @@ export default {
       showLocation: false,
       mapsKey: '',
       ipstackKey: '',
-      locationName: ''
+      locationName: '',
+      loading: false
     }
   },
   methods: {
@@ -112,6 +116,8 @@ export default {
 
     getLocationName: async function () {
       delete this.$http.defaults.headers.common["Authorization"]
+      this.showLocation = true
+      this.loading = true
       this.$http.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.user.latitude},${this.user.longitude}&key=${this.mapsKey}`, )
       .then(res => {
         this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token 

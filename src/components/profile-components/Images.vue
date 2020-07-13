@@ -6,7 +6,7 @@
         style="height: 400px;"
         class="d-flex justify-content-center align-items-center"
       >
-        <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+        <b-spinner variant="primary" label="Spinning"></b-spinner>
       </div>
       <div v-else>
         <div v-if="imageSrc.length > 0" class="d-flex justify-content-center">
