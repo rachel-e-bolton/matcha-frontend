@@ -92,6 +92,7 @@ export default {
   },
   created: async function () {
     await this.getInterests()
+    this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token
     this.$http.get(`${this.$api}/user/${this.store.user.id}`)
       .then(resp => {
         this.user = resp.data
