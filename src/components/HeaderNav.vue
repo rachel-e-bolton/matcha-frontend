@@ -19,6 +19,7 @@
           </template>
           <b-dropdown-item @click="logout"><b-icon icon="box-arrow-right" class="mr-2 text-secondary"></b-icon>Logout</b-dropdown-item>
           <b-dropdown-item to='/settings'><b-icon icon="gear" class="mr-2 text-secondary"></b-icon>Settings</b-dropdown-item>
+          <b-dropdown-item to='/stats'><b-icon icon="graph-up" class="mr-2 text-secondary"></b-icon>User Stats</b-dropdown-item>
           <b-dropdown-item v-if="isAdmin" to='/admin'><b-icon icon="shield-lock" class="mr-2 text-secondary"></b-icon>Admin Panel</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
