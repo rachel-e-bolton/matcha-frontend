@@ -35,7 +35,17 @@ export default {
           }, 3000);
         })
         .catch(err => {
-          console.log(err.response.data.message)
+          this.$bvToast.toast('Unable to send reset email. Error: ' + err.response.data.message, {
+            title: "Error!",
+            autoHideDelay: 5000,
+            toaster: "b-toaster-top-center",
+            variant: "warning",
+            noCloseButton: false,
+          })
+
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 3000);
         })
     }
   }

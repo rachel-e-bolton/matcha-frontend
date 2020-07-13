@@ -12,14 +12,9 @@
         </b-input-group>
       </div>
       <div v-else>
-        <b-input-group>
-          <b-form-input v-model="old_password" type="password" placeholder="Old password here..." required></b-form-input>
-          <b-form-input v-model="new_password" type="password" placeholder="New password here..." required></b-form-input>
-
-          <b-input-group-append>
-            <b-button variant="outline-secondary" type="submit">Change Password</b-button>
-          </b-input-group-append>
-        </b-input-group>
+          <b-form-input class="mb-2" v-model="old_password" type="password" placeholder="Old password here..." required></b-form-input>
+          <b-form-input class="mb-2" v-model="new_password" type="password" placeholder="New password here..." required></b-form-input>
+          <b-button variant="outline-secondary" type="submit">Change Password</b-button>
       </div>
     </form>
   </div>
@@ -62,7 +57,7 @@ export default {
             title: "Error!",
             autoHideDelay: 5000,
             toaster: "b-toaster-top-center",
-            variant: "info",
+            variant: "warning",
             noCloseButton: false,
           })
 
@@ -77,6 +72,8 @@ export default {
         {previous_password: this.old_password, new_password: this.new_password, user_id: this.user_id}
       )
       .then(res => {
+        this.new_password = null
+        this.old_password = null
         this.$bvToast.toast('Password successfully reset', {
           title: "Success!",
           autoHideDelay: 5000,
@@ -90,7 +87,7 @@ export default {
           title: "Error!",
           autoHideDelay: 5000,
           toaster: "b-toaster-top-center",
-          variant: "info",
+          variant: "warning",
           noCloseButton: false,
         })
       })
