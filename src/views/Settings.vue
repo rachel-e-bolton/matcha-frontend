@@ -36,14 +36,19 @@
             <b-button class="btn-block p-3" v-b-toggle.password>Change Password</b-button>
             <b-collapse id="password" class="mt-2">
               <b-card>
-                Current Password<input type="password"><br/>
-                New Password<input v-model="password" type="password"><br/>
-                <button @click="updatePassword">Update</button>
+                <ChangePassword />
+              <a @click.prevent="showModal('reset')" class="my-1 small text-secondary display-8">Forgot password?</a>
+
+              <b-modal ref="reset" hide-footer title="Reset your Password">
+                <div class="d-block text-center">
+                  <ResetPassword/>
+                </div>
+              </b-modal>
               </b-card>
             </b-collapse>
           </div>
 
-          <div class="mb-4">
+          <!-- <div class="mb-4">
             <b-button class="btn-danger btn-block p-3" v-b-toggle.del_account>Delete Account</b-button>
             <b-collapse @hide="acceptWarning = false" id="del_account" class="mt-2">
               <b-card>
@@ -58,7 +63,7 @@
                 </div>
               </b-card>
             </b-collapse>
-          </div>
+          </div> -->
         </b-col>
       </div>
 
@@ -72,12 +77,16 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
+import ChangePassword from '@/components/ChangePassword.vue'
+import ResetPassword from '@/components/ResetPassword.vue'
 
 export default {
   name: 'settings',
   components: {
     Header,
-    NavBar
+    NavBar,
+    ChangePassword,
+    ResetPassword
   },
   data: function () {
     return {
@@ -89,6 +98,9 @@ export default {
     }
   },
   methods: {
+    showModal(ref) {
+      this.$refs[ref].show()
+    },
     updateUsername: function () {
       console.log("Updating Username")
     },
