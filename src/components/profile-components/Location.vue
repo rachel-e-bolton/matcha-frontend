@@ -4,7 +4,7 @@
     <div class="d-flex flex-row flex-wrap justify-content-center my-2">
       <div v-if="showLocation" @click="changeLoc" title="Click to update location">
         {{ locationName }}
-        <div v-if="!locationName">
+        <div v-if="!locationName || loading">
           <b-spinner variant="primary" label="Spinning"></b-spinner>
         </div>
       </div>
@@ -123,11 +123,13 @@ export default {
         this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token 
         this.locationName = res.data.results[0].address_components[2].long_name + ", " + res.data.results[0].address_components[6].long_name
         this.showLocation = true
+        this.loading = false
       })
       .catch(err => {
         this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token
         this.locationName = "No location info available"
         this.showLocation = true
+        this.loading = false
       })
     },
 
