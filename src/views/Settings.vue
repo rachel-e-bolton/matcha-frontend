@@ -14,9 +14,7 @@
             <b-button class="btn-block p-3" v-b-toggle.username>Change Username</b-button>
             <b-collapse id="username" class="mt-2">
               <b-card>
-                <p>Change your current username</p>
-                <input type="text">
-                <button @click="updateUsername">Save</button>
+                <ChangeUsername />
               </b-card>
             </b-collapse>
           </div>
@@ -79,6 +77,7 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import ChangePassword from '@/components/ChangePassword.vue'
 import ResetPassword from '@/components/ResetPassword.vue'
+import ChangeUsername from '@/components/ChangeUsername.vue'
 
 export default {
   name: 'settings',
@@ -86,7 +85,8 @@ export default {
     Header,
     NavBar,
     ChangePassword,
-    ResetPassword
+    ResetPassword,
+    ChangeUsername
   },
   data: function () {
     return {
