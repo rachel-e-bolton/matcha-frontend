@@ -74,7 +74,7 @@ export default {
       .then(res => {
         this.new_password = null
         this.old_password = null
-        this.$bvToast.toast('Password successfully reset', {
+        this.$bvToast.toast('Password successfully changed.', {
           title: "Success!",
           autoHideDelay: 5000,
           toaster: "b-toaster-top-center",
