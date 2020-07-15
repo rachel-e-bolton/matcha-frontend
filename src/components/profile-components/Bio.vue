@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  props: ["user"]
+  props: ["user"],
   data() {
     return {
       bioEdit: false,

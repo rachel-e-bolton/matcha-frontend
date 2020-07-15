@@ -13,9 +13,6 @@
             <div id="images">
               <Images />
             </div>
-            <div id="online">
-
-            </div>
             <!-- <div id="online">
 
             </div> -->
@@ -23,7 +20,7 @@
               <PersonalDetails class="mx-md-5"/>
             </div>
             <div id="location">
-
+              <Location class="mx-md-5"/>
             </div>
             <div id="bio">
               <Bio />
@@ -56,6 +53,7 @@ import PersonalDetails from '@/components/profile-components/PersonalDetails'
 import SexualPrefs from '@/components/profile-components/SexualPrefs'
 import Interests from '@/components/profile-components/Interests'
 import Bio from '@/components/profile-components/Bio'
+import Location from '@/components/profile-components/Location'
 
 export default {
   name: 'profile',
@@ -67,7 +65,8 @@ export default {
     FameRating,
     Images,
     PersonalDetails,
-    Bio
+    Bio,
+    Location
   },
 }
 </script>

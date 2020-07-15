@@ -46,9 +46,11 @@
         >
           {{ age() }},
         </div>
+        <label for="datepicker" v-if="dobEdit">Birthday: </label>
         <b-form-datepicker
+          id="datepicker"
           dark
-          class="mr-2 col-8 small mb-2"
+          class="mx-2 col-8 small mb-2"
           v-model="user.dob"
           v-if="dobEdit"
           @input="dobOff()"
@@ -82,7 +84,7 @@ export default {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const maxDate = new Date(today);
-    maxDate.setFullYear(today.getFullYear() - 18);
+    maxDate.setFullYear(today.getFullYear() - 19);
 
     return {
       fnameEdit: false,
