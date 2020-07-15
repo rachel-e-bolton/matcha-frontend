@@ -12,12 +12,12 @@
       </span>
     </div>
     <div fixed="bottom" class="d-md-none d-lg-none d-xl-none px-4 mt-5 pt-5 d-flex flex-column justify-content-center">
-      <b-button href="/login" class="btn-block" pill>Login</b-button>
-      <b-button href="/signup" class="btn-block" pill>Sign Up</b-button>
+      <b-button to="/login" class="btn-block" pill>Login</b-button>
+      <b-button to="/signup" class="btn-block" pill>Sign Up</b-button>
     </div>
     <div fixed="bottom" class="d-none d-md-flex d-lg-flex d-xl-flex px-4 mt-5 pt-5 flex-row justify-content-center">
-      <b-button href="/login" style="width: 200px; margin-top: 100px" class="mx-2" pill>Login</b-button>
-      <b-button href="/signup" style="width: 200px; margin-top: 100px" class="mx-2" pill>Sign Up</b-button>
+      <b-button to="/login" style="width: 200px; margin-top: 100px" class="mx-2" pill>Login</b-button>
+      <b-button to="/signup" style="width: 200px; margin-top: 100px" class="mx-2" pill>Sign Up</b-button>
     </div>
 
     <b-modal ref="terms" hide-footer title="Terms of Use">

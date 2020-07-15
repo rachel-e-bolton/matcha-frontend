@@ -9,6 +9,7 @@ export default class MatchaWebsocket {
   authenticate(jwt) {
     this.socket.send(JSON.stringify({jwt: jwt, method: "register", content: ""}))
     this.jwt = jwt
+    this.socket.onopen = null
   }
 
   route(event) {

@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <div
-        class="d-flex justify-content-center flex-column align-items-center"
-      >
+      <div class="d-flex justify-content-center flex-column align-items-center">
         <h4 @click="bioOn()" style="font-weight: 700">Bio</h4>
         <div v-if="!bioEdit" @click="bioOn()" class="mx-4">
           {{ user.bio }}
@@ -16,8 +14,8 @@
           @blur="bioOff()"
           @keyup.enter="bioOff()"
           rows="4"
-          max-rows="6"
-        ></b-form-textarea>
+          max-rows="6">
+        </b-form-textarea>
       </div>
     </div>
   </div>
@@ -25,6 +23,7 @@
 
 <script>
 export default {
+  props: ["user"]
   data() {
     return {
       bioEdit: false,
@@ -35,13 +34,8 @@ export default {
   },
   methods: {
     bioOn: function() {
-      if (this.bioEdit === false) {
-        this.bioEdit = true
-      } else {
-        this.bioEdit = false
-      }
+      this.bioEdit = !this.bioEdit
     },
-
     bioOff: function() {
       this.bioEdit = false;
       if (this.$store.user.bio != this.user.bio) {

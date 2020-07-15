@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import {actions, state} from "@/store"
 
 Vue.use(VueRouter)
 
@@ -61,6 +62,7 @@ const routes = [
   },
   {
     path: '/settings',
+    meta: "auth-required",
     name: 'settings',
     component: () => import('@/views/Settings.vue'),
     beforeEnter: (to, from, next) => {
@@ -75,13 +77,17 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
-    beforeEnter: (to, from, next) => {
-      if (isAuth()) {
-        next()
-      } else {
-        next('/login')
-      }
+    meta: {
+      requireAuth: true,
+      redirect: "/login"
     }
+    // beforeEnter: (to, from, next) => {
+    //   if (isAuth()) {
+    //     next()
+    //   } else {
+    //     next('/login')
+    //   }
+    // }
   },
   {
     path: '/chat',
@@ -116,21 +122,11 @@ const router = new VueRouter({
 })
 
 function isAuth() {
-  let auth = localStorage.getItem("firewood")
-  if (auth) {
-    return true
-  } else {
-    return false
-  }
+  return state.loggedIn
 }
 
 function isAdmin() {
-  if (isAuth()) {
-    Vue.prototype.$auth = Vue.observable(JSON.parse(localStorage.getItem("firewood")))
-    return Vue.prototype.$auth.user.is_admin
-  } else {
-    return false
-  }
+  return (state.loggedIn && state.user.is_admin)
 }
 
 export default router

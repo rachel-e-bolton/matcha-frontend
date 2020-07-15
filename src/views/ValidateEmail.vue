@@ -22,7 +22,7 @@
       </div>
       <div v-if="success">        
         <b-icon style="width: 5rem; height: 5rem;" class="text-primary" icon="check2"></b-icon>
-        <div class="text-centered text-primary mt-4 mb-4">Thank you for verifying your account. Redirecting to <a href="/login">login</a></div>
+        <div class="text-centered text-primary mt-4 mb-4">Thank you for verifying your account. Redirecting to <router-link to="/login">login</router-link></div>
       </div>
     </div>
   </div>

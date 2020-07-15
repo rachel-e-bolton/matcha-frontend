@@ -63,6 +63,7 @@
 
 <script>
   import ResetPassword from '@/components/ResetPassword'
+  import {actions, state} from "@/store"
 
   export default {
     components: {ResetPassword},
@@ -81,34 +82,51 @@
     showModal(ref) {
       this.$refs[ref].show()
     },
-    onSubmit: function (evt) {
-      let self = this
-      this.$http.post(`${this.$api}/login`, this.loginForm)
-        .then(res => {
-          if ((self.$http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token)
-              && (self.$store.user = res.data.user)
-              && (self.$store.token = res.data.access_token)) {
-                self.$bvToast.toast(res.data.user.username + ' logged in.', {
-                title: "Success!",
-                autoHideDelay: 2000,
-                toaster: "b-toaster-top-center",
-                variant: "info",
-                noCloseButton: true,
-                })
-                self.$socket.authenticate(self.$store.token)
-                setTimeout(() => {
-                  localStorage.setItem("firewood", JSON.stringify(self.$store))
-                  self.$router.push('/profile')
-                }, 1500);
-              }
-        })
-        .catch(err => {
-          self.$bvToast.toast(err.response.data.message, {
-          title: "Error!",
-          autoHideDelay: 5000,
-          variant: "danger"
-          })
-        })
+    onSubmit: async function (evt) {
+
+      let login = await actions.loginUser(this.loginForm.username, this.loginForm.password)
+
+      if (!login)
+        actions.notify.error("Could not log you in :(")
+      else {
+        try {
+          this.$router.push("profile")
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+        //this.$router.push('/profile')
+      
+
+
+      // this.$http.post(`${this.$api}/login`, this.loginForm)
+      //   .then(res => {
+          
+          // if ((self.$http.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token)
+          //     && (self.$store.user = res.data.user)
+          //     && (self.$store.token = res.data.access_token)) {
+          //       self.$bvToast.toast(res.data.user.username + ' logged in.', {
+          //       title: "Success!",
+          //       autoHideDelay: 2000,
+          //       toaster: "b-toaster-top-center",
+          //       variant: "info",
+          //       noCloseButton: true,
+          //       })
+          //       self.$socket.authenticate(self.$store.token)
+          //       setTimeout(() => {
+          //         localStorage.setItem("firewood", JSON.stringify(self.$store))
+          //         self.$router.push('/profile')
+          //       }, 1500);
+          //     }
+        // })
+        // .catch(err => {
+        //   self.$bvToast.toast(err.response.data.message, {
+        //   title: "Error!",
+        //   autoHideDelay: 5000,
+        //   variant: "danger"
+        //   })
+        // })
     }
   }
   }

@@ -45,8 +45,15 @@ if (state) {
   })
 }
 
+import {actions, stateNew} from '@/store'
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+
+actions.init(Vue.prototype.$api)
+  .then(() => {
+    let vue = new Vue({
+      router,
+      render: h => h(App)
+    }).$mount('#app')
+    
+    actions.setVue(vue)
+  })

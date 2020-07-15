@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import {actions, state} from '@/store'
+
 export default {
   
 }

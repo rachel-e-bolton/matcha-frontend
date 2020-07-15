@@ -15,7 +15,7 @@
             <b-collapse id="username" class="mt-2">
               <b-card>
                 <p>Change your current username</p>
-                <input type="text">
+                <input v-model="username" type="text">
                 <button @click="updateUsername">Save</button>
               </b-card>
             </b-collapse>
@@ -90,10 +90,10 @@ export default {
   },
   data: function () {
     return {
-      username: null,
-      password: null,
-      email: null,
-      acceptEmail: null,
+      username: "",
+      password: "",
+      email: "",
+      acceptEmail: "",
       acceptWarning: false
     }
   },
@@ -101,8 +101,20 @@ export default {
     showModal(ref) {
       this.$refs[ref].show()
     },
+    toast: function (message, options) {
+      this.$bvToast.toast(message, {...{
+        title: "Success!",
+        autoHideDelay: 2000,
+        toaster: "b-toaster-top-center",
+        variant: "info",
+        noCloseButton: true,
+        }, ...options})
+    },
     updateUsername: function () {
       console.log("Updating Username")
+      if (this.username.length > 3) {
+        this.doPut({username: this.username})
+      }
     },
     updatePassword: function () {
       console.log("Updating Password")
@@ -115,7 +127,16 @@ export default {
     },
     deleteAccount: function () {
       console.log("Deleting Account")
+    },
+    doPut: function (updateObj) {
+      this.$http.put(`${this.$api}/user/${this.$store.user.id}`, {user : updateObj})
+          .then(resp => this.toast(resp.data))
+          .catch(err => this.toast(err.response))
     }
+  },
+  mounted: function () {
+    this.email = this.$store.user.email
+    this.username = this.$store.user.username
   }
 }
 </script>

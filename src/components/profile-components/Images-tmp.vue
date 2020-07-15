@@ -72,6 +72,7 @@
   import 'hooper/dist/hooper.css';
 
   export default {
+    props: ["user"],
     components: {
       Hooper,
       Slide,
