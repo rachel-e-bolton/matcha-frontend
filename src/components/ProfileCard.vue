@@ -7,8 +7,7 @@
           :key="index"
           no-body
           class="overflow-hidden m-3"
-          style="width: 600px"
-        >
+          style="width: 600px">
           <b-row no-gutters>
             <b-col sm="6">
               <b-card-img
@@ -53,7 +52,8 @@ export default {
       currentPage: 1,
       maxPerPage: 10,
       showLoader: false,
-      totalResults: Object.keys(users).length,
+      //totalResults: Object.keys(users).length,
+      totalResults: 1,
       profiles: [],
       location: [],
       noLocation: true
