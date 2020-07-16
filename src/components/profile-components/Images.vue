@@ -139,6 +139,8 @@
 import { Hooper, Slide, Navigation as HooperNavigation } from "hooper";
 import "hooper/dist/hooper.css";
 
+import {actions, state} from "@/store"
+
 export default {
   components: {
     Hooper,
@@ -282,7 +284,7 @@ export default {
 
     loadUser: function() {
       this.$http
-        .get(`${this.$api}/user/${this.$store.user.id}`)
+        .get(`${this.$api}/user/${state.user.id}`)
         .then((res) => {
           this.images64 = _.cloneDeep(res.data.images);
           this.getBase64();

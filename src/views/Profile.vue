@@ -8,7 +8,7 @@
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-              <FameRating class="mx-md-5"/>
+              <FameRating :user="user" class="mx-md-5"/>
             </div>
             <div id="images">
               <Images />
