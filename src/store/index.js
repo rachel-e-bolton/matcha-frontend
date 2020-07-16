@@ -3,6 +3,7 @@ import _ from "lodash"
 import axios from "axios"
 
 import diff from "deep-diff"
+import { readyException } from "jquery";
 
 export const state = Vue.observable({
   notifications: [],
@@ -151,6 +152,18 @@ export const actions = {
     },
     name: async (pos) => {
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.long}&key=${state.mapsKey}`
+      
+      try {
+        let resp = await axios.get(url)
+        
+        if (resp.data.results) {
+          let f = resp.data.results[0]["address_components"]
+          return `${f[2]["long_name"]}, ${f[6]["long_name"]}`
+        }
+        throw new Exception()
+      } catch (error) {
+        return "No location data available."
+      }
     }
   },
   getApiKeys: async function () {

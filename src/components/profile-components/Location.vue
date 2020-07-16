@@ -34,14 +34,9 @@ export default {
     return {
       permissionCheck: false,
       showLocation: false,
-      mapsKey: '',
-      ipstackKey: '',
       locationName: '',
       loading: false,
-      pos: {
-        lat: null,
-        long: null
-      }
+      pos: null
     }
   },
   methods: {
@@ -52,87 +47,34 @@ export default {
 
     useIP: async function () {
       this.permissionCheck = false
-
-      let pos = await actions.location.ip()
-      console.log(pos)
-
-      //this.getPositionIP()
-
+      this.pos = await actions.location.ip()
+      this.getLocation()
     },
-
     useGPS: async function () {
       this.permissionCheck = false
-
-      let pos = await actions.location.browser()
-      console.log(pos)
-
-
-      //this.getPositionGPS()
+      this.pos = await actions.location.browser()
+      this.getLocation()
     },
-
-
-    updateLocation: function () {
-      return
-
-
-      // this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token
-      // if (this.$store.user.latitude != this.user.latitude || this.$store.user.longitude != this.user.longitude) {
-      //   this.$http
-      //     .put(`${this.$api}/user/${this.user.id}`, {
-      //       user: _.omit(this.user, "images"),
-      //     })
-      //     .then((res) => {
-      //       this.$store.user = _.cloneDeep(this.user);
-      //       localStorage.setItem("firewood", JSON.stringify(this.$store));
-      //     })
-      //     .catch((err) => {
-      //       let test1 = this.$store.user;
-      //       let test2 = this.user;
-      //     });
-      // }
-    },
-
-    getLocationName: async function () {
-
-
+    getLocation: async function () {
+      this.locationName = await actions.location.name(this.pos)
       this.showLocation = true
-      this.loading = true
-      
-      
-      
-      
-      this.$http.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.user.latitude},${this.user.longitude}&key=${this.mapsKey}`, )
-      .then(res => {
-        this.locationName = res.data.results[0].address_components[2].long_name + ", " + res.data.results[0].address_components[6].long_name
-        this.showLocation = true
-        this.loading = false
-      })
-      .catch(err => {
-        this.locationName = "No location info available"
-        this.showLocation = true
-        this.loading = false
-      })
+      this.loading = false
+      this.updateLocation()
     },
-
-    getAPIKeys: function () {
-      return this.$http.get(`${this.$api}/api-keys`)
-      .then(res => {
-        this.mapsKey = res.data.google_maps
-        this.ipstackKey = res.data.ipstack
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
+    updateLocation: function () {
+      this.user.latitude = this.pos.lat
+      this.user.longitude = this.pos.long
+      this.$emit("sync")
+      return
+    }
   },
-  created: async function () {
+  mounted: async function () {
     
-    this.user = _.cloneDeep(this.$store.user)
-    if (!this.user.latitude && !this.user.longitude) {
+    if (!this.user.latitude || !this.user.longitude) {
       this.permissionCheck = true
     } else {
-      this.getLocationName()
-      this.showLocation = true
+      this.pos = {lat: this.user.latitude, long: this.user.longitude}
+      this.getLocation()
     }
   }
 }
