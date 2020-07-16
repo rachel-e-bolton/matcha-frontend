@@ -1,9 +1,10 @@
 <template>
   <div class="h-100 d-flex flex-column justify-content-center align-items-center my-5">
-    <form @submit.prevent="changeUsername">
+    <form @submit.prevent="changeEmail">
       <div>
         <b-input-group>
-          <b-form-input v-model="user.username" placeholder="New username here..." required></b-form-input>
+          <p>Changing your current email will log you out and require you to reverify your email account.</p>
+          <b-form-input v-model="user.email" placeholder="New email here..." required></b-form-input>
 
           <b-input-group-append>
             <b-button variant="outline-secondary" type="submit">Submit</b-button>
@@ -15,11 +16,14 @@
 </template>
 
 <script>
+import {actions} from '@/store'
+
 export default {
   props: ["user"],
   methods: {
-    changeUsername: function () {
+    changeEmail: function () {
       this.$emit("sync")
+      actions.logoutUser()
     },
   },
   mounted: function () {
