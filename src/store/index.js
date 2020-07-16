@@ -123,6 +123,10 @@ export const actions = {
     error: (message, options) => {
       let opt = {...actions.notify.setOpts(options), title: "Error!", variant: "danger"}
       actions.vue.$bvToast.toast(message, opt)
+    },
+    warning: (message, options) => {
+      let opt = {...actions.notify.setOpts(options), title: "Please Note!", variant: "warning"}
+      actions.vue.$bvToast.toast(message, opt)
     }
   },
   location: {
