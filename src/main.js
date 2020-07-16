@@ -33,7 +33,7 @@ Vue.prototype.$socket = new MatchaWebsocket(socketUri)
 
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
+  //Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
   Vue.prototype.$socket.socket.onopen = () => {
     console.log("Connecting Websocket and authenticating")
     Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)

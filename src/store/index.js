@@ -151,6 +151,7 @@ export const actions = {
       }
     },
     name: async (pos) => {
+      if (!state.mapsKey) {return null}
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.long}&key=${state.mapsKey}`
       
       try {
@@ -167,6 +168,7 @@ export const actions = {
     }
   },
   getApiKeys: async function () {
+    if (state.mapsKey && state.ipstackKey) return true
     try {
       let resp = await axios.get(`${actions.api}/api-keys`)
       state.ipstackKey = resp.data.ipstack

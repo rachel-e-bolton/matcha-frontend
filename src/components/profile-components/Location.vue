@@ -73,8 +73,10 @@ export default {
     if (!this.user.latitude || !this.user.longitude) {
       this.permissionCheck = true
     } else {
-      this.pos = {lat: this.user.latitude, long: this.user.longitude}
-      this.getLocation()
+      setTimeout(() => {
+        this.pos = {lat: this.user.latitude, long: this.user.longitude}
+        this.getLocation()
+      }, 500);
     }
   }
 }
