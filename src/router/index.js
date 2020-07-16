@@ -11,7 +11,7 @@ const routes = [
     name: 'home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      if (isAuth()) {
+      if (state.loggedIn) {
         next('/profile')
       } else {
         next()
@@ -28,7 +28,7 @@ const routes = [
     name: 'login',
     component: () => import('../views/Login.vue'),
     beforeEnter: (to, from, next) => {
-      if (isAuth()) {
+      if (state.loggedIn) {
         next('/profile')
       } else {
         next()
@@ -58,60 +58,33 @@ const routes = [
   {
     path: '/discover',
     name: 'discover',
-    component: () => import('@/views/Discover.vue')
+    component: () => import('@/views/Discover.vue'),
+    beforeEnter: requireAuth
   },
   {
     path: '/settings',
     meta: "auth-required",
     name: 'settings',
     component: () => import('@/views/Settings.vue'),
-    beforeEnter: (to, from, next) => {
-      if (isAuth()) {
-        next()
-      } else {
-        next('/login')
-      }
-    }
+    beforeEnter: requireAuth
   },
   {
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
-    meta: {
-      requireAuth: true,
-      redirect: "/login"
-    }
-    // beforeEnter: (to, from, next) => {
-    //   if (isAuth()) {
-    //     next()
-    //   } else {
-    //     next('/login')
-    //   }
-    // }
+    beforeEnter: requireAuth
   },
   {
     path: '/chat',
     name: 'chat',
     component: () => import('@/views/Chat.vue'),
-    beforeEnter: (to, from, next) => {
-      if (isAuth()) {
-        next()
-      } else {
-        next('/login')
-      }
-    }
+    beforeEnter: requireAuth
   },
   {
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/Admin.vue'),
-    beforeEnter: (to, from, next) => {
-      if (isAdmin()) {
-        next()
-      } else {
-        next('/unauthorised')
-      }
-    }
+    beforeEnter: requireAuth
   }
 ]
 
@@ -120,6 +93,15 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+function requireAuth(to, from, next) {
+  if (state.loggedIn) {
+    next()
+  } else {
+    next("/login")
+  }
+}
+
 
 function isAuth() {
   return state.loggedIn

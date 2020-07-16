@@ -22,43 +22,25 @@
 </template>
 
 <script>
+import {actions, state} from "@/store"
+
 export default {
   props: ["user"],
   data() {
     return {
-      bioEdit: false,
-      user: {
-        bio: "",
-      },
-    };
+      bioEdit: false
+    }
   },
   methods: {
     bioOn: function() {
       this.bioEdit = !this.bioEdit
     },
     bioOff: function() {
-      this.bioEdit = false;
-      if (this.$store.user.bio != this.user.bio) {
-        this.$http
-          .put(`${this.$api}/user/${this.user.id}`, {
-            user: _.omit(this.user, "images"),
-          })
-          .then((res) => {
-            this.$store.user = _.cloneDeep(this.user);
-            localStorage.setItem("firewood", JSON.stringify(this.$store));
-          })
-          .catch((err) => {
-            let test1 = this.$store.user;
-            let test2 = this.user;
-          });
+      if (this.bioEdit) {
+        this.bioEdit = false;
+        this.$emit("sync")
       }
-    },
-  },
-  created() {
-    this.user = _.cloneDeep(this.$store.user);
-    if (!this.user.bio || this.user.bio === "") {
-      this.bioEdit = true;
     }
-  },
-};
+  }
+}
 </script>

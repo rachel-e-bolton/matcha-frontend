@@ -140,7 +140,6 @@ import { Hooper, Slide, Navigation as HooperNavigation } from "hooper";
 import "hooper/dist/hooper.css";
 
 export default {
-  props: ["user"],
   components: {
     Hooper,
     Slide,

@@ -25,28 +25,30 @@ import VoerroTagsInput from '@voerro/vue-tagsinput';
 
 export default {
   name: "SexualPrefs",
+  props: ["user"],
   components: {
     "tags-input" : VoerroTagsInput
   },
   data: function () {
     return {
-      user: null,
-      store: this.$store,
       availableTags : [],
       selectedTags: [],
-      preferences: [],
       tagsEdit: false
+    }
+  },
+  computed: {
+    preferences: function () {
+      let preferences = []
+      this.selectedTags.forEach(i => {
+        preferences.push(i.value)
+      })
+      return preferences
     }
   },
   methods: {
     tagsOn: function () {
-      if (this.tagsEdit === false) {
-        this.tagsEdit = true
-      } else {
-        this.tagsEdit = false
-      }
+      this.tagsEdit = !this.tagsEdit
     },
-
     getGenders: function () {
       return this.$http.get(`${this.$api}/info/genders`)
       .then(res => {
@@ -61,30 +63,17 @@ export default {
     },
 
     savePreferences: function () {
-      this.user.preferences = this.selectedTags.map(x => x.value)
+      this.$props.user.preferences = this.preferences
 
-      this.$http.put(`${this.$api}/user/${this.user.id}`, {user: this.user})
-        .then(resp => {
-          console.log(resp)
-        })
+      this.$emit("sync")
+      this.$forceUpdate()
     }
   },
   created: async function () {
     await this.getGenders()
-    this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.token
-    this.$http.get(`${this.$api}/user/${this.store.user.id}`)
-      .then(resp => {
-        this.user = resp.data
-        this.selectedTags = this.availableTags.filter(tag => {
-          return (this.user.preferences.indexOf(tag.value) >= 0)
-        })
-        if (!this.user.preferences) {
-          this.tagsEdit = true
-        }
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    Array.from(this.user.preferences || []).forEach(i => {
+      this.selectedTags.push({key: i, value: i})
+    })
   }
 }
 </script>
