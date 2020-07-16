@@ -2,20 +2,20 @@ import Vue from "vue";
 import _ from "lodash"
 import axios from "axios"
 
-// var deep = require('deep-diff')
-
-import {diff, applyDiff} from "deep-diff"
+import diff from "deep-diff"
 
 export const state = Vue.observable({
   notifications: [],
   online_users : [],
+  mapsKey: null,
+  ipstackKey: null,
   user: {},
   loggedIn: false,
   jwt: null
 })
 
 axios.interceptors.request.use(function (config) {
-  if (state.jwt)
+  if (state.jwt && ~config.url.indexOf(actions.api))
     config.headers.Authorization = `Bearer ${state.jwt}`
   return config
 })
@@ -79,6 +79,7 @@ export const actions = {
     state.user = user
     state.loggedIn = true
     actions.saveLocalStoage()
+    actions.getApiKeys()
   },
   snapshotUser: () => _.cloneDeep(state.user),
 
@@ -116,15 +117,52 @@ export const actions = {
       return (options) ? {...actions.toastDefaults, ...options} : actions.toastDefaults
     },
     success: (message, options) => {
-      let opt = {...actions.notify.setOpts(options), title: "Error!", variant: "info"}
+      let opt = {...actions.notify.setOpts(options), title: "Success!", variant: "info"}
       actions.vue.$bvToast.toast(message, opt)
     },
     error: (message, options) => {
       let opt = {...actions.notify.setOpts(options), title: "Error!", variant: "danger"}
       actions.vue.$bvToast.toast(message, opt)
     }
+  },
+  location: {
+    ip: async () => {
+      try {
+        let resp = axios.get(`${actions.api}/location`)
+        let lat = resp.data.latitude || -29.764269
+        let long = resp.data.longitude || 25.429790
+        return {lat, long}
+      } catch (error) {
+        return {lat: -29.764269, long: 25.429790}
+      }
+    },
+    getBrowserPosition: () => {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      })
+    },
+    browser: async () => {
+      if (navigator.geolocation) {
+        let pos = await actions.location.getBrowserPosition()
+        return {lat: pos.coords.latitude, long: pos.coords.longitude}
+      } else {
+        return {lat: -29.764269, long: 25.429790}
+      }
+    },
+    name: async (pos) => {
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.long}&key=${state.mapsKey}`
+    }
+  },
+  getApiKeys: async function () {
+    try {
+      let resp = await axios.get(`${actions.api}/api-keys`)
+      state.ipstackKey = resp.data.ipstack
+      state.mapsKey = resp.data.google_maps
+    } catch (error) {
+      return false
+    }
+    return true
   }
-
 }
 
 export default state;

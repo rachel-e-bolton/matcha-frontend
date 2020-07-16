@@ -20,7 +20,7 @@
               <PersonalDetails class="mx-md-5"/>
             </div>
             <div id="location">
-              <Location class="mx-md-5"/>
+              <Location :user="user" @sync="syncUser" class="mx-md-5"/>
             </div>
             <div id="bio">
               <Bio :user="user" @sync="syncUser" />
