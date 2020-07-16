@@ -42,8 +42,7 @@
         <div
           v-if="!dobEdit"
           @click="dobOn()"
-          style="font-size: 1.5rem; font-weight: 700"
-        >
+          style="font-size: 1.5rem; font-weight: 700">
           {{ age() }},
         </div>
         <label for="datepicker" v-if="dobEdit">Birthday: </label>
@@ -55,14 +54,13 @@
           v-if="dobEdit"
           @input="dobOff()"
           @blur="dobOff()"
-          :max="max"
-        ></b-form-datepicker>
+          :max="max">
+          </b-form-datepicker>
         <div
           v-if="!genderEdit"
           @click="genderOn()"
           class="ml-2"
-          style="font-size: 1.5rem;"
-        >
+          style="font-size: 1.5rem;">
           {{ user.gender }}
         </div>
         <b-form-select
@@ -79,24 +77,20 @@
 </template>
 
 <script>
+const now = new Date();
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const maxDate = new Date(today);
+maxDate.setFullYear(today.getFullYear() - 19);
+
 export default {
+  props: ["user"],
   data() {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const maxDate = new Date(today);
-    maxDate.setFullYear(today.getFullYear() - 19);
 
     return {
       fnameEdit: false,
       lnameEdit: false,
       dobEdit: false,
       genderEdit: false,
-      user: {
-        fname: "",
-        lname: "",
-        dob: "",
-        gender: "",
-      },
       max: maxDate,
       genders: [
         { value: null, text: 'Select your gender' }
@@ -138,20 +132,7 @@ export default {
 
     fnameOff: function() {
       this.fnameEdit = false;
-      if (this.$store.user.fname != this.user.fname) {
-        this.$http
-        .put(`${this.$api}/user/${this.user.id}`, {
-          user: _.omit(this.user, "images"),
-        })
-        .then((res) => {
-          this.$store.user = _.cloneDeep(this.user);
-          localStorage.setItem("firewood", JSON.stringify(this.$store));
-        })
-        .catch((err) => {
-          let test1 = this.$store.user;
-          let test2 = this.user;
-        });
-      }
+      this.$emit("sync")
     },
 
     lnameOn: function() {
@@ -160,20 +141,7 @@ export default {
 
     lnameOff: function() {
       this.lnameEdit = false;
-      if (this.$store.user.lname != this.user.lname) {
-        this.$http
-        .put(`${this.$api}/user/${this.user.id}`, {
-          user: _.omit(this.user, "images"),
-        })
-        .then((res) => {
-          this.$store.user = _.cloneDeep(this.user);
-          localStorage.setItem("firewood", JSON.stringify(this.$store));
-        })
-        .catch((err) => {
-          let test1 = this.$store.user;
-          let test2 = this.user;
-        });
-      }
+      this.$emit("sync")
     },
 
     dobOn: function() {
@@ -182,20 +150,7 @@ export default {
 
     dobOff: function() {
       this.dobEdit = false;
-      if (this.$store.user.dob != this.user.dob) {
-        this.$http
-        .put(`${this.$api}/user/${this.user.id}`, {
-          user: _.omit(this.user, "images"),
-        })
-        .then((res) => {
-          this.$store.user = _.cloneDeep(this.user);
-          localStorage.setItem("firewood", JSON.stringify(this.$store));
-        })
-        .catch((err) => {
-          let test1 = this.$store.user;
-          let test2 = this.user;
-        });
-      }
+      this.$emit("sync")
     },
 
     genderOn: function() {
@@ -207,26 +162,13 @@ export default {
         this.genderEdit = true;
       } else {
         this.genderEdit = false;
-        if (this.$store.user.gender != this.user.gender) {
-          this.$http
-          .put(`${this.$api}/user/${this.user.id}`, {
-            user: _.omit(this.user, "images"),
-          })
-          .then((res) => {
-            this.$store.user = _.cloneDeep(this.user);
-            localStorage.setItem("firewood", JSON.stringify(this.$store));
-          })
-          .catch((err) => {
-            let test1 = this.$store.user;
-            let test2 = this.user;
-          });
-        }
+        this.$emit("sync")
       }
     },
   },
-  created() {
+  mounted() {
     this.getGenders();
-    this.user = _.cloneDeep(this.$store.user);
+    
     if (!this.user.dob) {
       this.dobEdit = true;
     }

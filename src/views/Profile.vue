@@ -17,7 +17,7 @@
 
             </div> -->
             <div id="personal-details">
-              <PersonalDetails class="mx-md-5"/>
+              <PersonalDetails :user="user" @sync="syncUser" class="mx-md-5"/>
             </div>
             <div id="location">
               <Location :user="user" @sync="syncUser" class="mx-md-5"/>
