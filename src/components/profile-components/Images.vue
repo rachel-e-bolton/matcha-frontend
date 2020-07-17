@@ -142,6 +142,7 @@ import "hooper/dist/hooper.css";
 import {actions, state} from "@/store"
 
 export default {
+  props: ["user"],
   components: {
     Hooper,
     Slide,
@@ -284,7 +285,7 @@ export default {
 
     loadUser: function() {
       this.$http
-        .get(`${this.$api}/user/${state.user.id}`)
+        .get(`${this.$api}/user/${this.user.id}`)
         .then((res) => {
           this.images64 = _.cloneDeep(res.data.images);
           this.getBase64();
@@ -292,7 +293,8 @@ export default {
         .catch((err) => {});
     },
   },
-  created() {
+  mounted() {
+    console.log(this.user)
     this.loadUser();
   },
 };

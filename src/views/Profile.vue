@@ -11,7 +11,7 @@
               <FameRating :user="user" class="mx-md-5"/>
             </div>
             <div id="images">
-              <Images />
+              <Images :user="user" />
             </div>
             <!-- <div id="online">
 
@@ -85,7 +85,6 @@ export default {
   mounted: async function () {
     if (this.myprofile) {
       this.user = actions.snapshotUser()
-      console.log(this.user)
     } else {
       try {
         let resp = await axios.get(`${actions.api}/user/${this.$route.params.username}`)
