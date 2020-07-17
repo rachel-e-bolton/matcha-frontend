@@ -7,7 +7,16 @@
     v-if="items.length > 0"
   >
     <template v-slot:cell(matcher_first_namematcher_last_namedate)="data">
-      {{ data.item.matcher_first_name}} {{ data.item.matcher_last_name }} on {{ data.item.date }}
+      <span>
+        <router-link
+          :to="{
+            name: 'profile',
+            params: { username: data.item.matcher_username }}">
+            {{ data.item.matcher_first_name }}
+          {{ data.item.matcher_last_name }}
+        </router-link>
+        on {{ data.item.date }}
+      </span>
     </template>
   </b-table>
   <div v-else>
@@ -16,26 +25,30 @@
 </template>
 
 <script>
-import {actions, state} from '@/store'
+import { actions, state } from "@/store";
 
 export default {
   data() {
     return {
       fields: [
-        { key: 'matcher_first_namematcher_last_namedate', label: 'Your profile was liked by' }
+        {
+          key: "matcher_first_namematcher_last_namedate",
+          label: "Your profile was liked by",
+        },
       ],
-      items: []
+      items: [],
     };
   },
-  created: function () {
-    this.$http.get(`${this.$api}/likes/liked-by`)
-    .then((res) => {
-      this.items = res.data
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-  }
+  created: function() {
+    this.$http
+      .get(`${this.$api}/likes/liked-by`)
+      .then((res) => {
+        this.items = res.data;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 </script>
 

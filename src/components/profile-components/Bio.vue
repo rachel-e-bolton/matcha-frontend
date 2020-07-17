@@ -25,7 +25,7 @@
 import {actions, state} from "@/store"
 
 export default {
-  props: ["user"],
+  props: ["user", "myprofile"],
   data() {
     return {
       bioEdit: false
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     bioOn: function() {
-      this.bioEdit = !this.bioEdit
+      this.bioEdit = !this.bioEdit && this.myprofile
     },
     bioOff: function() {
       if (this.bioEdit) {

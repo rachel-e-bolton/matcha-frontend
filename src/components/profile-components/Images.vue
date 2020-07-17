@@ -29,7 +29,7 @@
           </hooper>
         </div>
       </div>
-      <div>
+      <div v-if="myprofile">
         <b-button
           style="position: absolute; right: -5px; bottom: -10px; z-index: 1000"
           pill
@@ -142,7 +142,7 @@ import "hooper/dist/hooper.css";
 import {actions, state} from "@/store"
 
 export default {
-  props: ["user"],
+  props: ["user", "myprofile"],
   components: {
     Hooper,
     Slide,
@@ -294,7 +294,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.user)
     this.loadUser();
   },
 };
