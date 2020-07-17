@@ -99,14 +99,15 @@ export const actions = {
           user: changes,
         });
 
-        actions.notify.success(resp.data.message);
         // Apply synced changes to the state user object
         for (let [key, value] of Object.entries(changes)) {
           console.log(`Setting state user ${key} to`, value);
           state.user[key] = value;
         }
+        return true
       } catch (error) {
         actions.notify.error(error.response.data.message);
+        return false
       }
     }
   },
@@ -123,7 +124,7 @@ export const actions = {
       let opt = {
         ...actions.notify.setOpts(options),
         title: "Success!",
-        variant: "info",
+        variant: "success",
         noCloseButton: false,
       };
       actions.vue.$bvToast.toast(message, opt);
@@ -142,6 +143,15 @@ export const actions = {
         ...actions.notify.setOpts(options),
         title: "Please Note!",
         variant: "warning",
+        noCloseButton: false,
+      };
+      actions.vue.$bvToast.toast(message, opt);
+    },
+    info: (message, options) => {
+      let opt = {
+        ...actions.notify.setOpts(options),
+        title: "Please Note",
+        variant: "info",
         noCloseButton: false,
       };
       actions.vue.$bvToast.toast(message, opt);
