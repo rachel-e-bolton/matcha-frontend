@@ -71,7 +71,7 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('@/views/MyProfile.vue'),
+    component: () => import('@/views/Profile.vue'),
     beforeEnter: requireAuth
   },
   {
