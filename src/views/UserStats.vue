@@ -30,7 +30,7 @@
             <b-button class="btn-block p-3" v-b-toggle.viewed-users>Viewed Users</b-button>
             <b-collapse id="viewed-users" class="mt-2">
               <b-card>
-
+                <Views />
               </b-card>
             </b-collapse>
           </div>
@@ -58,6 +58,7 @@
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import ViewedBy from '@/components/ViewedBy.vue'
+import Views from '@/components/Views.vue'
 import {actions, state} from '@/store'
 
 export default {
@@ -65,7 +66,8 @@ export default {
   components: {
     Header,
     NavBar,
-    ViewedBy
+    ViewedBy,
+    Views
   },
 }
 </script>

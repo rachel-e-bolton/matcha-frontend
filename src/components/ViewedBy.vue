@@ -32,7 +32,7 @@ export default {
     .then((res) => {
       this.items = res.data
     })
-    .catche((err) => {
+    .catch((err) => {
       console.error(err)
     })
   }
