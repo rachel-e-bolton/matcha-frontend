@@ -4,7 +4,15 @@
       <Header/>
     </div>
     <div class="content">
-      <ProfileCard/>
+      <!-- <ProfileCard/> -->
+      <h3 v-for="a in d" :key="a.index">
+        <div class="py-3">
+          {{ a.fname }} ==== {{ Math.ceil(a.distance) }}km <br>
+          {{ a.latitude }} {{ a.longitude }}
+        </div>
+      </h3>
+      
+    <pre>{{d}}</pre>
     </div>
     <div class="footer">
       <NavBar/>
@@ -17,12 +25,26 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import ProfileCard from '@/components/ProfileCard.vue'
 
+import {actions, state} from "@/store"
+import axios from "axios"
+
 export default {
   name: 'discover',
+  data: function () {
+    return {
+      d: {}
+    }
+  },
   components: {
     Header,
     ProfileCard,
     NavBar
+  },
+  mounted: function () {
+    axios.get(`${actions.api}/discover?skip=100&take=1&distance=1000`)
+    .then(resp => {
+      this.d = resp.data
+    })
   }
 }
 </script>

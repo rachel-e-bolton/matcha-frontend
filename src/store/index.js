@@ -2,8 +2,7 @@ import Vue from "vue";
 import _ from "lodash";
 import axios from "axios";
 
-import diff from "deep-diff";
-import { readyException } from "jquery";
+import diff from "deep-diff"
 
 export const state = Vue.observable({
   notifications: [],

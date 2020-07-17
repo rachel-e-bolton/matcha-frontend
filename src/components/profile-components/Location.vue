@@ -4,7 +4,7 @@
     <div class="d-flex flex-row flex-wrap justify-content-center my-2">
       <div v-if="showLocation" @click="changeLoc" title="Click to update location">
         {{ locationName }}
-        <div v-if="!locationName || loading">
+        <div v-if="loading">
           <b-spinner variant="primary" label="Spinning"></b-spinner>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default {
       setTimeout(() => {
         this.pos = {lat: this.user.latitude, long: this.user.longitude}
         this.getLocation()
-      }, 500);
+      }, 100);
     }
   }
 }

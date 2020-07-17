@@ -56,6 +56,7 @@ import Bio from '@/components/profile-components/Bio'
 import Location from '@/components/profile-components/Location'
 
 import {actions, state} from "@/store"
+import axios from 'axios'
 
 export default {
   name: 'profile',
@@ -72,16 +73,36 @@ export default {
   },
   data: function () {
     return {
-      user: JSON.parse(JSON.stringify(state.user))
+      user: {},
+      myprofile: false
     }
   },
-  mounted: function () {
-    this.user = actions.snapshotUser()
+  beforeMount: function () {
+    if (this.$route.params.username !== undefined) {
+      this.myprofile = this.$route.params.username === state.user.username
+    }
+  },
+  mounted: async function () {
+    if (this.myprofile) {
+      this.user = actions.snapshotUser()
+      console.log(this.user)
+    } else {
+      try {
+        let resp = await axios.get(`${actions.api}/user/${this.$route.params.username}`)
+        this.user = resp.data
+      } catch (error) {
+        if (error.response) {
+          if (error.response.status === 404)
+            this.$router.push({name : "notfound" })
+        }
+      }
+    }
   },
   methods: {
     // syncUser: () => actions.syncUser(this.user)
     syncUser: function () {
-      actions.syncUser(this.user)
+      if (this.myprofile)
+        actions.syncUser(this.user)
     }
   }
 }
