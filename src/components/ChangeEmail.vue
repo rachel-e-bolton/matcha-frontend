@@ -22,8 +22,7 @@ export default {
   props: ["user"],
   methods: {
     changeEmail: function () {
-      this.$emit("sync")
-      actions.logoutUser()
+      this.$emit("changeEmail")
     },
   },
   mounted: function () {
