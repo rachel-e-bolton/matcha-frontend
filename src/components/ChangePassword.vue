@@ -110,7 +110,7 @@ export default {
             title: "Success!",
             autoHideDelay: 5000,
             toaster: "b-toaster-top-center",
-            variant: "info",
+            variant: "success",
             noCloseButton: false,
           });
         })

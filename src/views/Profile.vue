@@ -4,32 +4,32 @@
       <Header/>
     </div>
     <div class="content">
-      <div class="max-w-90 d-flex justify-content-center">
+      <div class="max-w-90 d-flex justify-content-center" v-if="user.id">
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">
-              <FameRating :user="user" class="mx-md-5"/>
+              <FameRating :user="user" :myprofile="myprofile" class="mx-md-5"/>
             </div>
             <div id="images">
-              <Images :user="user" />
+              <Images :user="user" :myprofile="myprofile"/>
             </div>
             <!-- <div id="online">
 
             </div> -->
             <div id="personal-details">
-              <PersonalDetails :user="user" @sync="syncUser" class="mx-md-5"/>
+              <PersonalDetails :user="user" :myprofile="myprofile" @sync="syncUser" class="mx-md-5"/>
             </div>
             <div id="location">
-              <Location :user="user" @sync="syncUser" class="mx-md-5"/>
+              <Location :user="user" :myprofile="myprofile" @sync="syncUser" class="mx-md-5"/>
             </div>
             <div id="bio">
-              <Bio :user="user" @sync="syncUser" />
+              <Bio :user="user" :myprofile="myprofile" @sync="syncUser" />
             </div>
             <div id="interests">
-              <Interests :user="user" @sync="syncUser" class="mx-md-5 my-3"/>
+              <Interests :user="user" :myprofile="myprofile" @sync="syncUser" class="mx-md-5 my-3"/>
             </div>
             <div id="sexual-preferences">
-              <SexualPrefs :user="user" @sync="syncUser" class="mx-md-5 my-3"/>
+              <SexualPrefs :user="user" :myprofile="myprofile" @sync="syncUser" class="mx-md-5 my-3"/>
             </div>
             <div id="other-actions">
              
@@ -82,7 +82,7 @@ export default {
       this.myprofile = this.$route.params.username === state.user.username
     }
   },
-  mounted: async function () {
+  created: async function () {
     if (this.myprofile) {
       this.user = actions.snapshotUser()
     } else {
