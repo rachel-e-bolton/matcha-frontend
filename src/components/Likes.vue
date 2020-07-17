@@ -7,7 +7,16 @@
     v-if="items.length > 0"
   >
     <template v-slot:cell(matchee_first_namematchee_last_namedate)="data">
-      {{ data.item.matchee_first_name}} {{ data.item.matchee_last_name }} on {{ data.item.date }}
+      <span>
+        <router-link
+          :to="{
+            name: 'profile',
+            params: { username: data.item.matchee_username }}">
+            {{ data.item.matchee_first_name }}
+          {{ data.item.matchee_last_name }}
+        </router-link>
+        on {{ data.item.date }}
+      </span>
     </template>
   </b-table>
   <div v-else>
