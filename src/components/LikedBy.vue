@@ -6,12 +6,12 @@
     responsive="sm"
     v-if="items.length > 0"
   >
-    <template v-slot:cell(viewer_first_nameviewer_last_namedate)="data">
-      {{ data.item.viewer_first_name}} {{ data.item.viewer_last_name }} on {{ data.item.date }}
+    <template v-slot:cell(matcher_first_namematcher_last_namedate)="data">
+      {{ data.item.matcher_first_name}} {{ data.item.matcher_last_name }} on {{ data.item.date }}
     </template>
   </b-table>
   <div v-else>
-    Your profile has not been viewed by any users yet.
+    Your profile has not been liked by any users yet.
   </div>
 </template>
 
@@ -22,13 +22,13 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'viewer_first_nameviewer_last_namedate', label: 'Your profile was viewed by' }
+        { key: 'matcher_first_namematcher_last_namedate', label: 'Your profile was liked by' }
       ],
       items: []
     };
   },
   created: function () {
-    this.$http.get(`${this.$api}/views/viewed-by`)
+    this.$http.get(`${this.$api}/likes/liked-by`)
     .then((res) => {
       this.items = res.data
     })

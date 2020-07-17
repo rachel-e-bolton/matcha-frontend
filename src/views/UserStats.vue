@@ -12,7 +12,7 @@
             <b-button class="btn-block p-3" v-b-toggle.liked-users>Liked Users</b-button>
             <b-collapse id="liked-users" class="mt-2">
               <b-card>
-
+                <Likes />
               </b-card>
             </b-collapse>
           </div>
@@ -21,7 +21,7 @@
             <b-button class="btn-block p-3" v-b-toggle.liked-by>Liked By</b-button>
             <b-collapse id="liked-by" class="m-2">
               <b-card>
-
+                <LikedBy />
               </b-card>
             </b-collapse>
           </div>
@@ -59,6 +59,8 @@ import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 import ViewedBy from '@/components/ViewedBy.vue'
 import Views from '@/components/Views.vue'
+import LikedBy from '@/components/LikedBy.vue'
+import Likes from '@/components/Likes.vue'
 import {actions, state} from '@/store'
 
 export default {
@@ -67,7 +69,9 @@ export default {
     Header,
     NavBar,
     ViewedBy,
-    Views
+    Views,
+    LikedBy,
+    Likes
   },
 }
 </script>

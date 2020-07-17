@@ -11,7 +11,7 @@
     </template>
   </b-table>
   <div v-else>
-    Your profile has not been viewed by an users yet.
+    You have not viewed any users yet.
   </div>
 </template>
 
