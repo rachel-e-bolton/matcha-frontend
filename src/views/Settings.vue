@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <div class="max-w-90 d-flex justify-content-center">
-        <b-col sm="auto" md="6" lg="3" class="rounded-lg shadow bg-light">
+        <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <h3 class="my-3">Settings</h3>
 
           <div class="mb-4">
@@ -21,7 +21,7 @@
             <b-button class="btn-block p-3" v-b-toggle.email>Change Email</b-button>
             <b-collapse id="email" class="m-2">
               <b-card>
-                <ChangeEmail :user="user" @sync="syncUser"/>
+                <ChangeEmail :user="user" @changeEmail="changeEmail"/>
               </b-card>
             </b-collapse>
           </div>
@@ -85,6 +85,21 @@ export default {
 
     syncUser: function () {
       actions.syncUser(this.user)
+      .then((res) => {
+        if (res) {
+          actions.notify.success("Username changed to " + state.user.username)
+        } else {
+          actions.notify.error("Username could not be changed.");
+        }
+      })
+    },
+
+    changeEmail: function () {
+      actions.syncUser(this.user)
+      .then(() => {
+        actions.logoutUser()
+        this.$router.push('/login')
+      })
     }
   }
 }
