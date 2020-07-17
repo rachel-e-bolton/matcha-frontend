@@ -70,6 +70,17 @@ const routes = [
   },
   {
     path: '/profile',
+    name: 'profile-redirect',
+    beforeEnter: (to, from, next) => {
+      if (state.loggedIn) {
+        next(`/profile/${state.user.username}`)
+      } else {
+        next("/login")
+      }
+    }
+  },
+  {
+    path: '/profile/:username',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
     beforeEnter: requireAuth

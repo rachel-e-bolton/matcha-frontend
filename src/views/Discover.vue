@@ -5,13 +5,14 @@
     </div>
     <div class="content">
       <!-- <ProfileCard/> -->
-      <h1 v-for="a in d" :key="a.index">
+      <h3 v-for="a in d" :key="a.index">
         <div class="py-3">
-          {{ a.username }} ==== {{ Math.ceil(a.distance) }}km <br>
+          {{ a.fname }} ==== {{ Math.ceil(a.distance) }}km <br>
           {{ a.latitude }} {{ a.longitude }}
         </div>
-      </h1>
+      </h3>
       
+    <pre>{{d}}</pre>
     </div>
     <div class="footer">
       <NavBar/>
@@ -40,7 +41,7 @@ export default {
     NavBar
   },
   mounted: function () {
-    axios.get(`${actions.api}/discover?distance=11`)
+    axios.get(`${actions.api}/discover?skip=100&take=1&distance=1000`)
     .then(resp => {
       this.d = resp.data
     })
