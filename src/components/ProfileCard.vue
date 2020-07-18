@@ -1,5 +1,18 @@
 <template>
   <div>
+    <div>
+      <p>Sort: </p>
+      <b-button-group>
+        <b-button @click="ageClick" :pressed.sync="age">Age</b-button> <!-- {{ AgeOrder }} -->
+        <b-button @click="distanceClick" :pressed.sync="distance">Distance</b-button> <!-- {{ DistanceOrder }} -->
+      </b-button-group>
+      <br>
+      <p>filter: </p>
+      <b-button-group>
+        <b-button @click="filterAgeClick" :pressed.sync="filterAge">Age</b-button> <!-- {{ AgeOrder }} -->
+        <b-button @click="filterDistanceClick" :pressed.sync="filterDistance">Distance</b-button> <!-- {{ DistanceOrder }} -->
+      </b-button-group>
+    </div>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
         <b-card
@@ -28,11 +41,13 @@
             </b-col>
             <b-col sm="6">
               <b-card-body :title="profiles[index].fname + ' ' + profiles[index].lname">
+                <b-card-text v-if="profiles[index].dob">{{ageCalculation(profiles[index].dob)}}</b-card-text>
                 <b-card-text v-if="profiles[index].gender">{{profiles[index].gender}}</b-card-text>
-                <b-card-text v-if="profiles[index].bio">{{profiles[index].bio}}</b-card-text>
-                <b-card-text v-if="profiles[index].online === true">Online</b-card-text>
-                <b-card-text v-else>Offline</b-card-text>
-                <b-card-text v-if="profiles[index].lastseen">{{profiles[index].lastseen}}</b-card-text>
+                <b-card-text v-if="profiles[index].distance">{{profiles[index].distance}} km</b-card-text>
+                <!-- <b-card-text v-if="profiles[index].bio">{{profiles[index].bio}}</b-card-text> -->
+                <b-card-text v-if="profiles[index].online === true" style="color:lime">Online</b-card-text>
+                <b-card-text v-else style="color:red">Offline</b-card-text>
+                <!-- <b-card-text v-if="profiles[index].lastseen">{{profiles[index].lastseen}}</b-card-text> -->
               </b-card-body>
             </b-col>
           </b-row>
@@ -51,15 +66,21 @@ import users from "../assets/temp.json";
 export default {
   data: () => {
     return {
+      myAge: 25,
+      filterAge: false,
+      filterDistance: false,
+      age: false,
+      ageOrder: "ascending",
+      distance: true,
+      distanceOrder: "ascending",
       currentPage: 1,
       maxPerPage: 10,
       showLoader: false,
       totalResults: Object.keys(users).length,
-      profiles: users,
-      location: [],
-      noLocation: true
+      profiles: users
     };
   },
+  created() {},
   computed: {
     pageCount() {
       return Math.ceil(this.totalResults / this.maxPerPage);
@@ -87,7 +108,49 @@ export default {
         });
       });
       observer.observe(this.$refs.infiniteScrollTrigger);
-    }
+    },
+    ageCalculation(dob) {
+      var date = new Date(dob);
+      var diff_ms = Date.now() - date;
+      var age_dt = new Date(diff_ms);
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+    },
+    distanceClick() {
+      this.distance = true;
+      this.age = false;
+      this.ageOrder = "descending";
+
+      if (this.distanceOrder === "ascending") {
+        this.distanceOrder = "descending";
+      } else {
+        this.distanceOrder = "ascending";
+      }
+      if (this.distanceOrder === "ascending") {
+        users.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+      } else {
+        users.sort((a, b) => parseFloat(b.distance) - parseFloat(a.distance));
+      }
+    },
+    ageClick() {
+      this.age = true;
+      this.distance = false;
+      this.distanceOrder = "descending";
+
+      if (this.ageOrder === "ascending") {
+        this.ageOrder = "descending";
+      } else {
+        this.ageOrder = "ascending";
+      }
+      if (this.ageOrder === "ascending") {
+        users.sort((a, b) => parseFloat(b.dob) - parseFloat(a.dob));
+      } else {
+        users.sort((a, b) => parseFloat(a.dob) - parseFloat(b.dob));
+      }
+    },
+    filterAgeClick() {
+      users.filter(users => parseFloat(users.dob) <= (30) );
+    },
+    filterDistanceClick() {}
   },
   mounted() {
     this.scrollTrigger();
