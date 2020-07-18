@@ -211,6 +211,14 @@ export const actions = {
     }
     return true;
   },
+  isBlocked: async function (user_id) {
+    try {
+      let resp = await axios.get(`${actions.api}/check-blocked/${user_id}`)
+      return resp.data
+    } catch (error) {
+      return false
+    }
+  }
 };
 
 export default state;

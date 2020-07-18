@@ -46,31 +46,41 @@ export default {
   },
   methods: {
     likeUser: function () {
-      this.$forceUpdate()
+      axios.post(`${this.$api}/matches`, {"matchee_id" : this.user.id})
+      .then(res => {
+        actions.notify.info(res.data.message)
+        this.checkMatch()
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
 
     unmatch: function () {
-      console.log("unmatching")
-      this.$forceUpdate()
+      axios.delete(`${this.$api}/unmatch/${this.user.id}`)
+      .then(res => {
+        actions.notify.warning("User relationship removed. You will no longer see this user on the site.")
+        setTimeout(() => {
+          this.$router.go(-1)
+        }, 1500)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
 
-    deleteMatch: function () {
-
-    },
-
-    blockUser: function () {
-
+    checkMatch: function () {
+      axios.get(`${this.$api}/match/${this.user.id}`)
+      .then(res => {
+        this.relationship = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   },
   created: function () {
-    axios.get(`${this.$api}/match/${this.user.id}`)
-    .then(res => {
-      console.log(res)
-      this.relationship = res.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    this.checkMatch()
   }
 }
 </script>

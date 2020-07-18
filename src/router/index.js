@@ -83,7 +83,24 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
-    beforeEnter: requireAuth
+    beforeEnter: (to, from, next) => {
+      actions.isBlocked(to.params.username)
+      .then(res => {
+        console.log(res)
+        if (res.blocked_me || res.blocked_them) {
+          if (res.blocked_them) {
+            actions.notify.error("You have blocked " + to.params.username + ". You cannot view their profile.")
+          } else if (res.blocked_me) {
+            actions.notify.error(to.params.username + " has blocked you. You cannot view their profile.")
+          }
+          setTimeout(() => {
+            next('/discover')
+          }, 2000)
+        } else {
+          next()
+        }
+      })
+    }
   },
   {
     path: '/chat',
