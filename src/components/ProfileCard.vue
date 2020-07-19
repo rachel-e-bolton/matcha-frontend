@@ -1,16 +1,36 @@
 <template>
   <div>
     <div>
-      <p>Sort: </p>
+      <!-- <p>Sort:</p> -->
       <b-button-group>
-        <b-button @click="ageClick" :pressed.sync="age">Age</b-button> <!-- {{ AgeOrder }} -->
-        <b-button @click="distanceClick" :pressed.sync="distance">Distance</b-button> <!-- {{ DistanceOrder }} -->
+        <b-button @click="ageClick" :pressed.sync="age">
+          Age
+          <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
+          <b-icon-arrow-down v-if="age && ageOrder === 'descending'"></b-icon-arrow-down>
+        </b-button>
+        <b-button @click="distanceClick" :pressed.sync="distance">
+          Distance
+          <b-icon-arrow-up v-if="distance && distanceOrder === 'ascending'"></b-icon-arrow-up>
+          <b-icon-arrow-down v-if="distance && distanceOrder === 'descending'"></b-icon-arrow-down>
+        </b-button>
+        <b-button @click="heatClick" :pressed.sync="heat">
+          Heat
+          <b-icon-arrow-up v-if="heat && heatOrder === 'ascending'"></b-icon-arrow-up>
+          <b-icon-arrow-down v-if="heat && heatOrder === 'descending'"></b-icon-arrow-down>
+        </b-button>
+        <b-button @click="tagsClick" :pressed.sync="tags">
+          Tags
+          <b-icon-arrow-up v-if="tags && tagsOrder === 'ascending'"></b-icon-arrow-up>
+          <b-icon-arrow-down v-if="tags && tagsOrder === 'descending'"></b-icon-arrow-down>
+        </b-button>
       </b-button-group>
-      <br>
-      <p>filter: </p>
+      <br />
+      <!-- <p>filter:</p> -->
       <b-button-group>
-        <b-button @click="filterAgeClick" :pressed.sync="filterAge">Age</b-button> <!-- {{ AgeOrder }} -->
-        <b-button @click="filterDistanceClick" :pressed.sync="filterDistance">Distance</b-button> <!-- {{ DistanceOrder }} -->
+        <b-button @click="filterAgeClick" :pressed.sync="filterAge">Age</b-button>
+        <!-- {{ AgeOrder }} -->
+        <b-button @click="filterDistanceClick" :pressed.sync="filterDistance">Distance</b-button>
+        <!-- {{ DistanceOrder }} -->
       </b-button-group>
     </div>
     <b-container class="mt-4 pr-lg-5">
@@ -29,10 +49,10 @@
                 alt="Image"
                 class="rounded-0"
                 style="height: 300px; object-fit: cover"
-                v-if="!profiles[index].photos || !profiles[index].photos.image64"
+                v-if="!profiles[index].photo || !profiles[index].photo.image64"
               ></b-card-img>
               <b-card-img
-                :src="profiles[index].photos.image64"
+                :src="profiles[index].photo.image64"
                 alt="Image"
                 class="rounded-0"
                 style="height: 300px; object-fit: cover"
@@ -42,12 +62,12 @@
             <b-col sm="6">
               <b-card-body :title="profiles[index].fname + ' ' + profiles[index].lname">
                 <b-card-text v-if="profiles[index].dob">{{ageCalculation(profiles[index].dob)}}</b-card-text>
-                <b-card-text v-if="profiles[index].gender">{{profiles[index].gender}}</b-card-text>
+                <!-- <b-card-text v-if="profiles[index].gender">{{profiles[index].gender}}</b-card-text> -->
                 <b-card-text v-if="profiles[index].distance">{{profiles[index].distance}} km</b-card-text>
-                <!-- <b-card-text v-if="profiles[index].bio">{{profiles[index].bio}}</b-card-text> -->
-                <b-card-text v-if="profiles[index].online === true" style="color:lime">Online</b-card-text>
-                <b-card-text v-else style="color:red">Offline</b-card-text>
-                <!-- <b-card-text v-if="profiles[index].lastseen">{{profiles[index].lastseen}}</b-card-text> -->
+                <b-card-text v-if="profiles[index].heat">{{profiles[index].heat}} heat</b-card-text>
+                <b-card-text v-if="profiles[index].tags">{{profiles[index].tags}} tags in common</b-card-text>
+                <!-- <b-card-text v-if="profiles[index].online === true" style="color:lime">Online</b-card-text>
+                <b-card-text v-else style="color:red">Offline</b-card-text>-->
               </b-card-body>
             </b-col>
           </b-row>
@@ -70,14 +90,20 @@ export default {
       filterAge: false,
       filterDistance: false,
       age: false,
-      ageOrder: "ascending",
+      ageOrder: "descending",
       distance: true,
       distanceOrder: "ascending",
+      heat: false,
+      heatOrder: "descending",
+      tags: false,
+      tagsOrder: "descending",
       currentPage: 1,
       maxPerPage: 10,
       showLoader: false,
-      totalResults: Object.keys(users).length,
-      profiles: users
+      profiles: users.sort(
+        (a, b) => parseFloat(a.distance) - parseFloat(b.distance)
+      ),
+      totalResults: Object.keys(users).length
     };
   },
   created() {},
@@ -115,11 +141,20 @@ export default {
       var age_dt = new Date(diff_ms);
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     },
+    filterAgeClick() {},
+    filterDistanceClick() {
+      // this.profiles = users.filter(function(i, n) {
+      //   return n.distance >= 1 && n.distance <= 5;
+      // });
+    },
     distanceClick() {
       this.distance = true;
       this.age = false;
       this.ageOrder = "descending";
-
+      this.heat = false;
+      this.heatOrder = "descending";
+      this.tags = false;
+      this.tagsOrder = "descending";
       if (this.distanceOrder === "ascending") {
         this.distanceOrder = "descending";
       } else {
@@ -135,7 +170,10 @@ export default {
       this.age = true;
       this.distance = false;
       this.distanceOrder = "descending";
-
+      this.heat = false;
+      this.heatOrder = "descending";
+      this.tags = false;
+      this.tagsOrder = "descending";
       if (this.ageOrder === "ascending") {
         this.ageOrder = "descending";
       } else {
@@ -147,10 +185,44 @@ export default {
         users.sort((a, b) => parseFloat(a.dob) - parseFloat(b.dob));
       }
     },
-    filterAgeClick() {
-      users.filter(users => parseFloat(users.dob) <= (30) );
+    heatClick() {
+      this.heat = true;
+      this.age = false;
+      this.ageOrder = "descending";
+      this.distance = false;
+      this.distanceOrder = "descending";
+      this.tags = false;
+      this.tagsOrder = "descending";
+      if (this.heatOrder === "ascending") {
+        this.heatOrder = "descending";
+      } else {
+        this.heatOrder = "ascending";
+      }
+      if (this.heatOrder === "ascending") {
+        users.sort((a, b) => parseFloat(a.heat) - parseFloat(b.heat));
+      } else {
+        users.sort((a, b) => parseFloat(b.heat) - parseFloat(a.heat));
+      }
     },
-    filterDistanceClick() {}
+    tagsClick() {
+      this.tags = true;
+      this.age = false;
+      this.ageOrder = "descending";
+      this.distance = false;
+      this.distanceOrder = "descending";
+      this.heat = false;
+      this.heatOrder = "descending";
+      if (this.tagsOrder === "ascending") {
+        this.tagsOrder = "descending";
+      } else {
+        this.tagsOrder = "ascending";
+      }
+      if (this.tagsOrder === "ascending") {
+        users.sort((a, b) => parseFloat(a.tags) - parseFloat(b.tags));
+      } else {
+        users.sort((a, b) => parseFloat(b.tags) - parseFloat(a.tags));
+      }
+    }
   },
   mounted() {
     this.scrollTrigger();
