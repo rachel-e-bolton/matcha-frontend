@@ -52,7 +52,11 @@ export default {
         this.checkMatch()
       })
       .catch(err => {
-        console.log(err)
+        if (err.response.data.no_photo) {
+          actions.notify.error(err.response.data.message)
+        } else {
+          actions.notify.error(err.response.data.message)
+        }
       })
     },
 
