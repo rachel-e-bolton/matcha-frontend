@@ -83,7 +83,7 @@ const maxDate = new Date(today);
 maxDate.setFullYear(today.getFullYear() - 19);
 
 export default {
-  props: ["user"],
+  props: ["user", "myprofile"],
   data() {
 
     return {
@@ -118,43 +118,43 @@ export default {
         .get(`${this.$api}/info/genders`)
         .then((res) => {
           res.data.genders.forEach((gender) => {
-            this.genders.push({ value: gender, text: gender });
+            this.genders.push({ value: gender, text: gender })
           });
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err.response)
         });
     },
 
     fnameOn: function() {
-      this.fnameEdit = true;
+      this.fnameEdit = true && this.myprofile
     },
 
     fnameOff: function() {
-      this.fnameEdit = false;
+      this.fnameEdit = false
       this.$emit("sync")
     },
 
     lnameOn: function() {
-      this.lnameEdit = true;
+      this.lnameEdit = true && this.myprofile
     },
 
     lnameOff: function() {
-      this.lnameEdit = false;
+      this.lnameEdit = false
       this.$emit("sync")
     },
 
     dobOn: function() {
-      this.dobEdit = true;
+      this.dobEdit = true && this.myprofile
     },
 
     dobOff: function() {
-      this.dobEdit = false;
+      this.dobEdit = false
       this.$emit("sync")
     },
 
     genderOn: function() {
-      this.genderEdit = true;
+      this.genderEdit = true && this.myprofile
     },
 
     genderOff: function() {
@@ -170,10 +170,10 @@ export default {
     this.getGenders();
     
     if (!this.user.dob) {
-      this.dobEdit = true;
+      this.dobEdit = true && this.myprofile
     }
     if (!this.user.gender) {
-      this.genderEdit = true;
+      this.genderEdit = true && this.myprofile
     }
   },
 };

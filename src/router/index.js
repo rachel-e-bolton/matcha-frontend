@@ -89,7 +89,24 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
-    beforeEnter: requireAuth
+    beforeEnter: (to, from, next) => {
+      actions.isBlocked(to.params.username)
+      .then(res => {
+        if (res.blocked_me || res.blocked_them) {
+          if (res.blocked_them) {
+            actions.notify.error("You have blocked " + to.params.username + ". You cannot view their profile.")
+          } else if (res.blocked_me) {
+            actions.notify.error(to.params.username + " has blocked you. You cannot view their profile.")
+          }
+          setTimeout(() => {
+            next('/discover')
+          }, 2000)
+        } else {
+          actions.profiledViewed(to.params.username)
+          next()
+        }
+      })
+    }
   },
   {
     path: '/chat/:username',
@@ -101,7 +118,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/Admin.vue'),
-    beforeEnter: requireAuth
+    beforeEnter: isAdmin
   },
   {
     path: '/stats',
@@ -125,13 +142,14 @@ function requireAuth(to, from, next) {
   }
 }
 
-
-function isAuth() {
-  return state.loggedIn
-}
-
-function isAdmin() {
-  return (state.loggedIn && state.user.is_admin)
+function isAdmin(to, from, next) {
+  if (state.loggedIn && state.user.is_admin) {
+    next()
+  } else if (state.loggedIn) {
+    next('/profile')
+  } else {
+    next('/login')
+  }
 }
 
 export default router

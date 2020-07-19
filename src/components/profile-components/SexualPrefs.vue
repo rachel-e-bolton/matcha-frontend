@@ -25,7 +25,7 @@ import VoerroTagsInput from '@voerro/vue-tagsinput';
 
 export default {
   name: "SexualPrefs",
-  props: ["user"],
+  props: ["user", "myprofile"],
   components: {
     "tags-input" : VoerroTagsInput
   },
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     tagsOn: function () {
-      this.tagsEdit = !this.tagsEdit
+      this.tagsEdit = !this.tagsEdit && this.myprofile
     },
     getGenders: function () {
       return this.$http.get(`${this.$api}/info/genders`)

@@ -10,26 +10,26 @@
       </div>
       <div v-else>
         <div v-if="imageSrc.length > 0" class="d-flex justify-content-center">
-          <hooper style="height: 400px; width: 300px">
+          <hooper style="height: 400px; width: 300px" class="rounded-lg shadow">
             <slide
               v-for="(image, index) in imageSrc"
               :key="index"
-              class="rounded-lg shadow-sm"
+              class="rounded-lg"
             >
-              <img :src="image.image64" class="rounded-lg shadow-sm" />
+              <img :src="image.image64" class="rounded-lg" />
             </slide>
             <hooper-navigation slot="hooper-addons"></hooper-navigation>
           </hooper>
         </div>
         <div v-else class="d-flex justify-content-center">
-          <hooper style="height: 400px; width: 300px">
-            <slide class="rounded-lg shadow-sm">
-              <img src="@/assets/no-photo.png" class="rounded-lg shadow-sm" />
+          <hooper style="height: 400px; width: 300px" class="rounded-lg shadow">
+            <slide class="rounded-lg">
+              <img src="@/assets/no-photo.png" class="rounded-lg" />
             </slide>
           </hooper>
         </div>
       </div>
-      <div>
+      <div v-if="myprofile">
         <b-button
           style="position: absolute; right: -5px; bottom: -10px; z-index: 1000"
           pill
@@ -142,7 +142,7 @@ import "hooper/dist/hooper.css";
 import {actions, state} from "@/store"
 
 export default {
-  props: ["user"],
+  props: ["user", "myprofile"],
   components: {
     Hooper,
     Slide,

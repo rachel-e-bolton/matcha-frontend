@@ -191,7 +191,6 @@ export const actions = {
     });
 
     if (Object.keys(changes).length > 0) {
-      console.log("Applying changes", changes);
       try {
         let resp = await axios.put(`${actions.api}/user/${user.id}`, {
           user: changes,
@@ -309,6 +308,22 @@ export const actions = {
     }
     return true;
   },
+  isBlocked: async function (username) {
+    try {
+      let resp = await axios.get(`${actions.api}/check-blocked/${username}`)
+      return resp.data
+    } catch (error) {
+      return false
+    }
+  },
+  profiledViewed: async function (username) {
+    try {
+      let resp = await axios.post(`${actions.api}/views`, { "viewee_username" : username })
+      return true 
+    } catch (error) {
+      return false
+    }
+  }
 };
 
 export default state;

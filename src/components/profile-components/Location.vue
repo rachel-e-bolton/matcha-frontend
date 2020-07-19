@@ -29,7 +29,7 @@
 import {actions, state} from "@/store"
 
 export default {
-  props: ["user"],
+  props: ["user", "myprofile"],
   data() {
     return {
       permissionCheck: false,
@@ -41,8 +41,10 @@ export default {
   },
   methods: {
     changeLoc: function () {
-      this.permissionCheck = true
-      this.showLocation = false
+      this.permissionCheck = true && this.myprofile
+      if (this.myprofile) {
+        this.showLocation = false
+      }
     },
 
     useIP: async function () {

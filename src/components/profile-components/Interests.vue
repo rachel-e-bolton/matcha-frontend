@@ -28,7 +28,7 @@ import {action, state} from "@/store"
 
 export default {
   name: "Interests",
-  props: ["user"],
+  props: ["user", "myprofile"],
   components: {
     "tags-input" : VoerroTagsInput
   },
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     tagsOn: function () {
-      this.tagsEdit = !this.tagsEdit
+      this.tagsEdit = !this.tagsEdit && this.myprofile
     },
     saveInterests: function () {
 

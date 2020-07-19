@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <div v-if="items.length == 0">
-        No requests to review.
+        No reports to review.
       </div>
       <div v-else>
         <ReviewBlockRequests v-bind:items="items" @reload="reload"/>
@@ -47,7 +47,6 @@ export default {
     },
 
     reload: function () {
-      console.log("reload")
       this.getBlockRequests();
     }
   },
