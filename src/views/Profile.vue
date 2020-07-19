@@ -4,7 +4,7 @@
       <Header/>
     </div>
     <div class="content">
-      <div class="max-w-90 d-flex justify-content-center">
+      <div class="max-w-90 d-flex justify-content-center" v-if="user.id">
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div id="profile">
             <div id="fame-rating">

@@ -1,28 +1,52 @@
 <template>
   <div>
-    Users
+    <div class="header"><Header /></div>
+    <div class="content">
+      <div class="max-w-90 d-flex justify-content-center">
+        <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
+          <div v-for="user in state.online_users" :key="user.index">
+            {{ user.username }} is online
+          </div>
 
-    <input v-model="message"  type="text">
-    <button @click="send()">send</button>
-    
+          <input v-model="message"  type="text">
+          <button @click="sendMessage()">send</button>
+        
+        </b-col>
+      </div>
+    </div>
+
+    <div class="footer"><NavBar/></div>
   </div>
 </template>
 
 <script>
+
+import NavBar from '@/components/NavBar.vue'
+import Header from '@/components/HeaderNav.vue'
+
+import {actions, state, socket} from "@/store"
+
 export default {
+  components: { NavBar, Header },
   data: function () {
     return {
-      message: null
+      message: null,
+      state: state
     }
-  },
-  mounted: function () {
-    this.$socket.authenticate(this.$store.token)
   },
   methods: {
-    send: function () {
+    sendMessage: function () {
+      socket.call.initiateChat(this.$route.params.username)
       console.log("Sending Message")
-      this.$socket.sendMessage("Hold your cards")
     }
+  },
+  created: function () {
+    // Fetch messages from this person
+    console.log(this.$route.params.username)
+    socket.call.initiateChat(this.$route.params.username)
+  },
+  beforeDestroy: function () {
+    //actions.closeChat()
   }
 }
 </script>
