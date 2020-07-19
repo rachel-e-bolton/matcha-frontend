@@ -208,10 +208,18 @@ export const actions = {
     }
     return true;
   },
-  isBlocked: async function (user_id) {
+  isBlocked: async function (username) {
     try {
-      let resp = await axios.get(`${actions.api}/check-blocked/${user_id}`)
+      let resp = await axios.get(`${actions.api}/check-blocked/${username}`)
       return resp.data
+    } catch (error) {
+      return false
+    }
+  },
+  profiledViewed: async function (username) {
+    try {
+      let resp = await axios.post(`${actions.api}/views`, { "viewee_username" : username })
+      return true 
     } catch (error) {
       return false
     }

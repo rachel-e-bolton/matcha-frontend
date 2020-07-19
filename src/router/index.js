@@ -96,6 +96,7 @@ const routes = [
             next('/discover')
           }, 2000)
         } else {
+          actions.profiledViewed(to.params.username)
           next()
         }
       })
