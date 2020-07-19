@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       loggedIn: state.loggedIn,
-      isAdmin: false
+      isAdmin: state.loggedIn && state.user.is_admin
     }
   },
   methods: {
@@ -43,9 +43,6 @@ export default {
       actions.logoutUser().then(() => this.$router.push("/login"))
     }
   },
-  mounted: function () {
-    console.log(this.loggedIn)
-  }
 }
 </script>
 
