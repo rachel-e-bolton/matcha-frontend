@@ -135,11 +135,6 @@ function requireAuth(to, from, next) {
   }
 }
 
-
-function isAuth() {
-  return state.loggedIn
-}
-
 function isAdmin(to, from, next) {
   if (state.loggedIn && state.user.is_admin) {
     next()
