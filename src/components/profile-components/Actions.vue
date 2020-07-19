@@ -1,11 +1,11 @@
 <template>
   <div v-if="relationship" class="mb-3 p-md-2">
-    <Report class="small my-2" :user_id="user.id"/>
+    <Report class="small mt-1 mb-3" :user="user"/>
     <div v-if="relationship.matched && relationship.liked">
       <b-card class="border-none shadow-sm rounded text-dark" >
         Things are looking <span class="text-secondary"><strong>HOT</strong></span> in here.<br>You should get chatting.<br><hr>
         <b-link>Go to chat</b-link><hr>
-        <Rate :user_id="user.id" /><hr>
+        <Rate :user="user" /><hr>
         <b-link @click="unmatch" class="text-danger">UNMATCH</b-link>
       </b-card>
     </div>
