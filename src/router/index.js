@@ -89,7 +89,17 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
-    beforeEnter: (to, from, next) => {
+    beforeEnter: async (to, from, next) => {
+
+      try {
+        let isBlocked = actions.isBlocked(to.params.username)
+      } catch (error) {
+        console.log(error)
+      }
+
+      next()
+
+
       actions.isBlocked(to.params.username)
       .then(res => {
         if (res.blocked_me || res.blocked_them) {
