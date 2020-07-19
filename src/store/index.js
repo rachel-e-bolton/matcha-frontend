@@ -37,8 +37,6 @@ export const actions = {
 
     state.jwt = actions.loadLocalStoage();
 
-    console.log(state.jwt);
-
     if (state.jwt) {
       let user = await actions.getUser();
       actions.setUser(state.jwt, user);
@@ -93,7 +91,6 @@ export const actions = {
     });
 
     if (Object.keys(changes).length > 0) {
-      console.log("Applying changes", changes);
       try {
         let resp = await axios.put(`${actions.api}/user/${user.id}`, {
           user: changes,

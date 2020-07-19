@@ -86,7 +86,6 @@ const routes = [
     beforeEnter: (to, from, next) => {
       actions.isBlocked(to.params.username)
       .then(res => {
-        console.log(res)
         if (res.blocked_me || res.blocked_them) {
           if (res.blocked_them) {
             actions.notify.error("You have blocked " + to.params.username + ". You cannot view their profile.")

@@ -46,7 +46,7 @@ export default {
         { value: "fake profile", text: "This is a fake profile." },
         { value: "inappropriate content", text: "This user's account has inappropriate content." },
         { value: "harassment", text: "I feel that this user has harassed me." },
-        { value: "to sexy", text: "This user is too sexy for their shirt." },
+        { value: "too sexy", text: "This user is too sexy for their shirt." },
         { value: "other", text: "Other" }
       ],
       reason: null,
@@ -65,13 +65,15 @@ export default {
         this.block_request.reason = this.reason + ": " + this.reason_text
       }
 
-      this.$http.post(`${this.$api}/block-requests`, this.block_request)
-      .then(res => {
-        actions.notify.info("You have successfully reported " + this.user.username + ". An admin will review your report.")
-      })
-      .catch(err => {
-        actions.notify.error("Could not report " + this.user.username + ".")
-      })
+      if (this.reason) {        
+        this.$http.post(`${this.$api}/block-requests`, this.block_request)
+        .then(res => {
+          actions.notify.info("You have successfully reported " + this.user.username + ". An admin will review your report.")
+        })
+        .catch(err => {
+          actions.notify.error("Could not report " + this.user.username + ".")
+        })
+      }
     },
 
     showModal(ref) {
