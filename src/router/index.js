@@ -111,7 +111,7 @@ const routes = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/views/Admin.vue'),
-    beforeEnter: requireAuth
+    beforeEnter: isAdmin
   },
   {
     path: '/stats',
@@ -140,8 +140,14 @@ function isAuth() {
   return state.loggedIn
 }
 
-function isAdmin() {
-  return (state.loggedIn && state.user.is_admin)
+function isAdmin(to, from, next) {
+  if (state.loggedIn && state.user.is_admin) {
+    next()
+  } else if (state.loggedIn) {
+    next('/profile')
+  } else {
+    next('/login')
+  }
 }
 
 export default router
