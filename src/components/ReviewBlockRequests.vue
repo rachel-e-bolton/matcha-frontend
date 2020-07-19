@@ -6,12 +6,27 @@
     responsive="sm"
   >
     <template v-slot:cell(reported_first_namereported_last_name)="data">
-      {{ data.item.reported_first_name}} {{ data.item.reported_last_name }}
+      <span>
+        <router-link
+          :to="{
+            name: 'profile',
+            params: { username: data.item.reported_username }}">
+          {{ data.item.reported_first_name}} {{ data.item.reported_last_name }}
+        </router-link>
+      </span>
     </template>
 
     <template v-slot:cell(reporter_first_namereporter_last_name)="data">
-      {{ data.item.reporter_first_name}} {{ data.item.reporter_last_name }}
+      <span>
+        <router-link
+          :to="{
+            name: 'profile',
+            params: { username: data.item.reporter_username }}">
+          {{ data.item.reporter_first_name}} {{ data.item.reporter_last_name }}
+        </router-link>
+      </span>
     </template>
+
     <template v-slot:table-colgroup="scope">
       <col
         v-for="field in scope.fields"

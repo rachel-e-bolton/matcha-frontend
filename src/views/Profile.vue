@@ -31,8 +31,8 @@
             <div id="sexual-preferences">
               <SexualPrefs :user="user" :myprofile="myprofile" @sync="syncUser" class="mx-md-5 my-3"/>
             </div>
-            <div id="other-actions">
-             
+            <div v-if="!myprofile" id="other-actions">
+              <Actions :user="user" />
             </div>
           </div>
         </b-col>
@@ -54,6 +54,7 @@ import SexualPrefs from '@/components/profile-components/SexualPrefs'
 import Interests from '@/components/profile-components/Interests'
 import Bio from '@/components/profile-components/Bio'
 import Location from '@/components/profile-components/Location'
+import Actions from '@/components/profile-components/Actions'
 
 import {actions, state} from "@/store"
 import axios from 'axios'
@@ -69,7 +70,8 @@ export default {
     Images,
     PersonalDetails,
     Bio,
-    Location
+    Location,
+    Actions
   },
   data: function () {
     return {

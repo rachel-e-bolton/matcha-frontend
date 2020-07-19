@@ -37,8 +37,6 @@ export const actions = {
 
     state.jwt = actions.loadLocalStoage();
 
-    console.log(state.jwt);
-
     if (state.jwt) {
       let user = await actions.getUser();
       actions.setUser(state.jwt, user);
@@ -93,7 +91,6 @@ export const actions = {
     });
 
     if (Object.keys(changes).length > 0) {
-      console.log("Applying changes", changes);
       try {
         let resp = await axios.put(`${actions.api}/user/${user.id}`, {
           user: changes,
@@ -211,6 +208,14 @@ export const actions = {
     }
     return true;
   },
+  isBlocked: async function (user_id) {
+    try {
+      let resp = await axios.get(`${actions.api}/check-blocked/${user_id}`)
+      return resp.data
+    } catch (error) {
+      return false
+    }
+  }
 };
 
 export default state;
