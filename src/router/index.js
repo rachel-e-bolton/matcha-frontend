@@ -21,15 +21,15 @@ const routes = [
   {
     path: '/signup',
     name: 'signup',
-    component: () => import('../views/SignUp.vue')
+    component: () => import('@/views/SignUp.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/Login.vue'),
+    component: () => import('@/views/Login.vue'),
     beforeEnter: (to, from, next) => {
       if (state.loggedIn) {
-        next('/profile')
+        next(`/profile/${state.user.username}`)
       } else {
         next()
       }
@@ -81,7 +81,7 @@ const routes = [
       if (state.loggedIn) {
         next(`/profile/${state.user.username}`)
       } else {
-        next("/login")
+        next()
       }
     }
   },
@@ -90,16 +90,7 @@ const routes = [
     name: 'profile',
     component: () => import('@/views/Profile.vue'),
     beforeEnter: async (to, from, next) => {
-
-      try {
-        let isBlocked = actions.isBlocked(to.params.username)
-      } catch (error) {
-        console.log(error)
-      }
-
-      next()
-
-
+      
       actions.isBlocked(to.params.username)
       .then(res => {
         if (res.blocked_me || res.blocked_them) {
@@ -110,19 +101,11 @@ const routes = [
           }
           setTimeout(() => {
             next('/discover')
-          }, 2000)
+          }, 100)
         } else {
           actions.profiledViewed(to.params.username)
-          .then((res) => {
-            next()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+          next()
         }
-      })
-      .catch((err) => {
-        console.log(err)
       })
     }
   },
