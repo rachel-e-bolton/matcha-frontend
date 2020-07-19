@@ -97,8 +97,16 @@ const routes = [
           }, 2000)
         } else {
           actions.profiledViewed(to.params.username)
-          next()
+          .then((res) => {
+            next()
+          })
+          .catch((err) => {
+            console.log(err)
+          })
         }
+      })
+      .catch((err) => {
+        console.log(err)
       })
     }
   },

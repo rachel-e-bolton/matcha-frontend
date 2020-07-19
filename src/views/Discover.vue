@@ -41,7 +41,7 @@ export default {
     NavBar
   },
   mounted: function () {
-    axios.get(`${actions.api}/discover?skip=0&take=100&distance=1000`)
+    axios.get(`${actions.api}/discover?skip=0&take=100&distance=4000`)
     .then(resp => {
       this.d = resp.data
     })
