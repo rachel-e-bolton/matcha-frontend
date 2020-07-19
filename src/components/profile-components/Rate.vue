@@ -6,7 +6,7 @@
     </div>
     <div v-else>
       <b-link @click="rateUser"><b-form-rating name="rating" variant="secondary" style="border: none" v-model="rating"></b-form-rating></b-link>
-      <span class="small">Rate your experience getting to know this match.<br></span>
+      <span class="small">Rate your experience getting to know this match.<br>You can only do this once.</span>
     </div>
   </div>
 </template>
