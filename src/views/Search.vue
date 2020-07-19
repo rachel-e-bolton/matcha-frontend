@@ -31,7 +31,7 @@ import {actions, state} from "@/store"
 import axios from "axios"
 
 export default {
-  name: 'discover',
+  name: 'search',
   data: function () {
     return {
       loading: true

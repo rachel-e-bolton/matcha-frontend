@@ -62,6 +62,12 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/Search.vue'),
+    beforeEnter: requireAuth
+  },
+  {
     path: '/matches',
     name: 'matches',
     component: () => import('@/views/Matches'),
