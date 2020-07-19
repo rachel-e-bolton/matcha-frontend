@@ -34,10 +34,10 @@ Vue.prototype.$socket = new MatchaWebsocket(socketUri)
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
   //Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
-  Vue.prototype.$socket.socket.onopen = () => {
-    console.log("Connecting Websocket and authenticating")
-    Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)
-  }
+  // Vue.prototype.$socket.socket.onopen = () => {
+  //   console.log("Connecting Websocket and authenticating")
+  //   Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)
+  // }
 } else {
   Vue.prototype.$store = Vue.observable({ 
     token: false,
@@ -45,8 +45,9 @@ if (state) {
   })
 }
 
-import {actions, stateNew} from '@/store'
+import {actions, stateNew, socket} from '@/store'
 
+socket.connect(socketUri)
 
 actions.init(Vue.prototype.$api)
   .then(() => {
@@ -54,6 +55,5 @@ actions.init(Vue.prototype.$api)
       router,
       render: h => h(App)
     }).$mount('#app')
-    
     actions.setVue(vue)
   })

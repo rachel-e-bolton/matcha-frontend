@@ -18,11 +18,8 @@ export default class MatchaWebsocket {
     let method = payload.method
 
     if (method === "message") {
-      
       console.log(this)
-
     }
-
   }
 
   receiveMessage() {

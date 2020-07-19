@@ -62,6 +62,12 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
+    path: '/matches',
+    name: 'matches',
+    component: () => import('@/views/Matches'),
+    beforeEnter: requireAuth
+  },
+  {
     path: '/settings',
     meta: "auth-required",
     name: 'settings',
@@ -111,7 +117,7 @@ const routes = [
     }
   },
   {
-    path: '/chat',
+    path: '/chat/:username',
     name: 'chat',
     component: () => import('@/views/Chat.vue'),
     beforeEnter: requireAuth
