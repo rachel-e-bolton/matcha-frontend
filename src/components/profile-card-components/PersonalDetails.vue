@@ -2,67 +2,38 @@
   <div class="container">
     <b-row class="mt-4">
       <b-col class="d-flex flex-row align-items-center flex-wrap">
-        <div
-          v-if="!fnameEdit"
-          @click="fnameOn()"
-          style="font-size: 1.25rem; font-weight: 700"
-        >
-          {{ user.fname }}
-        </div>
-        <b-form-input
-          class="mr-2 col-7"
-          autofocus="autofocus"
-          v-model="user.fname"
-          placeholder="Enter your first name"
-          v-if="fnameEdit"
-          @blur="fnameOff()"
-          @keyup.enter="fnameOff()"
-        ></b-form-input>
-        <div
-          v-if="!lnameEdit"
-          @click="lnameOn()"
-          class="ml-2"
-          style="font-size: 1.25rem;"
-        >
-          {{ user.lname }}
-        </div>
-        <b-form-input
-          class="ml-2 col-7"
-          autofocus="autofocus"
-          v-model="user.lname"
-          placeholder="Enter your last name"
-          v-if="lnameEdit"
-          @blur="lnameOff()"
-          @keyup.enter="lnameOff()"
-        ></b-form-input>
+        <router-link :to="`/profile/${this.user.username}`" class="text-dark" style="text-decoration: none">
+          <div
+            style="font-size: 1.25rem; font-weight: 700"
+          >
+            {{ user.fname }}
+          </div>
+        </router-link>
+        <router-link :to="`/profile/${this.user.username}`" class="text-dark" style="text-decoration: none">
+          <div
+            class="ml-2"
+            style="font-size: 1.25rem;"
+          >
+            {{ user.lname }}
+          </div>
+        </router-link>
       </b-col>
     </b-row>
     <b-row class="mb-2">
       <b-col class="d-flex flex-row align-items-center flex-wrap">
-        <div
-          v-if="!dobEdit"
-          @click="dobOn()"
-          style="font-size: 1.25rem; font-weight: 700">
-          {{ age() }},
-        </div>
-        <label for="datepicker" v-if="dobEdit">Birthday: </label>
-        <b-form-datepicker
-          id="datepicker"
-          dark
-          class="mx-2 col-8 small mb-2"
-          v-model="user.dob"
-          v-if="dobEdit"
-          @input="dobOff()"
-          @blur="dobOff()"
-          :max="max">
-          </b-form-datepicker>
-        <div
-          v-if="!genderEdit"
-          @click="genderOn()"
-          class="ml-2"
-          style="font-size: 1.25rem;">
-          {{ user.gender }}
-        </div>
+        <router-link :to="`/profile/${this.user.username}`" class="text-dark" style="text-decoration: none">
+          <div
+            style="font-size: 1.25rem; font-weight: 700">
+            {{ age() }},
+          </div>
+        </router-link>
+        <router-link :to="`/profile/${this.user.username}`" class="text-dark" style="text-decoration: none">
+          <div
+            class="ml-2"
+            style="font-size: 1.25rem;">
+            {{ user.gender }}
+          </div>
+        </router-link>
       </b-col>
     </b-row>
   </div>
@@ -76,19 +47,6 @@ maxDate.setFullYear(today.getFullYear() - 19);
 
 export default {
   props: ["user", "myprofile"],
-  data() {
-
-    return {
-      fnameEdit: false,
-      lnameEdit: false,
-      dobEdit: false,
-      genderEdit: false,
-      max: maxDate,
-      genders: [
-        { value: null, text: 'Select your gender' }
-      ],
-    };
-  },
   methods: {
     age: function() {
       if (this.user.dob) {
@@ -103,47 +61,7 @@ export default {
         age = Math.floor(age);
       }
       return age;
-    },
-
-    fnameOn: function() {
-      this.fnameEdit = true && this.myprofile
-    },
-
-    fnameOff: function() {
-      this.fnameEdit = false
-      this.$emit("sync")
-    },
-
-    lnameOn: function() {
-      this.lnameEdit = true && this.myprofile
-    },
-
-    lnameOff: function() {
-      this.lnameEdit = false
-      this.$emit("sync")
-    },
-
-    dobOn: function() {
-      this.dobEdit = true && this.myprofile
-    },
-
-    dobOff: function() {
-      this.dobEdit = false
-      this.$emit("sync")
-    },
-
-    genderOn: function() {
-      this.genderEdit = true && this.myprofile
-    },
-
-    genderOff: function() {
-      if (!this.user.gender) {
-        this.genderEdit = true;
-      } else {
-        this.genderEdit = false;
-        this.$emit("sync")
-      }
-    },
+    },  
   }
 };
 </script>
