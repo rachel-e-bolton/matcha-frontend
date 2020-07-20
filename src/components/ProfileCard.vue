@@ -28,10 +28,31 @@
       <!-- <p>filter:</p> -->
       <b-button-group>
         <b-button @click="filterAgeClick" :pressed.sync="filterAge">Age</b-button>
-        <!-- {{ AgeOrder }} -->
+        <b-input v-model="minAge" type="number" min="18" :max="maxAge" v-if="filterAge"></b-input>
+        <b-input v-model="maxAge" type="number" :min="minAge" max="100" v-if="filterAge"></b-input>
         <b-button @click="filterDistanceClick" :pressed.sync="filterDistance">Distance</b-button>
-        <!-- {{ DistanceOrder }} -->
+        <b-input
+          v-model="minDistance"
+          type="number"
+          min="0"
+          :max="maxDistance"
+          v-if="filterDistance"
+        ></b-input>
+        <b-input
+          v-model="maxDistance"
+          type="number"
+          :min="minDistance"
+          max="100"
+          v-if="filterDistance"
+        ></b-input>
+        <b-button @click="filterHeatClick" :pressed.sync="filterHeat">Heat</b-button>
+        <b-input v-model="minHeat" type="number" min="1" :max="maxHeat" v-if="filterHeat"></b-input>
+        <b-input v-model="maxHeat" type="number" :min="minHeat" max="5" v-if="filterHeat"></b-input>
+        <b-button @click="filterTagsClick" :pressed.sync="filterTags">Tags</b-button>
+        <b-input v-model="minTags" type="number" min="0" :max="maxTags" v-if="filterTags"></b-input>
+        <b-input v-model="maxTags" type="number" :min="minTags" max="10" v-if="filterTags"></b-input>
       </b-button-group>
+      <!-- <p>{{temp}}</p> -->
     </div>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
@@ -86,9 +107,18 @@ import users from "../assets/temp.json";
 export default {
   data: () => {
     return {
-      myAge: 25,
       filterAge: false,
+      minAge: 20,
+      maxAge: 30,
       filterDistance: false,
+      minDistance: 0,
+      maxDistance: 20,
+      filterHeat: false,
+      minHeat: 1,
+      maxHeat: 5,
+      filterTags: false,
+      minTags: 0,
+      maxTags: 10,
       age: false,
       ageOrder: "descending",
       distance: true,
@@ -100,14 +130,51 @@ export default {
       currentPage: 1,
       maxPerPage: 10,
       showLoader: false,
-      profiles: users.sort(
-        (a, b) => parseFloat(a.distance) - parseFloat(b.distance)
-      ),
-      totalResults: Object.keys(users).length
+      object: users
+      // profiles: users,
+      // totalResults: Object.keys(profiles).length,
     };
   },
-  created() {},
+  created() {
+    users.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+  },
   computed: {
+    profiles() {
+      var temp = this.object;
+      var minAge = this.minAge;
+      var maxAge = this.maxAge;
+      if (this.filterAge === true) {
+        temp = temp.filter(function(n) {
+          var age = this.ageCalculation(n.dob);
+          return age >= minAge && age <= maxAge;
+        });
+      }
+      var minDistance = this.minDistance;
+      var maxDistance = this.maxDistance;
+      if (this.filterDistance === true) {
+        temp = temp.filter(function(n) {
+          return n.distance >= minDistance && n.distance <= maxDistance;
+        });
+      }
+      var minHeat = this.minHeat;
+      var maxHeat = this.maxHeat;
+      if (this.filterHeat === true) {
+        temp = temp.filter(function(n) {
+          return n.heat >= minHeat && n.heat <= maxHeat;
+        });
+      }
+      var minTags = this.minTags;
+      var maxTags = this.maxTags;
+      if (this.filterTags === true) {
+        temp = temp.filter(function(n) {
+          return n.tags >= minTags && n.tags <= maxTags;
+        });
+      }
+      return temp;
+    },
+    totalResults() {
+      return Object.keys(this.profiles).length;
+    },
     pageCount() {
       return Math.ceil(this.totalResults / this.maxPerPage);
     },
@@ -142,11 +209,9 @@ export default {
       return Math.abs(age_dt.getUTCFullYear() - 1970);
     },
     filterAgeClick() {},
-    filterDistanceClick() {
-      // this.profiles = users.filter(function(i, n) {
-      //   return n.distance >= 1 && n.distance <= 5;
-      // });
-    },
+    filterDistanceClick() {},
+    filterHeatClick() {},
+    filterTagsClick() {},
     distanceClick() {
       this.distance = true;
       this.age = false;
