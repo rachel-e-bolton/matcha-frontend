@@ -142,10 +142,10 @@ export default {
       var maxAge = this.maxAge;
       if (this.filterAge === true) {
         temp = temp.filter(function(n) {
-          var dob = n.dob;
-          console.log(dob);
-          var age = this.ageCalculation(dob);
-          console.log(age);
+          var date = new Date(n.dob);
+          var diff_ms = Date.now() - date;
+          var age_dt = new Date(diff_ms);
+          var age = Math.abs(age_dt.getUTCFullYear() - 1970);
           return age >= minAge && age <= maxAge;
         });
       }
