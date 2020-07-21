@@ -1,7 +1,7 @@
 <template>
-   <div class="col-10 col-md-6 col-lg-3 m-2">
+   <div class="col-10 col-md-6 col-lg-3 m-3">
      <b-card class="bg-light shadow-sm">
-       <FameRating :user="user" class="mt-md-4"/>
+       <FameRating :user="user" class="mt-md-3"/>
         <div v-if="user_image">
         <router-link :to="`/profile/${this.user.username}`">
           <img :src="user_image" class="rounded-pill shadow" style="height: 200px; width: 200px; object-fit: cover"/>
@@ -14,7 +14,7 @@
         </div>
         <PersonalDetails class="mt-2" :user="user"/>
         <Location class="mt-3" :user="user"/>
-        <div style="height: 110px">
+        <div style="height: 100px">
           <Bio :user="user"/>
         </div>
      </b-card>

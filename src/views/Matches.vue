@@ -6,15 +6,19 @@
             <div class="max-w-90 d-flex justify-content-center" v-if="user">
                 <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
                     <div class="matches d-flex flex-column my-3">
-                        <div class="match d-flex flex-row my-1" @click="chat(match.username)" v-for="match in matches" :key="match.index">
+                        <div class="match d-flex flex-row my-1 align-items-center" @click="chat(match.username)" v-for="match in matches" :key="match.index">
 
-                            <img class="avatar" v-if="match.image64" :src="'data:image/' + match.image_type + ';base64, ' + match.image64" :alt="match.fname">
-                            <img class="avatar" v-else src="@/assets/no-photo.png" :alt="match.fname">
+                            <div class="w-25">
+                              <img class="avatar shadow" style="height: 72px; width: 72px; object-fit: cover" v-if="match.image64" :src="'data:image/' + match.image_type + ';base64, ' + match.image64" :alt="match.fname">
+                              <b-avatar v-else class="rounded-pill shadow" size="64px"></b-avatar>
+                            </div>
 
-                            <div class="p-3">{{match.fname}} {{ match.lname }}</div>
+                            <div class="p-3 w-50 text-left">
+                              <strong>{{match.fname}}</strong> {{ match.lname }}
+                            </div>
 
-                            <div v-if="match.online" class="p-3">Online</div>
-                            <div v-else class="p-3">Offline</div>
+                            <div v-if="match.online" class="p-3 text-right">online</div>
+                            <div v-else class="p-3 text-center w-25 text-danger">offline</div>
 
                         </div>
                     </div>
