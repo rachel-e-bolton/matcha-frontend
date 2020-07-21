@@ -1,10 +1,10 @@
+
 <template>
   <div class="discover">
     <div class="header">
       <Header/>
     </div>
     <div class="content">
-
       <div class="advanced-search container">
         <b-button class="btn-block p-3" v-b-toggle.email>Advanced Search</b-button>
         <b-collapse id="email" :visible="searchShow" class="m-2">
@@ -59,7 +59,7 @@
             ></b-form-input>
           </b-input-group>
 
-          <b-button class="btn-block">Submit</b-button>
+          <b-button class="btn-block" @click="customSearch">Submit</b-button>
           </b-card>
         </b-collapse>
       </div>
@@ -107,33 +107,32 @@
               </div>
             </b-sidebar>
 
-            <b-dropdown text="Sort" block right class="my-2 col-md-3">
-              <b-dropdown-item @click="ageClick" :pressed.sync="age">
-                Age
-                <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
-                <b-icon-arrow-down v-if="age && ageOrder === 'descending'"></b-icon-arrow-down>
-              </b-dropdown-item>
-              <b-dropdown-item @click="distanceClick" :pressed.sync="distance">
-                Distance
-                <b-icon-arrow-up v-if="distance && distanceOrder === 'ascending'"></b-icon-arrow-up>
-                <b-icon-arrow-down v-if="distance && distanceOrder === 'descending'"></b-icon-arrow-down>
-              </b-dropdown-item>
-              <b-dropdown-item @click="heatClick" :pressed.sync="heat">
-                Heat
-                <b-icon-arrow-up v-if="heat && heatOrder === 'ascending'"></b-icon-arrow-up>
-                <b-icon-arrow-down v-if="heat && heatOrder === 'descending'"></b-icon-arrow-down>
-              </b-dropdown-item>
-              <b-dropdown-item @click="tagsClick" :pressed.sync="tags">
-                Tags
-                <b-icon-arrow-up v-if="tags && tagsOrder === 'ascending'"></b-icon-arrow-up>
-                <b-icon-arrow-down v-if="tags && tagsOrder === 'descending'"></b-icon-arrow-down>
-              </b-dropdown-item>
-            </b-dropdown>
-
-          </div>
-          <div class="d-flex flex-column flex-md-row justify-content-center align-items-center flex-wrap">
-            <ProfileCard v-for="a in profiles" :key="a.index" :user="a"/>
-          </div>
+          <b-button-group text="Sort" block right class="my-2 col-md-3">
+            <b-button @click="ageClick" :pressed.sync="age">
+              Age
+              <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
+              <b-icon-arrow-down v-if="age && ageOrder === 'descending'"></b-icon-arrow-down>
+            </b-button>
+            <b-button @click="distanceClick" :pressed.sync="distance">
+              Distance
+              <b-icon-arrow-up v-if="distance && distanceOrder === 'ascending'"></b-icon-arrow-up>
+              <b-icon-arrow-down v-if="distance && distanceOrder === 'descending'"></b-icon-arrow-down>
+            </b-button>
+            <b-button @click="heatClick" :pressed.sync="heat">
+              Heat
+              <b-icon-arrow-up v-if="heat && heatOrder === 'ascending'"></b-icon-arrow-up>
+              <b-icon-arrow-down v-if="heat && heatOrder === 'descending'"></b-icon-arrow-down>
+            </b-button>
+            <b-button @click="tagsClick" :pressed.sync="tags">
+              Tags
+              <b-icon-arrow-up v-if="tags && tagsOrder === 'ascending'"></b-icon-arrow-up>
+              <b-icon-arrow-down v-if="tags && tagsOrder === 'descending'"></b-icon-arrow-down>
+            </b-button>
+          </b-button-group>
+        </div>
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center flex-wrap">
+          <ProfileCard v-for="a in users" :key="a.index" :user="a"/>
+        </div>
         </div>
       </div>
     </div>
@@ -165,7 +164,7 @@ export default {
       radius: 20,
       interests: 3,
       searchEnabled: true,
-      searchShow: true,
+      searchShow: false,
       searchMinAge: null,
       searchMinAge: null,
       searchMinHeat: null,
@@ -346,14 +345,6 @@ export default {
       }
     }
   },
-  mounted: function () {
-    axios.get(`${actions.api}/discover?skip=0&take=100&distance=4000`)
-    .then(resp => {
-      this.object = resp.data,
-      this.users = resp.data
-      this.loading = false
-    })
-  }
 }
 </script>
 
