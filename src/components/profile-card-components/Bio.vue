@@ -22,3 +22,16 @@ export default {
   props: ["user", "myprofile"],
 }
 </script>
+
+<style scoped>
+.bio {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.bio::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+</style>
