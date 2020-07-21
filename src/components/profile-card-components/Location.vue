@@ -3,6 +3,7 @@
     <div class="d-flex flex-row flex-wrap justify-content-center my-2">
       <div v-if="locationName">
         {{ locationName }}
+      <div class="small"><i><strong>{{user.distance}}</strong> km away</i></div>
       </div>
     </div>
   </div>
