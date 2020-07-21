@@ -16,7 +16,8 @@
               :key="index"
               class="rounded-lg"
             >
-              <img :src="image.image64" class="rounded-lg" />
+              <img :src="image.image64" style="height: 400px; width: 300px,object-fit: cover, left: 50%;
+  position: relative;" class="rounded-lg" />
             </slide>
             <hooper-navigation slot="hooper-addons"></hooper-navigation>
           </hooper>
@@ -24,7 +25,7 @@
         <div v-else class="d-flex justify-content-center">
           <hooper style="height: 400px; width: 300px" class="rounded-lg shadow">
             <slide class="rounded-lg">
-              <img src="@/assets/no-photo.png" class="rounded-lg" />
+              <img src="@/assets/no-photo.png" style="height: 400px; width: 300px, object-fit: cover" class="rounded-lg" />
             </slide>
           </hooper>
         </div>

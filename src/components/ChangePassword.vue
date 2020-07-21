@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import {state} from '@/store'
 export default {
   data: function() {
     return {
@@ -101,7 +102,7 @@ export default {
         .put(`${this.$api}/reset-password`, {
           previous_password: this.old_password,
           new_password: this.new_password,
-          user_id: this.user_id,
+          user_id: state.user.id,
         })
         .then((res) => {
           this.new_password = null;
@@ -130,7 +131,7 @@ export default {
   },
   mounted: function() {
     this.code = this.$route.query.code;
-    this.user_id = this.$store.user.id;
+    this.user_id = state.user.id
     if (!this.code && !this.$store.user) {
       alert("Not logged in and no code, redirect to login?");
     }

@@ -17,29 +17,29 @@
             <div class="py-2">
               <b-button-group class="w-100 px-3 py-2">
                 <b-button @click="filterAgeClick" :pressed.sync="filterAge" style="width: 300px">Age</b-button>
-                <b-input v-model="minAge" type="number" min="18" :max="maxAge" onchange="validity.valid||(value=18);" required></b-input>
-                <b-input v-model="maxAge" type="number" :min="minAge" max="100" onchange="validity.valid||(value=100);" required></b-input>
+                <b-input v-model="minAge" type="number" :disabled="filterAge" min="18" :max="maxAge" onchange="validity.valid||(value=18);" required></b-input>
+                <b-input v-model="maxAge" type="number" :disabled="filterAge" :min="minAge" max="100" onchange="validity.valid||(value=100);" required></b-input>
                 <b-button v-if="!filterAge"  variant="success" @click="filterAgeClick" :pressed.sync="filterAge">Enable</b-button>
                 <b-button v-if="filterAge" variant="danger" @click="filterAgeClick" :pressed.sync="filterAge">Disable</b-button>
               </b-button-group>
               <b-button-group class="w-100 px-3 py-2">
                 <b-button @click="filterDistanceClick" :pressed.sync="filterDistance" style="width: 300px">Kms</b-button>
-                <b-input v-model="minDistance" type="number" min="0" :max="maxDistance" onchange="validity.valid||(value=0);" required></b-input>
-                <b-input v-model="maxDistance" type="number" :min="minDistance" max="1000" onchange="validity.valid||(value=1000);" required></b-input>
+                <b-input v-model="minDistance" :disabled="filterDistance" type="number" min="0" :max="maxDistance" onchange="validity.valid||(value=0);" required></b-input>
+                <b-input v-model="maxDistance" :disabled="filterDistance" type="number" :min="minDistance" max="20" onchange="validity.valid||(value=1000);" required></b-input>
                 <b-button v-if="!filterDistance" variant="success" @click="filterDistanceClick" :pressed.sync="filterDistance">Enable</b-button>
                 <b-button v-if="filterDistance" variant="danger" @click="filterDistanceClick" :pressed.sync="filterDistance">Disable</b-button>
               </b-button-group>
               <b-button-group class="w-100 px-3 py-2">
                 <b-button @click="filterHeatClick" :pressed.sync="filterHeat" style="width: 300px">Heat</b-button>
-                <b-input v-model="minHeat" type="number" min="1" :max="maxHeat" onchange="validity.valid||(value=1);" required></b-input>
-                <b-input v-model="maxHeat" type="number" :min="minHeat" max="5" onchange="validity.valid||(value=5);" required></b-input>
+                <b-input v-model="minHeat" :disabled="filterHeat" type="number" min="1" :max="maxHeat" onchange="validity.valid||(value=1);" required></b-input>
+                <b-input v-model="maxHeat" :disabled="filterHeat" type="number" :min="minHeat" max="5" onchange="validity.valid||(value=5);" required></b-input>
                 <b-button v-if="!filterHeat" variant="success" @click="filterHeatClick" :pressed.sync="filterHeat">Enable</b-button>
                 <b-button v-if="filterHeat" variant="danger" @click="filterHeatClick" :pressed.sync="filterHeat">Disable</b-button>
               </b-button-group>
               <b-button-group class="w-100 px-3 py-2">
                 <b-button @click="filterTagsClick" :pressed.sync="filterTags" style="width: 300px">Tags</b-button>
-                <b-input v-model="minTags" type="number" min="0" :max="maxTags" onchange="validity.valid||(value=0);" required></b-input>
-                <b-input v-model="maxTags" type="number" :min="minTags" max="10" onchange="validity.valid||(value=10);" required></b-input>
+                <b-input v-model="minTags" :disabled="filterTags" type="number" min="3" :max="maxTags" onchange="validity.valid||(value=0);" required></b-input>
+                <b-input v-model="maxTags" :disabled="filterTags" type="number" :min="minTags" max="20" onchange="validity.valid||(value=10);" required></b-input>
                 <b-button v-if="!filterTags" variant="success" @click="filterTagsClick" :pressed.sync="filterTags">Enable</b-button>
                 <b-button v-if="filterTags" variant="danger" @click="filterTagsClick" :pressed.sync="filterTags">Disable</b-button>
               </b-button-group>
@@ -174,11 +174,18 @@ export default {
   },
   methods: { 
     ageCalculation(dob) {
-      var date = new Date(dob);
-      var diff_ms = Date.now() - date;
-      var age_dt = new Date(diff_ms);
-      var age = Math.abs(age_dt.getUTCFullYear() - 1970);
-      return age
+        if (dob) {
+        var split_dob = dob.split("-");
+        var year = split_dob[0];
+        var month = split_dob[1];
+        var day = split_dob[2];
+        var dob_asdate = new Date(year, month, day);
+        var today = new Date();
+        var mili_dif = Math.abs(today.getTime() - dob_asdate.getTime());
+        var age = mili_dif / (1000 * 3600 * 24 * 365.25);
+        age = Math.floor(age);
+      }
+      return age;
     },
     checkSmaller(input, otherInput) {
       return input <= otherInput;

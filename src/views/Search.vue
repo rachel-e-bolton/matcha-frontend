@@ -9,7 +9,33 @@
         <b-button class="btn-block p-3" v-b-toggle.email>Advanced Search</b-button>
         <b-collapse id="email" :visible="searchShow" class="m-2">
           <b-card>
-            
+          <label for="age-gap" class="mt-3">Age Gap: </label>
+          <b-input-group prepend="0" append="30 Years" class="mt-3">
+            <b-form-input
+              type="range"
+              min="0"
+              max="30"
+              id="age-gap"
+              v-model="ageGap"
+              @input="calcAgeMinMax()"
+              :disabled="!searchEnabled"
+              :title="ageGap"
+            ></b-form-input>
+          </b-input-group>
+
+          <label for="fame-gap" class="mt-3">Fame Gap: </label>
+          <b-input-group prepend="0" append="5 Stars" class="mt-3">
+            <b-form-input
+              type="range"
+              min="0"
+              max="5"
+              id="fame-gap"
+              v-model="fameGap"
+              @input="calcFameMinMax()"
+              :disabled="!searchEnabled"
+              :title="fameGap"
+            ></b-form-input>
+          </b-input-group>
           </b-card>
         </b-collapse>
       </div>
@@ -110,11 +136,15 @@ export default {
   },
   data() {
     return {
+      fameGapSelection: [0, 1, 2, 3, 4, 5],
+      fameGap: null,
+      ageGap: null,
       searchEnabled: true,
       searchShow: true,
       searchMinAge: null,
       searchMinAge: null,
       searchMinHeat: null,
+      searchMaxHeat: null,
       searchLocLat: null,
       searchLocLong: null,
       searchTags: [],
@@ -193,6 +223,16 @@ export default {
     }
   },
   methods: { 
+    calcAgeMinMax() {
+      var userAge = this.ageCalculation(state.user.dob)
+      this.searchMinAge = (parseInt(userAge) - parseInt(this.ageGap) >= 18) ? parseInt(userAge) - parseInt(this.ageGap) : 18 
+      this.searchMaxAge = (parseInt(userAge) + parseInt(this.ageGap) <= 100) ? parseInt(userAge) + parseInt(this.ageGap) : 100
+    }, 
+    calcFameMinMax() {
+      var userFame = parseInt(state.user.heat)
+      this.searchMinHeat = (parseInt(userFame) - parseInt(this.fameGap) >= 1) ? parseInt(userFame) - parseInt(this.fameGap) : 1 
+      this.searchMaxHeat = (parseInt(userFame) + parseInt(this.fameGap) <= 5) ? parseInt(userFame) + parseInt(this.fameGap) : 5
+    }, 
     ageCalculation(dob) {
       var date = new Date(dob);
       var diff_ms = Date.now() - date;
