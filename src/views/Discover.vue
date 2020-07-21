@@ -271,7 +271,6 @@ export default {
       this.users = resp.data
       this.loading = false
     })
-    console.log(this.profiles)
   }
 }
 </script>
