@@ -44,6 +44,9 @@
 </template>
 
 <script>
+
+import {state} from "@/store"
+
 export default {
   data: function() {
     return {
@@ -130,8 +133,7 @@ export default {
   },
   mounted: function() {
     this.code = this.$route.query.code;
-    this.user_id = this.$store.user.id;
-    if (!this.code && !this.$store.user) {
+    if (!this.code && !state.user.id) {
       alert("Not logged in and no code, redirect to login?");
     }
   },
