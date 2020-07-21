@@ -3,7 +3,7 @@
     <div>
       <div class="d-flex justify-content-center flex-column align-items-center">
         <router-link :to="`/profile/${this.user.username}`">
-        <div class="bio" v-if="user.bio" @click="bioOn()" style="height: 100px; overflow-y: scroll">
+        <div class="bio" v-if="user.bio" style="height: 100px; overflow-y: scroll">
           {{ user.bio }}
         </div>
         <div v-else class="">

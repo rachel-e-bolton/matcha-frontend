@@ -24,7 +24,9 @@
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 
-import {actions, state, socket} from "@/store"
+import {action, state} from '@/store'
+
+// import {actions, state, socket} from "@/store"
 
 export default {
   components: { NavBar, Header },

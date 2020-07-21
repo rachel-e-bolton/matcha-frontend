@@ -23,13 +23,13 @@ Vue.use(VueCroppie)
 Vue.config.productionTip = false
 
 Vue.prototype.$http = axios
-Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://192.168.88.251:5000/v1" : "https://api.matchame.co.za/v1"
+Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://127.0.0.1:5000/v1" : "https://api.matchame.co.za/v1"
 
 let state = localStorage.getItem("firewood")
 
-let socketUri = (process.env.NODE_ENV === 'development') ? "ws://192.168.88.251:5000/ws" : "wss://api.matchame.co.za/ws"
+// let socketUri = (process.env.NODE_ENV === 'development') ? "ws://192.168.88.251:5000/ws" : "wss://api.matchame.co.za/ws"
 
-Vue.prototype.$socket = new MatchaWebsocket(socketUri)
+// Vue.prototype.$socket = new MatchaWebsocket(socketUri)
 
 if (state) {
   Vue.prototype.$store = Vue.observable(JSON.parse(state))
@@ -47,7 +47,7 @@ if (state) {
 
 import {actions, stateNew, socket} from '@/store'
 
-socket.connect(socketUri)
+// socket.connect(socketUri)
 
 actions.init(Vue.prototype.$api)
   .then(() => {

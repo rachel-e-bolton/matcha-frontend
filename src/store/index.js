@@ -24,81 +24,81 @@ axios.interceptors.request.use(function(config) {
   return config;
 })
 
-export const socket = { 
-  ws : null,
-  connect: function (socketUri) {
-    socket.ws = new WebSocket(socketUri)
-    socket.ws.onopen = null
-    socket.ws.onmessage = function (event) {
-      try {
-        let payload = JSON.parse(event.data)
-        socket.router(payload)
-      } catch (error) {
-        console.log("Invalid message received from server")
-      }
-    } 
-  },
-  packageResponse: function (method, content) {
-    if (state.jwt) {
-      return {jwt: state.jwt, method, content}
-    } else {
-      return false
-    }
-  },
-  send: (payload) => {
-    if (payload.jwt) {
-      socket.ws.send(JSON.stringify(payload))
-    }
-  },
-  setOnlineUsers: (users) => {
-    state.online_users = users
-  },
-  call: {
-    method: (name) => {
-      console.log(socket.call)
-    },
-    sendMessageTo: () => {},
-    fetchOnlineUsers: () => {
-      console.log("Polling online users")
-      let payload = socket.packageResponse("pollOnline")
-      socket.send(payload)
-    },
-    getMessages: () => {
+// export const socket = { 
+//   ws : null,
+//   connect: function (socketUri) {
+//     socket.ws = new WebSocket(socketUri)
+//     socket.ws.onopen = null
+//     socket.ws.onmessage = function (event) {
+//       try {
+//         let payload = JSON.parse(event.data)
+//         socket.router(payload)
+//       } catch (error) {
+//         console.log("Invalid message received from server")
+//       }
+//     } 
+//   },
+//   packageResponse: function (method, content) {
+//     if (state.jwt) {
+//       return {jwt: state.jwt, method, content}
+//     } else {
+//       return false
+//     }
+//   },
+//   send: (payload) => {
+//     if (payload.jwt) {
+//       socket.ws.send(JSON.stringify(payload))
+//     }
+//   },
+//   setOnlineUsers: (users) => {
+//     state.online_users = users
+//   },
+//   call: {
+//     method: (name) => {
+//       console.log(socket.call)
+//     },
+//     sendMessageTo: () => {},
+//     fetchOnlineUsers: () => {
+//       console.log("Polling online users")
+//       let payload = socket.packageResponse("pollOnline")
+//       socket.send(payload)
+//     },
+//     getMessages: () => {
 
-    },
-    initiateChat: (username) => {
-      let payload = socket.packageResponse("initChat", {username})
-      socket.send(payload)
-    },
-    register: () => {
-      let payload = socket.packageResponse("register")
-      socket.send(payload)
-    }
-  },
-  router: function (payload) {
-    let method = payload.method
-    let content = payload.content
+//     },
+//     initiateChat: (username) => {
+//       let payload = socket.packageResponse("initChat", {username})
+//       socket.send(payload)
+//     },
+//     register: () => {
+//       let payload = socket.packageResponse("register")
+//       socket.send(payload)
+//     }
+//   },
+//   router: function (payload) {
+//     let method = payload.method
+//     let content = payload.content
 
-    console.log(`Received message from skynet, execute protocol [${method}]`)
-    console.log(content)
+//     console.log(`Received message from skynet, execute protocol [${method}]`)
+//     console.log(content)
 
-    if (method) {
-      socket.call.method(method)
-
-
-      if (method === "pollOnlineRequest") {
-        socket.call.fetchOnlineUsers()
-      }
-      if (method === "pollOnlineResponse") {
-        socket.setOnlineUsers(content)
-      }
+//     if (method) {
+//       socket.call.method(method)
 
 
-    }
+//       if (method === "pollOnlineRequest") {
+//         socket.call.fetchOnlineUsers()
+//       }
+//       if (method === "pollOnlineResponse") {
+//         socket.setOnlineUsers(content)
+//       }
 
 
-  }
-}
+//     }
+
+
+//   }
+// }
 
 
 export const actions = {
@@ -166,7 +166,7 @@ export const actions = {
     state.loggedIn = true;
     actions.saveLocalStoage();
     actions.getApiKeys();
-    socket.call.register()
+    // socket.call.register()
   },
   snapshotUser: () => _.cloneDeep(state.user),
   getUserMatches: async () => {
@@ -283,16 +283,18 @@ export const actions = {
         return null;
       }
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.long}&key=${state.mapsKey}`;
-
+      console.log(pos)
       try {
         let resp = await axios.get(url);
 
         if (resp.data.results) {
+          console.log(resp.data.results                           )
           let f = resp.data.results[0]["address_components"];
           return `${f[2]["long_name"]}, ${f[6]["long_name"]}`;
         }
         throw new Exception();
       } catch (error) {
+        console.log(error)
         return "No location data available.";
       }
     },
