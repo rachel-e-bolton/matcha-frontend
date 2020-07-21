@@ -1,58 +1,55 @@
 <template>
   <div>
     <div>
+      <!-- <p>filter:</p> -->
+      <b-button v-b-toggle.sidebar-1>Filter</b-button>
+      <b-sidebar id="sidebar-1" title="Filter" shadow>
+        <div class="px-3 py-2">
+          <b-button-group class="w-100 px-3 py-2">
+            <b-button @click="filterAgeClick" :pressed.sync="filterAge" style="width: 300px">Age</b-button>
+            <b-input v-model="minAge" type="number" min="18" :max="maxAge" onchange="validity.valid||(value=18);" required></b-input>
+            <b-input v-model="maxAge" type="number" :min="minAge" max="100" onchange="validity.valid||(value=100);" required></b-input>
+          </b-button-group>
+          <b-button-group class="w-100 px-3 py-2">
+            <b-button @click="filterDistanceClick" :pressed.sync="filterDistance" style="width: 300px">Distance</b-button>
+            <b-input v-model="minDistance" type="number" min="0" :max="maxDistance" onchange="validity.valid||(value=0);" required></b-input>
+            <b-input v-model="maxDistance" type="number" :min="minDistance" max="1000" onchange="validity.valid||(value=1000);" required></b-input>
+          </b-button-group>
+          <b-button-group class="w-100 px-3 py-2">
+            <b-button @click="filterHeatClick" :pressed.sync="filterHeat" style="width: 300px">Heat</b-button>
+            <b-input v-model="minHeat" type="number" min="1" :max="maxHeat" onchange="validity.valid||(value=1);" required></b-input>
+            <b-input v-model="maxHeat" type="number" :min="minHeat" max="5" onchange="validity.valid||(value=5);" required></b-input>
+          </b-button-group>
+          <b-button-group class="w-100 px-3 py-2">
+            <b-button @click="filterTagsClick" :pressed.sync="filterTags" style="width: 300px">Tags</b-button>
+            <b-input v-model="minTags" type="number" min="0" :max="maxTags" onchange="validity.valid||(value=0);" required></b-input>
+            <b-input v-model="maxTags" type="number" :min="minTags" max="10" onchange="validity.valid||(value=10);" required></b-input>
+          </b-button-group>
+        </div>
+      </b-sidebar>
       <!-- <p>Sort:</p> -->
-      <b-button-group>
-        <b-button @click="ageClick" :pressed.sync="age">
+      <b-dropdown text="Sort" class="px-3 py-2" style>
+        <b-dropdown-item @click="ageClick" :pressed.sync="age">
           Age
           <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
           <b-icon-arrow-down v-if="age && ageOrder === 'descending'"></b-icon-arrow-down>
-        </b-button>
-        <b-button @click="distanceClick" :pressed.sync="distance">
+        </b-dropdown-item>
+        <b-dropdown-item @click="distanceClick" :pressed.sync="distance">
           Distance
           <b-icon-arrow-up v-if="distance && distanceOrder === 'ascending'"></b-icon-arrow-up>
           <b-icon-arrow-down v-if="distance && distanceOrder === 'descending'"></b-icon-arrow-down>
-        </b-button>
-        <b-button @click="heatClick" :pressed.sync="heat">
+        </b-dropdown-item>
+        <b-dropdown-item @click="heatClick" :pressed.sync="heat">
           Heat
           <b-icon-arrow-up v-if="heat && heatOrder === 'ascending'"></b-icon-arrow-up>
           <b-icon-arrow-down v-if="heat && heatOrder === 'descending'"></b-icon-arrow-down>
-        </b-button>
-        <b-button @click="tagsClick" :pressed.sync="tags">
+        </b-dropdown-item>
+        <b-dropdown-item @click="tagsClick" :pressed.sync="tags">
           Tags
           <b-icon-arrow-up v-if="tags && tagsOrder === 'ascending'"></b-icon-arrow-up>
           <b-icon-arrow-down v-if="tags && tagsOrder === 'descending'"></b-icon-arrow-down>
-        </b-button>
-      </b-button-group>
-      <br />
-      <!-- <p>filter:</p> -->
-      <b-button-group>
-        <b-button @click="filterAgeClick" :pressed.sync="filterAge">Age</b-button>
-        <b-input v-model="minAge" type="number" min="18" :max="maxAge" v-if="filterAge"></b-input>
-        <b-input v-model="maxAge" type="number" :min="minAge" max="100" v-if="filterAge"></b-input>
-        <b-button @click="filterDistanceClick" :pressed.sync="filterDistance">Distance</b-button>
-        <b-input
-          v-model="minDistance"
-          type="number"
-          min="0"
-          :max="maxDistance"
-          v-if="filterDistance"
-        ></b-input>
-        <b-input
-          v-model="maxDistance"
-          type="number"
-          :min="minDistance"
-          max="100"
-          v-if="filterDistance"
-        ></b-input>
-        <b-button @click="filterHeatClick" :pressed.sync="filterHeat">Heat</b-button>
-        <b-input v-model="minHeat" type="number" min="1" :max="maxHeat" v-if="filterHeat"></b-input>
-        <b-input v-model="maxHeat" type="number" :min="minHeat" max="5" v-if="filterHeat"></b-input>
-        <b-button @click="filterTagsClick" :pressed.sync="filterTags">Tags</b-button>
-        <b-input v-model="minTags" type="number" min="0" :max="maxTags" v-if="filterTags"></b-input>
-        <b-input v-model="maxTags" type="number" :min="minTags" max="10" v-if="filterTags"></b-input>
-      </b-button-group>
-      <!-- <p>{{temp}}</p> -->
+        </b-dropdown-item>
+      </b-dropdown>
     </div>
     <b-container class="mt-4 pr-lg-5">
       <b-row align-h="center">
@@ -145,7 +142,10 @@ export default {
       var maxAge = this.maxAge;
       if (this.filterAge === true) {
         temp = temp.filter(function(n) {
-          var age = this.ageCalculation(n.dob);
+          var dob = n.dob;
+          console.log(dob);
+          var age = this.ageCalculation(dob);
+          console.log(age);
           return age >= minAge && age <= maxAge;
         });
       }
@@ -207,6 +207,9 @@ export default {
       var diff_ms = Date.now() - date;
       var age_dt = new Date(diff_ms);
       return Math.abs(age_dt.getUTCFullYear() - 1970);
+    },
+    checkSmaller(input, otherInput) {
+      return input <= otherInput;
     },
     filterAgeClick() {},
     filterDistanceClick() {},
