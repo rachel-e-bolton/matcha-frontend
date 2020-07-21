@@ -1,5 +1,5 @@
 <template>
-   <div class="col-10 col-md-6 col-lg-3 m-3">
+   <div class="col-10 col-md-6 col-lg-3 m-3 m-md-2">
      <b-card class="bg-light shadow-sm">
        <FameRating :user="user" class="mt-md-3"/>
         <div v-if="user_image">

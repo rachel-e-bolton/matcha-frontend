@@ -11,8 +11,8 @@
         </div>
       </div>
       <div v-else>
-        <div class="d-flex flex-column align-items-center justify-content-center">
-          <b-button v-b-toggle.sidebar-1 class="btn-block px-md-2 col-11 col-md-6">Filter</b-button>
+        <div class="d-flex flex-column align-items-center justify-content-center flex-md-row ml-md-4 my-2">
+          <b-button v-b-toggle.sidebar-1 class="btn-block px-md-2 col-11 col-md-3">Filter</b-button>
           <b-sidebar id="sidebar-1" title="Filter" shadow>
             <div class="py-2">
               <b-button-group class="w-100 px-3 py-2">
@@ -46,7 +46,7 @@
             </div>
           </b-sidebar>
 
-          <b-dropdown text="Sort" block right class="my-2 col-md-6">
+          <b-dropdown text="Sort" block right class="my-2 col-md-3">
             <b-dropdown-item @click="ageClick" :pressed.sync="age">
               Age
               <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
