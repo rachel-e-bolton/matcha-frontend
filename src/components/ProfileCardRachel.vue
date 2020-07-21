@@ -13,6 +13,7 @@
           </router-link>
         </div>
         <PersonalDetails class="mt-2" :user="user"/>
+        <Location class="mt-3" :user="user"/>
         <div style="height: 110px">
           <Bio :user="user"/>
         </div>
@@ -24,13 +25,15 @@
 import PersonalDetails from '@/components/profile-card-components/PersonalDetails'
 import Bio from '@/components/profile-card-components/Bio'
 import FameRating from '@/components/profile-card-components/FameRating'
+import Location from '@/components/profile-card-components/Location'
 
 export default {
   props: ["user"],
   components: {
     PersonalDetails,
     Bio,
-    FameRating
+    FameRating,
+    Location
   },
   data() {
     return {

@@ -70,7 +70,7 @@ export default {
         })
       })
       .catch(err => {
-        console.log(err)
+        actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
       })
     }
   },

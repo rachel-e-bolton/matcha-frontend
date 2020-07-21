@@ -26,13 +26,11 @@ export default {
   methods: {
     getLocation: async function () {
       this.locationName = await actions.location.name(this.pos)
-      console.log(this.locationName)
     },
   },
   mounted: async function () {
     this.pos = {lat: this.user.latitude, long: this.user.longitude}
     this.getLocation()
-    console.log(this.pos)
   }
 }
 </script>

@@ -155,7 +155,7 @@ export const actions = {
       if (actions.vue)
         actions.notify.error("Could not retrieve user information")
       else {
-        console.log("Preflight error fetching user")
+        actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
       }
       return false
     }
@@ -172,7 +172,7 @@ export const actions = {
   getUserMatches: async () => {
     try {
       let resp = await axios.get(`${actions.api}/matches`)
-      console.log(resp)
+      actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
       return resp.data
     } catch (error) {
       if (error.response) {
@@ -198,7 +198,7 @@ export const actions = {
 
         // Apply synced changes to the state user object
         for (let [key, value] of Object.entries(changes)) {
-          console.log(`Setting state user ${key} to`, value);
+          // console.log(`Setting state user ${key} to`, value);
           state.user[key] = value;
         }
         return true
@@ -283,18 +283,21 @@ export const actions = {
         return null;
       }
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.long}&key=${state.mapsKey}`;
-      console.log(pos)
       try {
         let resp = await axios.get(url);
 
         if (resp.data.results) {
-          console.log(resp.data.results                           )
           let f = resp.data.results[0]["address_components"];
-          return `${f[2]["long_name"]}, ${f[6]["long_name"]}`;
+          if (f[2] && f[6]) {
+            return `${f[2]["long_name"]}, ${f[6]["long_name"]}`;
+          } else if (f[0]["long_name"] == "Unnamed Road") {
+            return `${f[1]["long_name"]}`;
+          } else {
+            return `${f[0]["long_name"]}`;
+          }
         }
         throw new Exception();
       } catch (error) {
-        console.log(error)
         return "No location data available.";
       }
     },

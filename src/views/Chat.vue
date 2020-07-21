@@ -39,12 +39,12 @@ export default {
   methods: {
     sendMessage: function () {
       socket.call.initiateChat(this.$route.params.username)
-      console.log("Sending Message")
+      // console.log("Sending Message")
     }
   },
   created: function () {
     // Fetch messages from this person
-    console.log(this.$route.params.username)
+    // console.log(this.$route.params.username)
     socket.call.initiateChat(this.$route.params.username)
   },
   beforeDestroy: function () {

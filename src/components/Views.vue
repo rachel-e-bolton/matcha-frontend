@@ -42,7 +42,7 @@ export default {
       this.items = res.data
     })
     .catch((err) => {
-      console.error(err)
+      actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
     })
   }
 };

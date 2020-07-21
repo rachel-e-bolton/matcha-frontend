@@ -27,7 +27,7 @@ export default {
       actions.notify.info("User rated!")
     })
     .catch((err) => {
-      console.log(err)
+      actions.notify.error("Could not rate user. Please try again.")
     })
     }
   },
@@ -37,7 +37,7 @@ export default {
       this.rating = res.data.rating
     })
     .catch((err) => {
-      console.log(err)
+      actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
     })
   }
 }
