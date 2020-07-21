@@ -4,6 +4,11 @@
       <Header/>
     </div>
     <div class="content">
+
+      <div>
+
+      </div>
+
       <div v-if="loading">
         <div class="mt-5 d-flex flex-column justify-content-center align-items-center">
           <b-spinner style="width: 5rem; height: 5rem;" class="mt-5" variant="primary"></b-spinner>
@@ -98,6 +103,9 @@ export default {
   },
   data() {
     return {
+      searchMinAge: null,
+      searchMinAge: null,
+      
       loading: true,
       filterAge: false,
       minAge: 20,

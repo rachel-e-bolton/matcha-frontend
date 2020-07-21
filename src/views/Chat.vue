@@ -2,6 +2,11 @@
   <div>
     <div class="header"><Header /></div>
     <div class="content">
+      <div class="mb-2">
+        <router-link class="text-secondary" :to="`/profile/${$route.params.username}`">
+          View Profile
+        </router-link>
+      </div>
       <div class="max-w-90 d-flex justify-content-center">
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
           <div v-for="user in state.online_users" :key="user.index">
@@ -24,7 +29,9 @@
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
 
-import {actions, state, socket} from "@/store"
+import {action, state} from '@/store'
+
+// import {actions, state, socket} from "@/store"
 
 export default {
   components: { NavBar, Header },
@@ -36,14 +43,14 @@ export default {
   },
   methods: {
     sendMessage: function () {
-      socket.call.initiateChat(this.$route.params.username)
-      console.log("Sending Message")
+      //socket.call.initiateChat(this.$route.params.username)
+      // console.log("Sending Message")
     }
   },
   created: function () {
     // Fetch messages from this person
-    console.log(this.$route.params.username)
-    socket.call.initiateChat(this.$route.params.username)
+    // console.log(this.$route.params.username)
+    // socket.call.initiateChat(this.$route.params.username)
   },
   beforeDestroy: function () {
     //actions.closeChat()

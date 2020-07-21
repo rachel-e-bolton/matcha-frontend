@@ -18,7 +18,7 @@ export default class MatchaWebsocket {
     let method = payload.method
 
     if (method === "message") {
-      console.log(this)
+      // console.log(this)
     }
   }
 
@@ -27,7 +27,7 @@ export default class MatchaWebsocket {
   }
 
   sendMessage(message) {
-    console.log("asdasd")
+    // console.log("asdasd")
     this.socket.send(JSON.stringify({jwt: this.jwt, method: "sendMessage", content: {to: "all", message: message}}))
   }
 }
