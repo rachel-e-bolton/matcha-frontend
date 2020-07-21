@@ -9,8 +9,8 @@
         <b-button class="btn-block p-3" v-b-toggle.email>Advanced Search</b-button>
         <b-collapse id="email" :visible="searchShow" class="m-2">
           <b-card>
-          <label for="age-gap" class="mt-3">Age Gap: </label>
-          <b-input-group prepend="0" append="30 Years" class="mt-3">
+          <label for="age-gap">Age Gap - {{ageGap}} Years</label>
+          <b-input-group prepend="0" append="30 Years" class="mb-4">
             <b-form-input
               type="range"
               min="0"
@@ -19,12 +19,11 @@
               v-model="ageGap"
               @input="calcAgeMinMax()"
               :disabled="!searchEnabled"
-              :title="ageGap"
             ></b-form-input>
           </b-input-group>
 
-          <label for="fame-gap" class="mt-3">Fame Gap: </label>
-          <b-input-group prepend="0" append="5 Stars" class="mt-3">
+          <label for="fame-gap">Fame Gap - {{fameGap}} Stars</label>
+          <b-input-group prepend="0" append="5 Stars" class="mb-4">
             <b-form-input
               type="range"
               min="0"
@@ -33,9 +32,34 @@
               v-model="fameGap"
               @input="calcFameMinMax()"
               :disabled="!searchEnabled"
-              :title="fameGap"
             ></b-form-input>
           </b-input-group>
+
+          <label for="distance">Maximum Distance - {{radius}} Kms</label>
+          <b-input-group prepend="0" append="500 Kms" class="mb-4">
+            <b-form-input
+              type="range"
+              min="0"
+              max="500"
+              id="fame-gap"
+              v-model="radius"
+              :disabled="!searchEnabled"
+            ></b-form-input>
+          </b-input-group>
+
+          <label for="interests">Minimum Common Interests - {{interests}} Tags</label>
+          <b-input-group prepend="0" append="30 Tags" class="mb-4">
+            <b-form-input
+              type="range"
+              min="0"
+              max="30"
+              id="fame-gap"
+              v-model="interests"
+              :disabled="!searchEnabled"
+            ></b-form-input>
+          </b-input-group>
+
+          <b-button class="btn-block">Submit</b-button>
           </b-card>
         </b-collapse>
       </div>
@@ -136,18 +160,16 @@ export default {
   },
   data() {
     return {
-      fameGapSelection: [0, 1, 2, 3, 4, 5],
-      fameGap: null,
-      ageGap: null,
+      fameGap: 2,
+      ageGap: 5,
+      radius: 20,
+      interests: 3,
       searchEnabled: true,
       searchShow: true,
       searchMinAge: null,
       searchMinAge: null,
       searchMinHeat: null,
       searchMaxHeat: null,
-      searchLocLat: null,
-      searchLocLong: null,
-      searchTags: [],
       loading: true,
       filterAge: false,
       minAge: 20,

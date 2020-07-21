@@ -46,32 +46,32 @@
             </div>
           </b-sidebar>
 
-          <b-dropdown text="Sort" block right class="my-2 col-md-3">
-            <b-dropdown-item @click="ageClick" :pressed.sync="age">
+          <b-button-group text="Sort" block right class="my-2 col-md-3">
+            <b-button @click="ageClick" :pressed.sync="age">
               Age
               <b-icon-arrow-up v-if="age && ageOrder === 'ascending'"></b-icon-arrow-up>
               <b-icon-arrow-down v-if="age && ageOrder === 'descending'"></b-icon-arrow-down>
-            </b-dropdown-item>
-            <b-dropdown-item @click="distanceClick" :pressed.sync="distance">
+            </b-button>
+            <b-button @click="distanceClick" :pressed.sync="distance">
               Distance
               <b-icon-arrow-up v-if="distance && distanceOrder === 'ascending'"></b-icon-arrow-up>
               <b-icon-arrow-down v-if="distance && distanceOrder === 'descending'"></b-icon-arrow-down>
-            </b-dropdown-item>
-            <b-dropdown-item @click="heatClick" :pressed.sync="heat">
+            </b-button>
+            <b-button @click="heatClick" :pressed.sync="heat">
               Heat
               <b-icon-arrow-up v-if="heat && heatOrder === 'ascending'"></b-icon-arrow-up>
               <b-icon-arrow-down v-if="heat && heatOrder === 'descending'"></b-icon-arrow-down>
-            </b-dropdown-item>
-            <b-dropdown-item @click="tagsClick" :pressed.sync="tags">
+            </b-button>
+            <b-button @click="tagsClick" :pressed.sync="tags">
               Tags
               <b-icon-arrow-up v-if="tags && tagsOrder === 'ascending'"></b-icon-arrow-up>
               <b-icon-arrow-down v-if="tags && tagsOrder === 'descending'"></b-icon-arrow-down>
-            </b-dropdown-item>
-          </b-dropdown>
+            </b-button>
+          </b-button-group>
 
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-center align-items-center flex-wrap">
-          <ProfileCard v-for="a in profiles" :key="a.index" :user="a"/>
+          <ProfileCard v-for="a in users" :key="a.index" :user="a"/>
         </div>
       </div>
     </div>
@@ -159,17 +159,6 @@ export default {
         });
       }
       return temp;
-    },
-    totalResults() {
-      return Object.keys(this.profiles).length;
-    },
-    pageCount() {
-      return Math.ceil(this.totalResults / this.maxPerPage);
-    },
-    pageOffset() {
-      if (this.maxPerPage * this.currentPage <= this.totalResults)
-        return this.maxPerPage * this.currentPage;
-      else return this.totalResults;
     }
   },
   methods: { 

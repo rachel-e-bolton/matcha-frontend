@@ -2,9 +2,9 @@
    <div class="col-10 col-md-6 col-lg-3 m-3 m-md-2">
      <b-card class="bg-light shadow-sm">
        <FameRating :user="user" class="mt-md-3"/>
-        <div v-if="user_image">
+        <div v-if="user.image_type && user.image_type != '&nbsp' ">
         <router-link :to="`/profile/${this.user.username}`">
-          <img :src="user_image" class="rounded-pill shadow" style="height: 200px; width: 200px; object-fit: cover"/>
+          <img :src="'data:image/' + user.image_type + ';base64, ' + user.image64" class="rounded-pill shadow" style="height: 200px; width: 200px; object-fit: cover"/>
         </router-link>
         </div>
         <div v-else>
@@ -35,15 +35,5 @@ export default {
     FameRating,
     Location
   },
-  data() {
-    return {
-      user_image: null
-    }
-  },
-  created() {
-    if (this.user.image64) {
-      this.user_image = "data:image/" + this.user.image_type + ";base64, " + this.user.image64;
-    } 
-  }
 }
 </script>
