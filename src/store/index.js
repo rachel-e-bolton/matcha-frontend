@@ -182,6 +182,7 @@ export const actions = {
       actions.setUser(jwt, user)
       return true
     } catch (err) {
+      actions.notify.error(err.response.data.message)
       return false
     }
   },

@@ -86,8 +86,8 @@
 
       let login = await actions.loginUser(this.loginForm.username, this.loginForm.password)
 
-      if (!login)
-        actions.notify.error("Could not log you in :(")
+      if (!login) {}
+        
       else {
         try {
           this.$router.push(`/profile/${this.loginForm.username}`)
