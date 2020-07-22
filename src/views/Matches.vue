@@ -18,8 +18,7 @@
                             </div>
 
                             <div v-if="match.online" class="p-3 text-right">online</div>
-                            <div v-else class="p-3 text-center w-25 text-danger">offline</div>
-
+                            <div v-else class="p-3 text-center w-25 text-danger">offline {{ match.date_lastseen }}</div>
                         </div>
                     </div>
                 </b-col>
@@ -32,7 +31,7 @@
 
 <script>
 
-import {actions, state} from "@/store"
+import {actions, socket, state} from "@/store"
 
 import NavBar from '@/components/NavBar.vue'
 import Header from '@/components/HeaderNav.vue'
@@ -60,11 +59,16 @@ export default {
             this.checkOnline()
         }
     },
+    created: function () {
+        socket.call.fetchOnlineUsers()
+    },
     methods: {
         chat: function (username) {
             this.$router.push(`/chat/${username}`)
         },
         checkOnline: function (username) {
+            if (!this.onlineUsers)
+                return
             this.onlineUsers.forEach(u => {
                 this.matches.forEach(m => m.online = m.id === u.id)
             })
