@@ -17,8 +17,8 @@
                               <strong>{{match.fname}}</strong> {{ match.lname }}
                             </div>
 
-                            <div v-if="match.online" class="p-3 text-right">online</div>
-                            <div v-else class="p-3 text-center w-25 text-danger">offline {{ match.date_lastseen }}</div>
+                            <div v-if="match.online" class="p-3 text-right text-success">online</div>
+                            <div v-else class="p-3 text-center text-danger">offline <br><span class="small">last seen:<br><span class="small">{{ match.date_lastseen }}</span></span></div>
                         </div>
                     </div>
                 </b-col>
