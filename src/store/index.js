@@ -124,6 +124,10 @@ export const socket = {
         socket.setMessages(content)
       }
 
+      if (method == "refreshMessages" && state.messaging_user) {
+        socket.call.getMessages(state.messaging_user)
+      }
+
     }
 
 

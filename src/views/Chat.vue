@@ -9,21 +9,18 @@
       </div>
       <div class="max-w-90 d-flex justify-content-center">
         <b-col sm="auto" md="6" lg="4" class="rounded-lg shadow bg-light">
+          <div class="messages">
+            <template v-for="m in messages">
 
-          <div class="messages" v-for="m in messages" :key="m.index">
-            <div v-if="m.from_id == state.user.id" class="float-left">
-              <div class="message-content">{{ m.message }}</div>
-              <div class="message-date small">{{ m.timestamp }}</div>
-            </div>
-            <div v-else class="float-right">
-              <div class="message-content">{{ m.message }}</div>
-              <div class="message-date small">{{ m.timestamp }}</div>
-            </div>
-          </div>
-
-
-          <div v-for="user in state.online_users" :key="user.index">
-            {{ user.username }} is online
+              <div :key="m.index" v-if="m.from_id == state.user.id" class="left message p-3">
+                <div class="message-content">{{ m.message }}</div>
+                <div class="message-date small">{{ m.timestamp }}</div>
+              </div>
+              <div v-else :key="m.index" class="right message p-2">
+                <div class="message-content">{{ m.message }}</div>
+                <div class="message-date small">{{ m.timestamp }}</div>
+              </div>
+            </template>
           </div>
 
           <input v-model="message"  type="text">
@@ -75,7 +72,12 @@ export default {
 </script>
 
 <style>
-  .messages {
-    height: 100%;
+  .message {
+    width: 100%;
   }
+
+  .left {
+    background: pink;
+  }
+
 </style>
