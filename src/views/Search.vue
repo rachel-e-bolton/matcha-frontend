@@ -6,8 +6,8 @@
     </div>
     <div class="content">
       <div class="advanced-search container">
-        <b-button class="btn-block p-3" v-b-toggle.email>Advanced Search</b-button>
-        <b-collapse id="email" :visible="searchShow" class="m-2">
+        <b-button class="btn-block p-3" v-b-toggle.search>Advanced Search</b-button>
+        <b-collapse id="search" :visible="searchShow" class="m-2">
           <b-card>
           <label for="age-gap">Age Gap - {{ageGap}} Years</label>
           <b-input-group prepend="0" append="30 Years" class="mb-4">
@@ -59,7 +59,7 @@
             ></b-form-input>
           </b-input-group>
 
-          <b-button class="btn-block" @click="customSearch">Submit</b-button>
+          <b-button v-b-toggle.search class="btn-block" @click="customSearch">Submit</b-button>
           </b-card>
         </b-collapse>
       </div>
@@ -133,6 +133,8 @@
         <div class="d-flex flex-column flex-md-row justify-content-center align-items-center flex-wrap">
           <ProfileCard v-for="a in users" :key="a.index" :user="a"/>
         </div>
+
+        <!-- <b-button @click="loadMore">LOAD MORE</b-button> -->
         </div>
       </div>
     </div>
@@ -159,12 +161,14 @@ export default {
   },
   data() {
     return {
+      skip: 0,
+      take: 25,
       fameGap: 2,
       ageGap: 5,
       radius: 20,
       interests: 3,
       searchEnabled: true,
-      searchShow: false,
+      searchShow: true,
       searchMinAge: null,
       searchMinAge: null,
       searchMinHeat: null,
@@ -231,19 +235,28 @@ export default {
       }
       return temp;
     },
-    totalResults() {
-      return Object.keys(this.profiles).length;
-    },
-    pageCount() {
-      return Math.ceil(this.totalResults / this.maxPerPage);
-    },
-    pageOffset() {
-      if (this.maxPerPage * this.currentPage <= this.totalResults)
-        return this.maxPerPage * this.currentPage;
-      else return this.totalResults;
-    }
   },
   methods: { 
+    customSearch() {
+      this.skip = 0,
+      this.take = 50,
+      this.searchShow = false
+      axios.get(`${actions.api}/discover?skip=${this.skip}&take=${this.take}&distance=${this.radius}&fame_min=${this.searchMinHeat}&fame_max=${this.searchMaxHeat}&age_min=${this.searchMinAge}&age_max=${this.searchMaxAge}&tags_min=${this.interests}`)
+      .then(resp => {
+        this.object = resp.data,
+        this.users = resp.data
+        this.loading = false
+        // this.skip = parseInt(this.skip) + parseInt(this.take)
+      })
+    },
+    loadMore() {
+      axios.get(`${actions.api}/discover?skip=${this.skip}&take=${this.take}&distance=${this.radius}&fame_min=${this.searchMinHeat}&fame_max=${this.searchMaxHeat}&age_min=${this.searchMinAge}&age_max=${this.searchMaxAge}&tags_min=${this.interests}`)
+      .then(resp => {
+        this.object.concat(resp.data)
+        this.users.concat(resp.data)
+        this.skip = parseInt(this.skip) + parseInt(this.take)
+      })
+    },
     calcAgeMinMax() {
       var userAge = this.ageCalculation(state.user.dob)
       this.searchMinAge = (parseInt(userAge) - parseInt(this.ageGap) >= 18) ? parseInt(userAge) - parseInt(this.ageGap) : 18 

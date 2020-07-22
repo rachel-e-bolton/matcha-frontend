@@ -73,6 +73,9 @@
         <div class="d-flex flex-column flex-md-row justify-content-center align-items-center flex-wrap">
           <ProfileCard v-for="a in users" :key="a.index" :user="a"/>
         </div>
+        <div v-if="!users.length > 0" class="d-flex justify-content-center">
+          <b-card class="col-md-6">Seems you'll have to keep swimming alone for a bit.<br>Check back soon for new recommendations.</b-card>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -261,7 +264,7 @@ export default {
     }
   },
   mounted: function () {
-    axios.get(`${actions.api}/discover?skip=0&take=100&distance=4000`)
+    axios.get(`${actions.api}/discover?skip=0&take=20&distance=20`)
     .then(resp => {
       this.object = resp.data,
       this.users = resp.data
