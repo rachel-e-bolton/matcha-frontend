@@ -70,7 +70,8 @@ export default {
             if (!this.onlineUsers)
                 return
             this.onlineUsers.forEach(u => {
-                this.matches.forEach(m => m.online = m.id === u.id)
+                if (this.matches)
+                    this.matches.forEach(m => m.online = m.id === u.id)
             })
         }
     }

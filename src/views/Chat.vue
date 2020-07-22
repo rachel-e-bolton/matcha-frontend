@@ -23,7 +23,7 @@
             </template>
           </div>
 
-          <input v-model="message"  type="text">
+          <input v-model="message" ref="message" type="text">
           <button @click="sendMessage()">send</button>
         
         </b-col>
@@ -54,6 +54,13 @@ export default {
   computed: {
     messages: function () {
       return state.messages
+    }
+  },
+  watch: {
+    messages: function (newVal, oldVal) {
+      setTimeout(() => {
+        this.$refs.message.scrollIntoView()
+    }, 5);
     }
   },
   methods: {
