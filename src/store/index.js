@@ -24,81 +24,111 @@ axios.interceptors.request.use(function(config) {
   return config;
 })
 
-// export const socket = { 
-//   ws : null,
-//   connect: function (socketUri) {
-//     socket.ws = new WebSocket(socketUri)
-//     socket.ws.onopen = null
-//     socket.ws.onmessage = function (event) {
-//       try {
-//         let payload = JSON.parse(event.data)
-//         socket.router(payload)
-//       } catch (error) {
-//         console.log("Invalid message received from server")
-//       }
-//     } 
-//   },
-//   packageResponse: function (method, content) {
-//     if (state.jwt) {
-//       return {jwt: state.jwt, method, content}
-//     } else {
-//       return false
-//     }
-//   },
-//   send: (payload) => {
-//     if (payload.jwt) {
-//       socket.ws.send(JSON.stringify(payload))
-//     }
-//   },
-//   setOnlineUsers: (users) => {
-//     state.online_users = users
-//   },
-//   call: {
-//     method: (name) => {
-//       console.log(socket.call)
-//     },
-//     sendMessageTo: () => {},
-//     fetchOnlineUsers: () => {
-//       console.log("Polling online users")
-//       let payload = socket.packageResponse("pollOnline")
-//       socket.send(payload)
-//     },
-//     getMessages: () => {
+export const socket = { 
+  ws : null,
+  connect: function (socketUri) {
+    socket.ws = new WebSocket(socketUri)
+    socket.ws.onopen = null
+    socket.ws.onmessage = function (event) {
+      try {
+        let payload = JSON.parse(event.data)
+        socket.router(payload)
+      } catch (error) {
+        console.log("Invalid message received from server")
+      }
+    } 
+  },
+  packageResponse: function (method, content) {
+    if (state.jwt) {
+      return {jwt: state.jwt, method, content}
+    } else {
+      return false
+    }
+  },
+  send: (payload) => {
+    console.log("Websocket is sending a message")
+    if (payload.jwt) {
+      socket.waitForReadyState(socket.ws, () => {
+        socket.ws.send(JSON.stringify(payload))
+      })
+    }
+  },
+  waitForReadyState: (socket, callback) => {
+    setTimeout(() => {
+      if (socket.readyState === 1) {
+        console.log("Websocket is ready")
+        if (callback) callback();
+        else {
+          socket.waitForReadyState(socket, callback)
+        }
+      }
+    }, 100);
+  },
+  setOnlineUsers: (users) => {
+    state.online_users = users
+  },
+  setMessages: (content) => {
+    if (content.messages)
+     state.messages = content.messages
+  },
+  call: {
+    method: (name) => {
+      console.log(socket.call)
+    },
+    sendMessageTo: (username, message) => {
+      let payload = socket.packageResponse("message", {to: username, message: message})
+      console.log("payload", payload)
+      socket.send(payload)
+    },
+    fetchOnlineUsers: () => {
+      console.log("Polling online users")
+      let payload = socket.packageResponse("pollOnline")
+      socket.send(payload)
+    },
+    getMessages: (username) => {
+      let payload = socket.packageResponse("getMessagesFor", {username})
+      socket.send(payload)
+    },
+    initiateChat: (username) => {
+      state.messaging_user = username
+      let payload = socket.packageResponse("initChat", {username})
+      socket.send(payload)
+      socket.call.getMessages(username)
+    },
+    closeChat: () => {
+      state.messaging_user = null
+      state.messages = []
+    },
+    register: () => {
+      let payload = socket.packageResponse("register")
+      socket.send(payload)
+    }
+  },
+  router: function (payload) {
+    let method = payload.method
+    let content = payload.content
 
-//     },
-//     initiateChat: (username) => {
-//       let payload = socket.packageResponse("initChat", {username})
-//       socket.send(payload)
-//     },
-//     register: () => {
-//       let payload = socket.packageResponse("register")
-//       socket.send(payload)
-//     }
-//   },
-//   router: function (payload) {
-//     let method = payload.method
-//     let content = payload.content
+    console.log(`Received message from skynet, execute protocol [${method}]`)
+    console.log(content)
 
-//     console.log(`Received message from skynet, execute protocol [${method}]`)
-//     console.log(content)
+    if (method) {
 
-//     if (method) {
-//       socket.call.method(method)
+      if (method === "pollOnlineRequest") {
+        socket.call.fetchOnlineUsers()
+      }
+      if (method === "pollOnlineResponse") {
+        socket.setOnlineUsers(content)
+      }
+
+      if (method == "receiveMessagesFrom") {
+        socket.setMessages(content)
+      }
+
+    }
 
 
-//       if (method === "pollOnlineRequest") {
-//         socket.call.fetchOnlineUsers()
-//       }
-//       if (method === "pollOnlineResponse") {
-//         socket.setOnlineUsers(content)
-//       }
-
-
-//     }
-
-
-//   }
-// }
+  }
+}
 
 
 export const actions = {
@@ -172,7 +202,6 @@ export const actions = {
   getUserMatches: async () => {
     try {
       let resp = await axios.get(`${actions.api}/matches`)
-      actions.notify.error("There was a problem loading some data. Notice of this error has been sent to admins.")
       return resp.data
     } catch (error) {
       if (error.response) {

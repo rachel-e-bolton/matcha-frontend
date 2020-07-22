@@ -25,14 +25,13 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$api = (process.env.NODE_ENV === 'development') ? "http://192.168.88.251:5000/v1" : "https://api.matchame.co.za/v1"
 
-let state = localStorage.getItem("firewood")
+let stateOld = localStorage.getItem("firewood")
 
-// let socketUri = (process.env.NODE_ENV === 'development') ? "ws://192.168.88.251:5000/ws" : "wss://api.matchame.co.za/ws"
+let socketUri = (process.env.NODE_ENV === 'development') ? "ws://192.168.88.251:5000/ws" : "wss://api.matchame.co.za/ws"
 
-// Vue.prototype.$socket = new MatchaWebsocket(socketUri)
 
-if (state) {
-  Vue.prototype.$store = Vue.observable(JSON.parse(state))
+if (stateOld) {
+  Vue.prototype.$store = Vue.observable(JSON.parse(stateOld))
   //Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
   // Vue.prototype.$socket.socket.onopen = () => {
   //   console.log("Connecting Websocket and authenticating")
@@ -45,9 +44,9 @@ if (state) {
   })
 }
 
-import {actions, stateNew, socket} from '@/store'
+import {actions, socket} from '@/store'
 
-// socket.connect(socketUri)
+socket.connect(socketUri)
 
 actions.init(Vue.prototype.$api)
   .then(() => {
