@@ -41,7 +41,7 @@
             </b-form-group>
 
             <div class="d-flex flex-column">
-              <a @click.prevent="showModal('reset')" class="ml-lg-4 my-1 small text-secondary display-8">Forgot password?</a>
+              <b-link @click.prevent="showModal('reset')" class="ml-lg-4 my-1 small text-secondary display-8">Forgot password?</b-link>
 
               <b-modal ref="reset" hide-footer title="Reset your Password">
                 <div class="d-block text-center">

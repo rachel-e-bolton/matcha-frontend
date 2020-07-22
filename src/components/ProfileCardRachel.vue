@@ -14,7 +14,7 @@
         </div>
         <PersonalDetails class="mt-2" :user="user"/>
         <Location class="mt-3" :user="user"/>
-        <div style="height: 100px">
+        <div class="bio" style="height: 100px">
           <Bio :user="user"/>
         </div>
      </b-card>
@@ -37,3 +37,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.bio {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.bio::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+</style>
