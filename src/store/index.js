@@ -71,6 +71,10 @@ export const socket = {
     if (content.messages)
      state.messages = content.messages
   },
+  refreshMessages: () => {
+    if (state.messaging_user)
+      socket.call.getMessages(state.messaging_user)
+  },
   call: {
     method: (name) => {
       console.log(socket.call)
