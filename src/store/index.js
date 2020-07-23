@@ -34,7 +34,7 @@ export const socket = {
         let payload = JSON.parse(event.data)
         socket.router(payload)
       } catch (error) {
-        console.log("Invalid message received from server")
+        
       }
     } 
   },
@@ -46,7 +46,6 @@ export const socket = {
     }
   },
   send: (payload) => {
-    console.log("Websocket is sending a message")
     if (payload.jwt) {
       socket.waitForReadyState(socket.ws, () => {
         socket.ws.send(JSON.stringify(payload))
@@ -56,7 +55,6 @@ export const socket = {
   waitForReadyState: (socket, callback) => {
     setTimeout(() => {
       if (socket.readyState === 1) {
-        console.log("Websocket is ready")
         if (callback) callback();
         else {
           socket.waitForReadyState(socket, callback)
@@ -76,16 +74,11 @@ export const socket = {
       socket.call.getMessages(state.messaging_user)
   },
   call: {
-    method: (name) => {
-      console.log(socket.call)
-    },
     sendMessageTo: (username, message) => {
       let payload = socket.packageResponse("message", {to: username, message: message})
-      console.log("payload", payload)
       socket.send(payload)
     },
     fetchOnlineUsers: () => {
-      console.log("Polling online users")
       let payload = socket.packageResponse("pollOnline")
       socket.send(payload)
     },
@@ -111,9 +104,7 @@ export const socket = {
   router: function (payload) {
     let method = payload.method
     let content = payload.content
-
-    console.log(`Received message from skynet, execute protocol [${method}]`)
-    console.log(content)
+    
 
     if (method) {
 
@@ -236,7 +227,6 @@ export const actions = {
 
         // Apply synced changes to the state user object
         for (let [key, value] of Object.entries(changes)) {
-          // console.log(`Setting state user ${key} to`, value);
           state.user[key] = value;
         }
         return true

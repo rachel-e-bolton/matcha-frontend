@@ -70,7 +70,6 @@ export default {
     }
   },
   created: function () {
-    console.log(this.$route.params.username)
     socket.call.initiateChat(this.$route.params.username)
   },
   beforeDestroy: function () {

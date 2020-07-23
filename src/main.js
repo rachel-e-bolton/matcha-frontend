@@ -34,7 +34,6 @@ if (stateOld) {
   Vue.prototype.$store = Vue.observable(JSON.parse(stateOld))
   //Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$store.token
   // Vue.prototype.$socket.socket.onopen = () => {
-  //   console.log("Connecting Websocket and authenticating")
   //   Vue.prototype.$socket.authenticate(Vue.prototype.$store.token)
   // }
 } else {
