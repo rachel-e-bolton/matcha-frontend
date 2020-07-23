@@ -10,8 +10,6 @@ import _ from 'lodash'
 import VueCroppie from 'vue-croppie';
 import 'croppie/croppie.css'
 
-import MatchaWebsocket from '@/socket'
-
 Vue.component('tags-input', VoerroTagsInput);
 
 const axios = require('axios').default;
@@ -43,7 +41,7 @@ if (stateOld) {
   })
 }
 
-import {actions, socket} from '@/store'
+import {actions, socket} from './store'
 
 socket.connect(socketUri)
 
