@@ -11,7 +11,7 @@
           <b-row no-gutters>
             <b-col sm="6">
               <b-card-img
-                :src="require('../assets/no-photo.png')"
+                :src="require('@/assets/no-photo.png')"
                 alt="Image"
                 class="rounded-0"
                 style="height: 300px; object-fit: cover"
