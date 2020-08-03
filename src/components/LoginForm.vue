@@ -90,7 +90,7 @@
         
       else {
         try {
-          this.$router.push(`/profile/${this.loginForm.username}`)
+          this.$router.push(`/profile/${state.user.username}`)
         } catch (error) {
           actions.notify.error("Error logging in, please contact an admin.")
         }
